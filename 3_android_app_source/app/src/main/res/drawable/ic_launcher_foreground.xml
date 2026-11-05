@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- খোলা কুরআন (বাম পৃষ্ঠা) -->
+    <path
+        android:fillColor="#FDFBF7"
+        android:strokeColor="#D4AF37"
+        android:strokeWidth="1.2"
+        android:pathData="M54,70 C42,65 28,66 24,69 L24,38 C32,34 46,33 54,40 Z" />
+    <!-- খোলা কুরআন (ডান পৃষ্ঠা) -->
+    <path
+        android:fillColor="#FDFBF7"
+        android:strokeColor="#D4AF37"
+        android:strokeWidth="1.2"
+        android:pathData="M54,70 C66,65 80,66 84,69 L84,38 C76,34 62,33 54,40 Z" />
+    <!-- মাঝের রিবন -->
+    <path
+        android:fillColor="#D4AF37"
+        android:pathData="M52.8,38 L55.2,38 L55.2,74 L54,78 L52.8,74 Z" />
+    <!-- উপরের তারকা -->
+    <path
+        android:fillColor="#D4AF37"
+        android:pathData="M54,22 L56.4,28 L62.8,28.4 L57.8,32.4 L59.5,38.6 L54,35 L48.5,38.6 L50.2,32.4 L45.2,28.4 L51.6,28 Z" />
+    <!-- লেখার লাইন -->
+    <path
+        android:strokeColor="#064E3B"
+        android:strokeWidth="1.4"
+        android:strokeLineCap="round"
+        android:pathData="M31,47 L48,47 M31,53 L48,53 M31,59 L48,59 M60,47 L77,47 M60,53 L77,53 M60,59 L77,59" />
+</vector>

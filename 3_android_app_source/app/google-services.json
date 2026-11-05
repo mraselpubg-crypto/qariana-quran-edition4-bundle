@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "70502710142",
+    "firebase_url": "https://kariana-quran-admin-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "kariana-quran-admin",
+    "storage_bucket": "kariana-quran-admin.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:70502710142:android:897f2deed6ea9642c8112f",
+        "android_client_info": {
+          "package_name": "com.karianaquran.reader"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBX-DmDSc1Tpakm2Pk1j0GB2xhqC2OZPd8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:70502710142:android:897f2deed6ea9642c8112f",
+        "android_client_info": {
+          "package_name": "com.karianaquran.reader.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBX-DmDSc1Tpakm2Pk1j0GB2xhqC2OZPd8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

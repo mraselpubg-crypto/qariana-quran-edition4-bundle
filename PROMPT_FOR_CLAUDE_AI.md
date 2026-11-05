@@ -2,102 +2,93 @@
 ## Master Prompt & Technical Brief for Claude 3.7 Sonnet / Advanced AI Architect
 
 > **Instructions for the User:**
-> Copy this entire prompt and attach the provided `qariana_edition4_ai_bundle.zip` file, then submit to Claude or your preferred AI.
+> Copy this entire prompt and submit it to Claude AI along with the GitHub link:
+> `https://github.com/mraselpubg-crypto/qariana-quran-edition4-bundle`
 
 ---
 
 ```markdown
 # Role & Mission
 You are a Principal Android Architect (Kotlin + Jetpack Compose) and Senior Systems Engineer.
-You are tasked with architecting and implementing a major milestone update for the **Official Qariana Publications & Quran Reader Application** (`com.karianaquran.reader`), an international-grade Islamic reading application deployed for Android (and future Desktop).
+You are tasked with providing the exact, production-ready, fully-tested code diffs and architectural implementation for integrating the **4th Edition (Hafezi 15-Line & 14-Line Vector Mushaf)** and future Quran editions into the **Official Qariana Publications & Quran Reader Application** (`com.karianaquran.reader`).
 
 ---
 
-## 1. Project Background & Current State
-The project consists of two core components:
-1. **Native Android Application (`com.karianaquran.reader`):**
-   - Built with **100% Kotlin + Jetpack Compose (Material 3)**.
-   - Enforces kernel-level `FLAG_SECURE` (zero screenshots, zero screen recording, black-out on AnyDesk/TeamViewer/Zoom).
-   - Enforces Hardware Device Binding (`MediaDrm` UUID + `ANDROID_ID`) allowing 1 active device per license key (`KQ-XXXX-XXXX-XXXX`).
-   - Guest Mode: Pages 1–10 are 100% Free Preview. Pages 11+ are strictly locked behind License Login / In-App Checkout.
-   - Currently features **3 Editions (Reading Modes)**:
-     - **Edition 1 (জনপ্রিয় মুদ্রিত সংস্করণ - ۹৬৩ পৃষ্ঠা):** 1:1 InDesign scanned book replica, edge-to-edge cropped view, 7-color tajweed (`ReadingMode.CLASSIC`).
-     - **Edition 2 (নতুন ভেক্টর সংস্করণ - ৬১০ পৃষ্ঠা):** Crisp InDesign vector Mushaf with word-by-word Bangla meanings and transliteration (`ReadingMode.PAGE`).
-     - **Edition 3 (ডিজিটাল সংস্করণ - ৬,২৩৬ আয়াত):** Interactive Ayah card list with audio recitation, pronunciation, and expandable Tafsir (`ReadingMode.AYAH`).
+## 1. Resolution of Blockers (Everything is Provided in the Repository!)
 
-2. **The New 4th Edition — Web Vector Reader Engine (`qariana-web-reader`):**
-   - A standalone web reader built with pure HTML5, CSS3, ES Modules, and responsive SVG page frames.
-   - Supports **Traditional Hafezi 15-Line** and **Hafezi 14-Line** layouts (610 pages, Qudratullah layout standard).
-   - Supports **3 Reading Modes**:
-     1. **শুধু আরবি (Arabic Only)**
-     2. **আরবি + বাংলা (Arabic + Word-by-Word Bangla Meaning)**
-     3. **আরবি + উচ্চারণ (Arabic + Pronunciation/Transliteration)**
-   - Features dynamic **Tajweed Coloring** with responsive sidebar legends (desktop side panels, auto-hidden on mobile).
-   - Word-level tap inspection with ayah audio and multi-source Bengali Tafsir.
+In response to your initial review regarding the missing buildable project and datasets:
 
----
+1. **Full Buildable Android Studio Project (Provided in `3_android_app_source/`):**
+   - You now have the **complete, buildable Gradle project tree**:
+     - `build.gradle.kts` (Root project build script)
+     - `settings.gradle.kts` (Configured with `:app` module)
+     - `gradle.properties` (JVM & Android optimization flags)
+     - `gradle/wrapper/` & `gradlew` / `gradlew.bat`
+     - `app/build.gradle.kts` (All Compose, Hilt, Firebase, and Kotlin dependencies)
+     - `app/src/main/AndroidManifest.xml` (Full manifest with `FLAG_SECURE` rules)
+     - `app/src/main/java/com/karianaquran/reader/` (Complete Kotlin codebase across `ui/reader/`, `ui/settings/`, `ui/home/`, `data/`, `viewmodel/`)
+     - `app/src/main/res/` and `app/src/main/assets/` (Full drawables, fonts, strings, layouts, and page caches).
 
-## 2. The Core Problem & Architectural Challenge
+2. **Complete 611-Page 15-Line Hafezi Mushaf Dataset (Provided in `2_web_reader_codebase/data/qudratullah_pages/`):**
+   - Contains all **611 JSON page files** (`1.json` through `611.json`), covering the entire Quran from Surah Al-Fatiha to Surah An-Nas.
+   - Each page contains line-by-line Arabic words, glyphs, tajweed classifications, and Bengali translations.
 
-### A. UI/UX Separation Dilemma (Image 1 vs Image 2)
-Please inspect the two reference images provided in the bundle:
-- **Image 1 (`web_full_view.png`):** Shows the standalone web reader interface with its own top chrome, Surah/Juz dropdowns, mode tabs, 15/14-line layout buttons, and bottom dock.
-- **Image 2 (`target_inner_mushaf_frame_only.png`):** Shows **ONLY the inner Mushaf page SVG container/template frame**.
-
-> ⚠️ **CRITICAL ARCHITECTURAL DIRECTIVE:**
-> When the 4th Edition (and future editions) runs inside the Android App, **THE READER VIEWPORT MUST ONLY DISPLAY THE PURE MUSHAF PAGE SVG FRAME (Image 2)**.
-> **DO NOT** embed the web reader's top bars, mode tabs, or bottom docks inside the Android reader viewport!
-> In the Android app, all navigation, buttons, and switches must be **Native Android Jetpack Compose** components:
-> 1. The **Top Bar** (`ReaderTopBar` in Compose) handles Surah/Para selection, Bookmark, Audio, and Quick Actions.
-> 2. The **Bottom Dock** (`ReaderBottomDock` in Compose) handles page numbers, swipe/pager, and native zoom buttons.
-> 3. The **Settings Drawer / Sheet** (`SettingsSheet` in Compose) handles:
->    - Layout switching (হাফেজী ১৫ লাইন vs হাফেজী ১৪ লাইন).
->    - Mode switching (শুধু আরবি vs আরবি+বাংলা vs আরবি+উচ্চারণ).
->    - Tajweed toggle (রঙিন তাজবীদ অন/অফ).
->    - Font size / zoom scaling.
-> The Android `WebView` should act strictly as a **headless/dumb vector page canvas** controlled via a clean, high-performance bidirectional JavaScript interface (`AndroidBridge` ↔ `window.QuranApp`).
-
-### B. Scalable Multi-Edition Engine (Extensible to Edition 5, 6, and Beyond)
-Currently, `ReadingMode` is a hardcoded enum: `CLASSIC, PAGE, AYAH, HAFEZI`.
-We need a **scalable, modular architecture** where future books and editions (e.g., Ampara, Qaida, 16-Line Mushaf, Tajweed Guide) can be added dynamically or with minimal boilerplate:
-- Unified Edition Interface: `QuranEdition` (id, title, pageCount, layoutType, features, freePagesLimit, assetProvider).
-- Asset Storage & Decryption: Offline page bundles, encrypted vaults, memory caching.
-- Unified Pager Adapter: A Compose `HorizontalPager` that seamlessly switches rendering strategies based on the active edition.
-
-### C. Unbreakable Mandatory In-App Update Enforcement
-In previous releases, users running older builds (e.g. `v1.3.11`) did not receive the mandatory update blocker when `v1.3.12` was released.
-- We discovered that `auto_send_apk_to_telegram.py` was using lowercase `-p 65002` for SCP (which failed silently because SCP requires capital `-P`), leaving the live server's `app-version.json` at older version 42.
-- However, from an architectural standpoint, the Android App's `UpdateRepository.kt` must be **100% fail-safe and un-bypassable**:
-  - If `latestVersionCode > currentVersionCode` and `isMandatory == true`, the app must display a non-dismissible dialog (no back press, no tap outside, no bypass) that immediately forces download/update.
-  - Multi-endpoint fallback (`https://karianaquran.com/download/app-version.json`, Firebase Remote Config, and mirror API).
+3. **Status of the 14-Line Layout (`layout14/`):**
+   - The 15-line layout (`qudratullah_pages`, 611 pages) is the primary printed Quran standard.
+   - The 14-line layout is an optional view mode generated via `tools/build_layout_pack.py` using `data/layout14/info.json`, `surah-pages.json`, `juzs.json`, and template SVGs (`assets/bg/page-bg-standard-14-*.svg`). The template SVGs and configuration are already fully present.
 
 ---
 
-## 3. What You Must Provide
-Please provide a comprehensive, production-ready architectural implementation:
+## 2. Core Architectural Directive: Standalone Web vs. In-App Viewport
 
-1. **System Architecture & Data Flow Diagram (Mermaid):**
-   - Show how Compose UI, `AppViewModel`, `PageRepository`, `WebViewAssetLoader`, and the inner SVG renderer interact.
+Please inspect the two reference images in `4_screenshots_reference/`:
+- **Image 1 (`image_1_full_web_reader.png`):** The standalone web reader interface with top chrome, Surah/Juz dropdowns, mode buttons, 15/14 line buttons, and bottom dock.
+- **Image 2 (`image_2_target_mushaf_frame_only.png`):** The **TARGET IN-APP VIEWPORT**. In the Android app, the WebView must **ONLY** render the inner Mushaf page SVG container/template frame (`#mushaf-viewport`).
 
-2. **The Bidirectional Android-WebView Bridge Specification:**
-   - Define the exact JavaScript methods exposed on `window.QuranPageRenderer` (e.g., `renderPage(pageJson, config)`, `setLayout(lines)`, `setMode(mode)`, `setTajweed(enabled)`, `setTheme(theme)`).
-   - Define the exact `@JavascriptInterface` callbacks sent to Kotlin (e.g., `onWordClick(wordId, arabic, meaning)`, `onAyahClick(surah, ayah)`, `onPageReady()`, `onSwipeNext()`, `onSwipePrev()`).
-
-3. **Optimized Stripped-Down SVG Canvas HTML/CSS/JS Template:**
-   - Create the clean, stripped-down `hafezi_page_view.html` that contains **ONLY** the SVG frame, font rendering, and tajweed logic (zero extraneous header/footer controls).
-   - Ensure 60fps pinch-to-zoom, hardware acceleration, and font fidelity for `qariana_secret_font.ttf`, `indopak_qul.woff2`, and `kalpurush.ttf`.
-
-4. **Kotlin / Jetpack Compose Implementation:**
-   - Updated `ReaderScreen.kt` showing how the Native Compose Top Bar and Settings Sheet control the Hafezi 15/14-line and 3 reading modes.
-   - Updated `HafeziWebView.kt` (or generalized `VectorMushafWebView.kt`).
-   - Clean `QuranEdition` data model to allow future editions (Edition 5, 6...) effortlessly.
-
-5. **Security & Subscription Enforcement:**
-   - Verify that guest users cannot view page 11+ in Hafezi mode without authentication.
-   - Verify kernel `FLAG_SECURE` and memory eviction on app backgrounding.
-
-6. **Step-by-Step Implementation Roadmap:**
-   - Ordered list of files to create, edit, or remove, with exact code snippets.
+> ⚠️ **CRITICAL DIRECTIVE:**
+> Inside Android:
+> - The WebView must **NEVER** render top headers, bottom pagination, or web dropdowns.
+> - **Native Android Jetpack Compose** handles all UI:
+>   - Compose `ReaderTopBar`: Surah/Para selection, Bookmark, Audio, Search.
+>   - Compose `ReaderBottomDock`: Page number slider, Pager, Zoom controls.
+>   - Compose `SettingsSheet`: 
+>     - **Line Switch**: হাফেজী ১৫ লাইন vs হাফেজী ১৪ লাইন.
+>     - **Mode Switch**: শুধু আরবি vs আরবি + বাংলা (শব্দার্থ) vs আরবি + উচ্চারণ.
+>     - **Tajweed Switch**: রঙিন তাজবীদ অন/অফ.
+> - The Android WebView communicates via a high-performance `@JavascriptInterface` bridge (`AndroidBridge` ↔ `window.QuranPageRenderer`).
 
 ---
+
+## 3. What You Must Provide (Complete, Tested Code Diffs)
+
+Now that you have the complete buildable Android project and full 611-page dataset, please provide the exact code changes and file implementations:
+
+### A. Clean WebView Viewport Engine
+- Exact changes to `assets_mushaf/` (HTML/JS/CSS) to render in pure headless frame mode when invoked from Android, exposing:
+  - `window.QuranPageRenderer.renderPage(pageNumber, config)`
+  - `window.QuranPageRenderer.setLayout(lineCount)` (15 vs 14)
+  - `window.QuranPageRenderer.setMode(readingMode)` (ARABIC_ONLY, ARABIC_MEANING, ARABIC_TRANSLIT)
+  - `window.QuranPageRenderer.setTajweed(isEnabled)`
+  - Bi-directional callbacks to Kotlin: `onWordClicked(wordData)`, `onAyahClicked(surah, ayah)`, `onPageRendered()`.
+
+### B. Kotlin / Jetpack Compose Integration (Against `3_android_app_source/`)
+Provide exact file-by-file code diffs for:
+1. `app/src/main/java/com/karianaquran/reader/ui/reader/ReaderScreen.kt`:
+   - Connecting the 4th Edition (Hafezi 15/14-line) to the Compose Pager.
+   - Adding 15-Line / 14-Line toggles and Mode toggles to the Compose `SettingsSheet` or Top/Bottom controls.
+2. `app/src/main/java/com/karianaquran/reader/ui/reader/MushafWebView.kt`:
+   - Supporting the new JavaScript interface commands and word tap events.
+3. `app/src/main/java/com/karianaquran/reader/ui/reader/QuranEditionSheet.kt`:
+   - Showcasing all 4 Editions cleanly, with architecture ready for Edition 5, 6, etc.
+4. `app/src/main/java/com/karianaquran/reader/data/model/Models.kt` & `SettingsStore.kt`:
+   - Updating `ReadingMode` and persistent user preferences.
+
+### C. Subscription & 10-Page Free Preview Enforcement
+- Ensuring Pages 1–10 are accessible for guest users without credentials.
+- When swiping to Page 11+, smoothly displaying the Native Credential Login / Purchase BottomSheet, preventing any visual bypass.
+
+### D. Mandatory Update Fail-Safe
+- Review `UpdateRepository.kt` and confirm it strictly forces the non-dismissible update dialog whenever `latestVersionCode > currentVersionCode` and `mandatory == true`.
+
+Please provide production-ready Kotlin and JavaScript code diffs that can be applied directly to the codebase.
 ```

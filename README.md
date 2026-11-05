@@ -1,10 +1,10 @@
-# 📖 Qariana Quran — Edition 4 Architecture & Codebase Bundle
+# 📖 Qariana Quran — Complete Edition 4 Architecture & Buildable Codebase Bundle
 
 [![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20Web-emerald)](https://karianaquran.com)
 [![Language](https://img.shields.io/badge/Language-Kotlin%20%7C%20Compose%20%7C%20JavaScript-blue)](https://karianaquran.com)
 [![License](https://img.shields.io/badge/License-Proprietary-gold)](https://karianaquran.com)
 
-This repository contains the complete codebase, reference UI screenshots, APK builds, and architectural specifications for integrating **Edition 4 (Hafezi 15-Line & 14-Line Vector Mushaf)** and future Quran editions into the **Official Qariana Quran Native Android Application** (`com.karianaquran.reader`).
+This repository contains the **complete buildable Android project**, the **complete 611-page 15-line Hafezi Mushaf dataset**, reference UI screenshots, APK builds, and architectural specifications for integrating **Edition 4 (Hafezi 15-Line & 14-Line Vector Mushaf)** and future Quran editions into the **Official Qariana Quran Native Android Application** (`com.karianaquran.reader`).
 
 ---
 
@@ -12,8 +12,11 @@ This repository contains the complete codebase, reference UI screenshots, APK bu
 
 - 🤖 **[PROMPT_FOR_CLAUDE_AI.md](./PROMPT_FOR_CLAUDE_AI.md)**: **The Primary Master Prompt** to feed into Claude AI.
 - 📐 **[PROJECT_ARCHITECTURE_AND_ROADMAP.md](./PROJECT_ARCHITECTURE_AND_ROADMAP.md)**: Exhaustive architectural roadmap, database schema, and bridge design.
-- 📱 **[Android App Kotlin Source](./3_android_app_source/)**: Native Jetpack Compose UI, ViewModels, and Compose-to-WebView bridge.
-- 🌐 **[Web Reader Codebase](./2_web_reader_codebase/)**: High-performance SVG vector Mushaf renderer with 15/14 lines, Tajweed colors, Word-by-Word Bengali meanings, and dynamic layout scaling.
+- 📱 **[Android Full Project Source](./3_android_app_source/)**: Complete, buildable Android Studio Gradle project (`app/`, `build.gradle.kts`, `settings.gradle.kts`, `gradlew`).
+- 🌐 **[Web Reader Codebase & Complete Datasets](./2_web_reader_codebase/)**: 
+  - All **611 JSON pages** of the 15-line Hafezi Mushaf (`data/qudratullah_pages/`).
+  - 14-line template SVGs and layout data (`data/layout14/`).
+  - High-performance SVG vector Mushaf renderer with Tajweed colors, Word-by-Word Bengali meanings, and dynamic layout scaling.
 - 🖼️ **[Screenshots & Visual Specs](./4_screenshots_reference/)**: Visual comparison showing how the Web Reader transforms into Native Android Compose UI.
 - 📦 **[APKs](./1_APKs/)**: Previous release (v1.3.11) and current build (v1.3.12).
 
@@ -58,17 +61,27 @@ qariana-quran-edition4-bundle/
 │   │   ├── fonts/                             # Custom glyph Arabic & Kalpurush fonts
 │   │   ├── js/                                # Dynamic layout generator & SVG renderer
 │   │   └── mushaf_bg/                         # 12 high-res SVG decorative borders
-│   └── data/                                  # Quran metadata & Word-by-word JSON datasets
-├── 3_android_app_source/                      # Native Android Kotlin App Code
-│   ├── ReaderScreen.kt                        # Primary Compose Reader UI
-│   ├── MushafWebView.kt                       # Android WebView wrapper & JS Interface
-│   ├── QuranEditionSheet.kt                   # 4-Edition Selector BottomSheet
-│   ├── SettingsSheet.kt                       # Native Reading Mode & Line Count switches
-│   ├── SettingsStore.kt                       # DataStore persistence for user preferences
-│   ├── Models.kt                              # Domain models (ReadingMode, Edition, etc.)
-│   ├── UpdateRepository.kt                    # Remote version check & mandatory update logic
-│   ├── build.gradle.kts                       # App Gradle configuration
-│   └── assets_mushaf/                         # Embedded offline web assets in Android
+│   └── data/
+│       ├── qudratullah_pages/                 # Complete 611 JSON page files (Pages 1 to 611)
+│       ├── layout14/                          # 14-line layout configuration & templates
+│       ├── bn-translation.json                # Full Bengali Ayah translation dataset
+│       ├── bn-wbw-full.json                   # Full Bengali Word-by-Word dataset
+│       └── surahs.json, juzs.json             # Quran index metadata
+├── 3_android_app_source/                      # COMPLETE BUILDABLE ANDROID STUDIO PROJECT
+│   ├── build.gradle.kts                       # Root project build configuration
+│   ├── settings.gradle.kts                    # Project settings (:app module)
+│   ├── gradle.properties                      # Gradle JVM & build optimization flags
+│   ├── gradlew, gradlew.bat                   # Gradle wrapper executables
+│   ├── gradle/wrapper/                        # Gradle wrapper distribution
+│   └── app/                                   # Application Module
+│       ├── build.gradle.kts                   # Dependencies & plugins (Compose, Hilt, Firebase)
+│       ├── proguard-rules.pro                 # R8/Proguard rules
+│       ├── google-services.json               # Firebase configuration
+│       └── src/main/
+│           ├── AndroidManifest.xml            # App manifest (FLAG_SECURE, permissions)
+│           ├── java/com/karianaquran/reader/  # Complete Kotlin Compose source code
+│           ├── res/                           # Layouts, drawables, fonts, themes, strings
+│           └── assets/                        # Quran page datasets & offline mushaf assets
 └── 4_screenshots_reference/                   # 10 High-Resolution UI Screenshots
     ├── image_1_full_web_reader.png            # Full web reader reference
     ├── image_2_target_mushaf_frame_only.png   # Target in-app viewport reference
@@ -84,14 +97,20 @@ qariana-quran-edition4-bundle/
 
 ---
 
-## 🚀 How to Run the Web Reader Locally
+## 🚀 How to Build & Run
 
-To preview the 15/14-line vector engine locally:
+### Android App:
+Open `3_android_app_source/` in Android Studio or compile directly:
+```bash
+cd 3_android_app_source
+./gradlew assembleDebug
+```
+
+### Web Reader:
 ```bash
 cd 2_web_reader_codebase
-# Start a simple HTTP server (Python 3)
 python -m http.server 8000
-# Open in browser: http://localhost:8000
+# Open http://localhost:8000
 ```
 
 ---
