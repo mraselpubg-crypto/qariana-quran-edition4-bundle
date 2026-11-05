@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f5c47">
+<title>ক্বারীয়ানা কুরআন - হাফেজী রিডার</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body data-theme="light">
+
+<div class="shell">
+  <!-- Sticky top: where am I + how do I read -->
+  <div class="chrome">
+    <header class="topbar">
+      <div class="jump">
+        <select id="surahSelect" class="sel" aria-label="সূরা নির্বাচন"></select>
+        <select id="juzSelect" class="sel sel-juz" aria-label="পারা নির্বাচন"></select>
+      </div>
+      <button id="settingsBtn" class="aa-btn" aria-label="পড়ার সেটিং" title="পড়ার সেটিং">
+        <span class="aa-s">অ</span><span class="aa-l">আ</span>
+      </button>
+    </header>
+
+    <!-- 3 reading modes: big, clear, thumb-friendly -->
+    <div class="seg" id="modeSeg" role="tablist" aria-label="পড়ার ধরন">
+      <button data-mode="off" class="on" role="tab">
+        <b class="m-ar">ٱلْقُرْآن</b><span>শুধু আরবি</span>
+      </button>
+      <button data-mode="translation" role="tab">
+        <b class="m-ar">ٱلْقُرْآن</b><span>আরবি + বাংলা</span>
+      </button>
+      <button data-mode="translit" role="tab">
+        <b class="m-ar">ٱلْقُرْآن</b><span>আরবি + উচ্চারণ</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Layout (15/14 line) + tafsir + tajweed -->
+  <div class="toolrow">
+    <div class="lseg" id="layoutSeg" role="radiogroup" aria-label="পৃষ্ঠার লাইন সংখ্যা"></div>
+    <button id="tafsirBtn" class="chip chip-tf" aria-label="তাফসীর নির্বাচন ও পড়া">
+      <span class="chip-ic" aria-hidden="true">📖</span>
+      <span class="chip-tx"><small>তাফসীর</small><b id="tafsirName">বাংলা অনুবাদ</b></span>
+    </button>
+    <button id="tajweedBtn" class="chip chip-tj" aria-pressed="false">
+      <span class="chip-ic" aria-hidden="true">🎨</span>
+      <span class="chip-tx"><b>রঙিন তাজবীদ</b></span>
+    </button>
+    <small id="planLabel" class="plan"></small>
+  </div>
+  <div id="legend" class="legend" hidden></div>
+
+  <!-- Reader: scrolls sideways when zoomed in -->
+  <main class="reader" id="reader">
+    <div id="stage" class="stage" aria-live="polite"></div>
+  </main>
+  <div id="zoomBadge" class="zoom-badge" aria-hidden="true">১০০%</div>
+</div>
+
+<!-- Bottom dock (thumb reach): page + zoom -->
+<nav class="dock" aria-label="পৃষ্ঠা ও জুম">
+  <button id="next" class="dk dk-nav" aria-label="পরবর্তী পৃষ্ঠা"><i>‹</i><span>পরের</span></button>
+  <button id="zoomOut" class="dk dk-zoom" aria-label="লেখা ছোট করুন"><i>অ−</i></button>
+  <label class="dk-page">
+    <b id="pageTitle">পৃষ্ঠা ১</b>
+    <span class="pj"><input type="text" id="pageJumpInput" value="১" inputmode="numeric" pattern="[0-9০-৯]*" autocomplete="off" aria-label="পৃষ্ঠা নম্বর"><em>/ <span id="pageTotal">৬১০</span></em></span>
+  </label>
+  <button id="zoomIn" class="dk dk-zoom" aria-label="লেখা বড় করুন"><i>অ+</i></button>
+  <button id="prev" class="dk dk-nav" aria-label="আগের পৃষ্ঠা"><i>›</i><span>আগের</span></button>
+</nav>
+
+<!-- Reading settings sheet -->
+<div id="settingsModal" class="word-modal">
+  <div class="word-sheet settings-sheet">
+    <div class="sheet-handle"></div>
+    <h2 class="sheet-title">পড়ার সেটিং</h2>
+
+    <div class="set-row">
+      <div class="set-head"><b>লেখার আকার (জুম)</b><span id="zoomVal">১০০%</span></div>
+      <div class="zoom-row">
+        <button id="zoomOut2" class="step-btn" aria-label="লেখা ছোট করুন">অ−</button>
+        <input type="range" id="zoomRange" min="80" max="260" step="5" value="100" aria-label="জুম">
+        <button id="zoomIn2" class="step-btn" aria-label="লেখা বড় করুন">অ+</button>
+      </div>
+      <div class="preset-row">
+        <button data-zoom="100">স্বাভাবিক</button>
+        <button data-zoom="140">বড়</button>
+        <button data-zoom="190">অনেক বড়</button>
+        <button data-zoom="250">সর্বোচ্চ</button>
+      </div>
+      <small class="hint">দুই আঙুলে চিমটি কেটেও জুম করা যায়। জুম করলে পৃষ্ঠা ডানে-বামে সরানো যায়।</small>
+    </div>
+
+    <div class="set-row">
+      <div class="set-head"><b>থিম</b></div>
+      <div class="theme-row" id="themeRow">
+        <button data-theme="light" class="th th-light">☀️ দিন</button>
+        <button data-theme="sepia" class="th th-sepia">📜 সেপিয়া</button>
+        <button data-theme="dark" class="th th-dark">🌙 রাত</button>
+      </div>
+    </div>
+
+    <label class="set-row switch-row"><span><b>আরবি লেখা ঘন করুন</b><small>চোখে কম দেখলে আরও স্পষ্ট হয়</small></span><input type="checkbox" id="boldToggle"></label>
+    <label class="set-row switch-row" id="wakeRow"><span><b>স্ক্রিন জাগিয়ে রাখুন</b><small>পড়ার সময় স্ক্রিন বন্ধ হবে না</small></span><input type="checkbox" id="wakeToggle"></label>
+
+    <button class="sheet-close-btn" data-close="settingsModal">ঠিক আছে</button>
+  </div>
+</div>
+
+<!-- Word Tap Detail Bottom Sheet -->
+<div id="wordModal" class="word-modal">
+  <div class="word-sheet">
+    <div class="sheet-handle"></div>
+    <div id="sheetWordAr" class="sheet-word-ar"></div>
+    <div id="sheetWordSub" class="sheet-word-sub"></div>
+    <div id="sheetWordTranslit" class="sheet-word-translit"></div>
+    <div class="sheet-ayah-box">
+      <b id="sheetAyahRef">পূর্ণ অনুবাদ:</b>
+      <div id="sheetAyahFull"></div>
+    </div>
+    <button id="openTafsirFromWord" class="sheet-alt-btn">📖 এই আয়াতের তাফসীর দেখুন</button>
+    <button class="sheet-close-btn" data-close="wordModal">বন্ধ করুন</button>
+  </div>
+</div>
+
+<!-- Tafsir sheet -->
+<div id="tafsirModal" class="word-modal">
+  <div class="word-sheet tafsir-sheet" role="dialog" aria-modal="true" aria-labelledby="tfTitle">
+    <div class="sheet-handle"></div>
+    <div class="tf-head">
+      <h2 class="sheet-title"><span id="tfTitle">তাফসীর</span> <small id="tfAuthor"></small></h2>
+    </div>
+    <div id="tfSources" class="tf-sources" role="radiogroup" aria-label="তাফসীর নির্বাচন"></div>
+    <div class="tf-nav">
+      <button id="tfPrev" class="tf-step" aria-label="আগের আয়াত">‹ আগের</button>
+      <div id="tfRef" class="tf-ref"></div>
+      <button id="tfNext" class="tf-step" aria-label="পরের আয়াত">পরের ›</button>
+    </div>
+    <div id="tfScroll" class="tf-scroll">
+      <div id="tfArabic" class="tf-ar" dir="rtl"></div>
+      <div id="tfBody" class="tf-body"></div>
+    </div>
+    <div class="tf-foot">
+      <div class="tf-size" aria-label="লেখার আকার">
+        <button id="tfSmaller" aria-label="লেখা ছোট করুন">অ−</button>
+        <span id="tfSizeVal">১০০%</span>
+        <button id="tfBigger" aria-label="লেখা বড় করুন">অ+</button>
+      </div>
+      <button class="sheet-close-btn" data-close="tafsirModal">বন্ধ করুন</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast" role="status"></div>
+
+<!-- Side Tajweed Legend Panels (desktop only, outside .shell) -->
+<aside id="tjSideRight" class="tj-side tj-side-right" aria-label="তাজবীদ রঙ — ডান" hidden>
+  <div class="tj-side-inner">
+    <div class="tj-side-title">তাজবীদ রং</div>
+    <div class="tj-side-items" id="tjSideRightItems"></div>
+  </div>
+</aside>
+<aside id="tjSideLeft" class="tj-side tj-side-left" aria-label="তাজবীদ রঙ — বাম" hidden>
+  <div class="tj-side-inner">
+    <div class="tj-side-title">তাজবীদ রং</div>
+    <div class="tj-side-items" id="tjSideLeftItems"></div>
+  </div>
+</aside>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

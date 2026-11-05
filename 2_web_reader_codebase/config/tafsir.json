@@ -1,0 +1,11 @@
+{
+  "_note": "তাফসীর রেজিস্ট্রি। আয়াতের আরবি/অনুবাদ/তাফসীরের টেক্সট কখনো মুখস্থ থেকে লিখবে না; শুধু data/ প্যাক থেকে। kind='translation' মানে data/bn-translation.json। kind='pack' হলে data/tafsir/<id>/info.json থাকলে চালু, না থাকলে অ্যাপে 'ডেটা যুক্ত হয়নি' দেখায়। প্যাক বানাতে tools/import_tafsir.py। লাইসেন্স যাচাই করে তবেই প্যাক বসাবে।",
+  "default": "bn-translation",
+  "sources": [
+    { "id": "bn-translation", "kind": "translation", "title_bn": "বাংলা অনুবাদ", "author_bn": "মুহিউদ্দীন খান", "file": "data/bn-translation.json" },
+    { "id": "ibn-kathir-bn", "kind": "pack", "title_bn": "তাফসীর ইবনে কাসীর", "author_bn": "বাংলা অনুবাদ", "dir": "data/tafsir/ibn-kathir-bn" },
+    { "id": "ahsanul-bayan-bn", "kind": "pack", "title_bn": "তাফসীর আহসানুল বায়ান", "author_bn": "বাংলা", "dir": "data/tafsir/ahsanul-bayan-bn" },
+    { "id": "fathul-majid-bn", "kind": "pack", "title_bn": "তাফসীর ফাতহুল মাজীদ", "author_bn": "বাংলা", "dir": "data/tafsir/fathul-majid-bn" },
+    { "id": "zakaria-bn", "kind": "pack", "title_bn": "তাফসীর আবু বকর জাকারিয়া", "author_bn": "বাংলা", "dir": "data/tafsir/zakaria-bn" }
+  ]
+}

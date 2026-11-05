@@ -1,0 +1,6 @@
+{
+  "color": {"green900":"#0f5c47","green700":"#1b7a5f","mint50":"#f2faf6","mint100":"#e6f5ee","line":"#bfe3d2","gold":"#e9b949","ink":"#14342b","muted":"#5d7a70"},
+  "radius": {"card":22,"chip":14,"line":14},
+  "tajweed": {"silent":"#7d8a99","madd":"#e4572e","madd-lazim":"#b3261e","qalqalah":"#1f7ae0","ghunna":"#1f9d55","ikhfa":"#8e44ad","idgham":"#0e9aa7"},
+  "page": {"viewBoxWidth":800,"lines":15}
+}

@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html lang="bn" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=4.0, user-scalable=yes, viewport-fit=cover">
+  <title>ক্বারীয়ানা কুরআন শরীফ — পৃষ্ঠা ভিউ</title>
+  <link rel="stylesheet" href="reader.css">
+  <style>
+    /* অ্যান্ড্রয়েড সিস্টেম হাই-কনট্রাস্ট টেক্সট প্রতিরোধ ও ফন্ট সুরক্ষা */
+    * {
+      -webkit-text-stroke: 0 !important;
+      text-shadow: none !important;
+      font-synthesis: none !important;
+      -webkit-font-smoothing: antialiased !important;
+    }
+    .kq-word, .kq-arabic-text, .cls-1, .cls-3, .cls-8, svg text, .kq-meaning-row, span, div, p {
+      -webkit-text-stroke: 0 !important;
+      text-shadow: none !important;
+      font-synthesis: none !important;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg-body, #0B1324);
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      font-family: var(--font-bengali, 'Kalpurush', sans-serif);
+    }
+    #mushafScrollWrap {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: auto;
+      touch-action: pan-x pan-y pinch-zoom;
+      box-sizing: border-box;
+      padding: 0;
+    }
+    #mushafScrollWrap.is-fit-page {
+      overflow: hidden;
+      cursor: default;
+    }
+    #mushafCard {
+      width: 100%;
+      height: 100%;
+      min-width: 0 !important;
+      min-height: 0 !important;
+      max-width: 100%;
+      max-height: 100%;
+      margin: 0 auto;
+      border-radius: 0;
+      overflow: hidden;
+      will-change: transform;
+      box-shadow: none;
+      border: none;
+      position: relative;
+      transition: transform 0.12s ease-out;
+      transform-origin: center center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--classic-card-bg, transparent);
+    }
+    #mushafCard svg {
+      width: 100% !important;
+      height: 100% !important;
+      min-width: 0 !important;
+      min-height: 0 !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      display: block !important;
+    }
+    body.classic-mode #mushafCard {
+      background: var(--classic-card-bg, #FFFFFF);
+      border-radius: 0;
+      box-shadow: none;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+    body.classic-mode[data-theme="dark"] #mushafCard {
+      background: #0B1324 !important;
+    }
+    body.classic-mode[data-theme="sepia"] #mushafCard {
+      background: #FAF3E0 !important;
+    }
+    body.classic-mode[data-theme="emerald"] #mushafCard {
+      background: #03221B !important;
+    }
+    body.classic-mode[data-theme="midnight"] #mushafCard {
+      background: #111633 !important;
+    }
+    body.classic-mode[data-theme="cream"] #mushafCard {
+      background: #FFFDF5 !important;
+    }
+    body.classic-mode[data-theme="light"] #mushafCard {
+      background: #FFFFFF !important;
+    }
+
+    /* ক্লাসিক মোডে ডার্ক থিম ও সব থিমে আরবি ও বাংলা ফন্ট নিখুঁতভাবে ফুটিয়ে তোলা */
+    body[data-theme="dark"] .kq-svg-arabic-base,
+    .kq-theme-dark .kq-svg-arabic-base {
+      fill: var(--classic-arabic-color, #F59E0B) !important;
+    }
+    body[data-theme="dark"] .kq-svg-tajweed-signs,
+    .kq-theme-dark .kq-svg-tajweed-signs {
+      fill: var(--classic-tajweed-color, #FDE68A) !important;
+    }
+    body[data-theme="dark"] .kq-svg-bengali-meaning,
+    .kq-theme-dark .kq-svg-bengali-meaning {
+      fill: var(--classic-trans-color, #E2E8F0) !important;
+    }
+    body[data-theme="dark"] .kq-svg-page-notes,
+    .kq-theme-dark .kq-svg-page-notes {
+      fill: var(--classic-notes-color, #D97706) !important;
+    }
+    body[data-theme="dark"] .kq-svg-ayah-bg,
+    .kq-theme-dark .kq-svg-ayah-bg {
+      fill: #1E293B !important;
+    }
+
+    body[data-theme="sepia"] .kq-svg-arabic-base,
+    .kq-theme-sepia .kq-svg-arabic-base {
+      fill: #451A03 !important;
+    }
+    body[data-theme="sepia"] .kq-svg-bengali-meaning,
+    .kq-theme-sepia .kq-svg-bengali-meaning {
+      fill: #573016 !important;
+    }
+    body[data-theme="sepia"] .kq-svg-ayah-bg,
+    .kq-theme-sepia .kq-svg-ayah-bg {
+      fill: #EDE3CD !important;
+    }
+
+    body[data-theme="emerald"] .kq-svg-arabic-base,
+    .kq-theme-emerald .kq-svg-arabic-base {
+      fill: #FEF3C7 !important;
+    }
+    body[data-theme="emerald"] .kq-svg-bengali-meaning,
+    .kq-theme-emerald .kq-svg-bengali-meaning {
+      fill: #ECFDF5 !important;
+    }
+    body[data-theme="emerald"] .kq-svg-ayah-bg,
+    .kq-theme-emerald .kq-svg-ayah-bg {
+      fill: #064E3B !important;
+    }
+
+    body[data-theme="light"] .kq-svg-arabic-base,
+    .kq-theme-light .kq-svg-arabic-base {
+      fill: #000000 !important;
+    }
+    body[data-theme="light"] .kq-svg-bengali-meaning,
+    .kq-theme-light .kq-svg-bengali-meaning {
+      fill: #111827 !important;
+    }
+
+    body.classic-mode.has-custom-page-bg #mushafCard {
+      background: var(--custom-page-bg, #FFFFFF) !important;
+    }
+
+    /* বাংলা অর্থ দেখানো / লুকানো রুল */
+    .kq-hide-meaning .kq-svg-bengali-meaning,
+    .kq-classic-vector-svg.kq-hide-meaning .kq-svg-bengali-meaning,
+    #mushafCard.kq-hide-meaning .kq-svg-bengali-meaning,
+    body.kq-classic-hide-meaning .kq-svg-bengali-meaning {
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+    }
+
+    /* ক্লাসিক ভেক্টর এসভিজি থিম স্টাইল */
+    .kq-classic-vector-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      pointer-events: auto;
+      shape-rendering: geometricPrecision;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      image-rendering: -webkit-optimize-contrast;
+    }
+    .kq-classic-vector-svg text,
+    .kq-classic-vector-svg use,
+    .kq-classic-vector-svg path {
+      shape-rendering: geometricPrecision;
+      text-rendering: optimizeLegibility;
+    }
+
+    body[data-theme="dark"] .kq-classic-vector-svg .kq-svg-ayah-bg { fill: #1E293B !important; }
+    body[data-theme="dark"] .kq-classic-vector-svg .kq-svg-arabic-base { fill: var(--ortho-arabic-color, #FEF3C7) !important; }
+    body[data-theme="dark"] .kq-classic-vector-svg .kq-svg-tajweed-signs { fill: #FDE68A !important; }
+    body[data-theme="dark"] .kq-classic-vector-svg .kq-svg-bengali-meaning { fill: var(--ortho-trans-color, #CBD5E1) !important; }
+    body[data-theme="dark"] .kq-classic-vector-svg .kq-svg-page-notes { fill: #D97706 !important; }
+    body[data-theme="dark"] .kq-classic-vector-svg use[fill="#231f20"],
+    body[data-theme="dark"] .kq-classic-vector-svg path[fill="#231f20"] { fill: #FEF3C7 !important; }
+    body[data-theme="dark"] .kq-classic-vector-svg path[stroke="#231f20"] { stroke: #FEF3C7 !important; }
+
+    body[data-theme="sepia"] .kq-classic-vector-svg .kq-svg-ayah-bg { fill: #EDE3CD !important; }
+    body[data-theme="sepia"] .kq-classic-vector-svg .kq-svg-arabic-base { fill: #381E0D !important; }
+    body[data-theme="sepia"] .kq-classic-vector-svg .kq-svg-tajweed-signs { fill: #78350F !important; }
+    body[data-theme="sepia"] .kq-classic-vector-svg .kq-svg-bengali-meaning { fill: #573016 !important; }
+    body[data-theme="sepia"] .kq-classic-vector-svg .kq-svg-page-notes { fill: #92400E !important; }
+    body[data-theme="sepia"] .kq-classic-vector-svg use[fill="#231f20"],
+    body[data-theme="sepia"] .kq-classic-vector-svg path[fill="#231f20"] { fill: #381E0D !important; }
+
+    body[data-theme="emerald"] .kq-classic-vector-svg .kq-svg-ayah-bg { fill: #064E3B !important; }
+    body[data-theme="emerald"] .kq-classic-vector-svg .kq-svg-arabic-base { fill: #ECFDF5 !important; }
+    body[data-theme="emerald"] .kq-classic-vector-svg .kq-svg-tajweed-signs { fill: #A7F3D0 !important; }
+    body[data-theme="emerald"] .kq-classic-vector-svg .kq-svg-bengali-meaning { fill: #D1FAE5 !important; }
+    body[data-theme="emerald"] .kq-classic-vector-svg use[fill="#231f20"],
+    body[data-theme="emerald"] .kq-classic-vector-svg path[fill="#231f20"] { fill: #ECFDF5 !important; }
+
+    body[data-theme="midnight"] .kq-classic-vector-svg .kq-svg-ayah-bg { fill: #1E1B4B !important; }
+    body[data-theme="midnight"] .kq-classic-vector-svg .kq-svg-arabic-base { fill: #FDE68A !important; }
+    body[data-theme="midnight"] .kq-classic-vector-svg .kq-svg-tajweed-signs { fill: #FEF08A !important; }
+    body[data-theme="midnight"] .kq-classic-vector-svg .kq-svg-bengali-meaning { fill: #E0E7FF !important; }
+    body[data-theme="midnight"] .kq-classic-vector-svg use[fill="#231f20"],
+    body[data-theme="midnight"] .kq-classic-vector-svg path[fill="#231f20"] { fill: #FDE68A !important; }
+
+    body[data-theme="cream"] .kq-classic-vector-svg .kq-svg-ayah-bg { fill: #FEF9C3 !important; }
+    body[data-theme="cream"] .kq-classic-vector-svg .kq-svg-arabic-base { fill: #064E3B !important; }
+    body[data-theme="cream"] .kq-classic-vector-svg .kq-svg-bengali-meaning { fill: #1C1917 !important; }
+    body[data-theme="cream"] .kq-classic-vector-svg use[fill="#231f20"],
+    body[data-theme="cream"] .kq-classic-vector-svg path[fill="#231f20"] { fill: #064E3B !important; }
+
+    body[data-theme="light"] .kq-classic-vector-svg .kq-svg-ayah-bg { fill: #D0E8C4 !important; }
+    body[data-theme="light"] .kq-classic-vector-svg .kq-svg-arabic-base { fill: #000000 !important; }
+    body[data-theme="light"] .kq-classic-vector-svg .kq-svg-bengali-meaning { fill: #0F172A !important; }
+    body[data-theme="light"] .kq-classic-vector-svg use[fill="#231f20"],
+    body[data-theme="light"] .kq-classic-vector-svg path[fill="#231f20"] { fill: #000000 !important; }
+
+    #mushafCard svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    /* থিম অনুযায়ী আরবি আয়াত রো ব্যাকগ্রাউন্ড (.cls-3) — লাইট মোডে মূল প্রিন্টের সাদা রঙ অক্ষুণ্ন থাকবে */
+    body[data-theme="light"] #mushafCard svg .cls-3 {
+      fill: #FFFFFF !important;
+    }
+    body[data-theme="dark"] #mushafCard svg .cls-3 {
+      fill: #0F1A2E !important;
+    }
+    body[data-theme="midnight"] #mushafCard svg .cls-3 {
+      fill: #161C40 !important;
+    }
+    body[data-theme="emerald"] #mushafCard svg .cls-3 {
+      fill: #052E24 !important;
+    }
+    body[data-theme="sepia"] #mushafCard svg .cls-3 {
+      fill: #FDF8EC !important;
+    }
+    body[data-theme="cream"] #mushafCard svg .cls-3 {
+      fill: #FFFDF7 !important;
+    }
+
+    /* বাংলা অর্থ লুকানো থাকলে পুরো ফ্রেম জুড়ে আরবি বক্সের জন্য স্টাইল */
+    .kq-ortho-arabic-box.full-width {
+      padding: 8px 12px 0 12px !important;
+      text-align: center !important;
+      text-align-last: center !important;
+      word-spacing: normal !important;
+    }
+
+    /* পপওভার স্টাইল */
+    .kq-word-popover {
+      position: fixed;
+      background: #111827;
+      border: 1.5px solid #F59E0B;
+      border-radius: 14px;
+      padding: 12px 14px;
+      z-index: 99999;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.85);
+      min-width: 240px;
+      max-width: 310px;
+      color: #E2E8F0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      animation: popIn 0.16s ease-out;
+      touch-action: auto;
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.92); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .kq-popover-word-title {
+      font-family: 'AASaddamQuran', serif;
+      font-size: 26px;
+      line-height: 1.4;
+      text-align: center;
+      direction: rtl;
+      color: #FEF3C7;
+      border-bottom: 1px solid rgba(245, 158, 11, 0.25);
+      padding-bottom: 4px;
+    }
+    .kq-popover-meta {
+      font-size: 11.5px;
+      line-height: 1.4;
+      color: #CBD5E1;
+    }
+    .kq-popover-meta strong {
+      color: #F59E0B;
+    }
+    .kq-popover-tajweed-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid;
+      background: rgba(15, 23, 42, 0.7);
+      font-size: 11px;
+    }
+    .kq-popover-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      padding-top: 6px;
+      border-top: 1px solid rgba(148, 163, 184, 0.15);
+    }
+    .kq-popover-btn {
+      background: rgba(245, 158, 11, 0.15);
+      color: #F59E0B;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .kq-popover-colors {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .kq-color-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+    }
+    .dot-yellow { background: #EAB308; }
+    .dot-green  { background: #10B981; }
+    .dot-blue   { background: #38BDF8; }
+    .dot-coral  { background: #F43F5E; }
+    .dot-clear  { background: transparent; color: #94A3B8; border-color: #64748B; }
+  </style>
+
+<style>
+
+    /* --- Native Compose Shimmer takes priority; HTML overlay suppressed --- */
+    #kq-loader {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+    #kq-loader.kq-hide {
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+    #kq-loader svg {
+      position: relative; width: min(60vmin, 330px); height: auto;
+      filter: drop-shadow(0 12px 30px rgba(0,0,0,0.55));
+    }
+    .kq-text {
+      position: relative;
+      font-family: 'Kalpurush', system-ui, sans-serif;
+      font-size: clamp(15px, 3vmin, 20px);
+      font-weight: 600;
+      color: #fff6c9;
+      letter-spacing: 0.02em;
+      display: flex; gap: 0.3em; align-items: baseline;
+    }
+    .kq-dots i {
+      display: inline-block; width: 0.32em; height: 0.32em; margin-left: 0.22em;
+      border-radius: 50%; background: #f6d86b; animation: kqdot 1.2s ease-in-out infinite;
+    }
+    .kq-dots i:nth-child(2) { animation-delay: 0.18s; }
+    .kq-dots i:nth-child(3) { animation-delay: 0.36s; }
+    @keyframes kqdot {
+      0%, 80%, 100% { transform: translateY(0); opacity: 0.35; }
+      40% { transform: translateY(-0.35em); opacity: 1; }
+    }
+    .kq-bar {
+      position: relative; width: min(44vmin, 220px); height: 4.5px; border-radius: 5px;
+      background: rgba(255, 255, 255, 0.16); overflow: hidden;
+    }
+    .kq-bar::after {
+      content: ""; position: absolute; inset: 0; width: 40%; border-radius: 5px;
+      background: linear-gradient(90deg, transparent, #f6d86b, #fff6a8);
+      animation: kqbar 1.5s ease-in-out infinite;
+    }
+    @keyframes kqbar {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(260%); }
+    }
+    
+</style>
+</head>
+<body data-theme="dark" oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
+<div id="kq-loader" role="status" aria-live="polite" aria-label="লোড হচ্ছে">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" role="img" aria-label="কারিয়ানা কুরআন শিক্ষা সোসাইটি">
+<style>
+ .cov,.pg,.flip,.badge,.rays,.spin,.spin2,.glow,.quran,.shine{transform-box:view-box}
+ .cov,.pg,.flip,.badge{transform-origin:0 0}
+ .cov{animation:cov 6s cubic-bezier(.5,0,.2,1) infinite}
+ .pg{animation:pg 6s cubic-bezier(.5,0,.2,1) infinite}
+ .flip{animation:flip 6s ease-in-out infinite;opacity:0}
+ .rays{transform-origin:500px 330px;animation:spin 40s linear infinite}
+ .spin{transform-origin:500px 500px;animation:spin 3s linear infinite}
+ .spin2{transform-origin:500px 500px;animation:spin 3s linear infinite reverse}
+ .glow{animation:glow 3s ease-in-out infinite}
+ .quran{animation:bob 3s ease-in-out infinite}
+ .badge{animation:pulse 3s ease-in-out infinite}
+ .b2{animation-delay:1s}.b3{animation-delay:2s}
+ .shine{animation:shine 3s ease-in-out infinite}
+ @keyframes spin{to{transform:rotate(360deg)}}
+ @keyframes cov{0%,6%{transform:scaleX(.2)}22%{transform:scaleX(1.03)}27%{transform:scaleX(1)}80%{transform:scaleX(1)}94%{transform:scaleX(.2)}100%{transform:scaleX(.2)}}
+ @keyframes pg{0%,8%{transform:scaleX(.2);opacity:0}15%{opacity:1}24%{transform:scaleX(1.02)}28%{transform:scaleX(1)}78%{transform:scaleX(1);opacity:1}88%{transform:scaleX(.2);opacity:0}100%{transform:scaleX(.2);opacity:0}}
+ @keyframes flip{0%,31%{opacity:0;transform:scaleX(1)}32%{opacity:1;transform:scaleX(1)}38%{transform:scaleX(0)}44%{transform:scaleX(-1);opacity:1}45%{opacity:0}54%{opacity:0;transform:scaleX(1)}55%{opacity:1;transform:scaleX(1)}61%{transform:scaleX(0)}67%{transform:scaleX(-1);opacity:1}68%{opacity:0}100%{opacity:0}}
+ @keyframes glow{0%,100%{opacity:.45;transform:scale(.92)}50%{opacity:.95;transform:scale(1.06)}}
+ @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+ @keyframes pulse{0%,100%{transform:scale(1)}12%{transform:scale(1.12)}30%{transform:scale(1)}}
+ @keyframes shine{0%,15%{transform:skewX(-18deg) translateX(0)}60%,100%{transform:skewX(-18deg) translateX(520px)}}
+ @media (prefers-reduced-motion:reduce){*{animation:none!important}.pg{opacity:1}}
+</style>
+<defs>
+ <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1fa391"/><stop offset="1" stop-color="#0b6e61"/></linearGradient>
+ <radialGradient id="sun" cx="50%" cy="38%" r="65%"><stop offset="0" stop-color="#fff98a"/><stop offset=".6" stop-color="#f8ee26"/><stop offset="1" stop-color="#f1df10"/></radialGradient>
+ <radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+ <linearGradient id="kL" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#171717"/><stop offset="1" stop-color="#050505"/></linearGradient>
+ <linearGradient id="kR" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#454542"/><stop offset="1" stop-color="#2c2c2a"/></linearGradient>
+ <linearGradient id="goldL" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9c7b30"/><stop offset="1" stop-color="#bf9a45"/></linearGradient>
+ <linearGradient id="goldR" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d9b55a"/><stop offset="1" stop-color="#c8a24c"/></linearGradient>
+ <clipPath id="sunClip"><circle cx="500" cy="500" r="342"/></clipPath>
+ <clipPath id="kaabaClip"><polygon points="340,484.36 500,470.11 500,512.3 340,519.3"/><polygon points="500,470.11 660,484.36 660,519.3 500,512.3"/></clipPath>
+</defs><circle cx="500" cy="500" r="496" fill="url(#ring)"/><circle cx="500" cy="500" r="488" fill="none" stroke="#f6d86b" stroke-width="3.5"/><circle cx="500" cy="500" r="352" fill="#0b6e61"/><circle cx="500" cy="500" r="345" fill="url(#sun)"/><g clip-path="url(#sunClip)"><g class="rays"><polygon points="500,330 500.0,-190.0 581.3,-183.6" fill="#fff" opacity=".28"/><polygon points="500,330 677.9,-158.6 752.1,-124.8" fill="#fff" opacity=".28"/><polygon points="500,330 834.2,-68.3 892.4,-11.2" fill="#fff" opacity=".28"/><polygon points="500,330 950.3,70.0 985.5,143.6" fill="#fff" opacity=".28"/><polygon points="500,330 1012.1,239.7 1019.9,320.9" fill="#fff" opacity=".28"/><polygon points="500,330 1012.1,420.3 991.7,499.3" fill="#fff" opacity=".28"/><polygon points="500,330 950.3,590.0 904.1,657.2" fill="#fff" opacity=".28"/><polygon points="500,330 834.2,728.3 767.8,775.7" fill="#fff" opacity=".28"/><polygon points="500,330 677.9,818.6 599.2,840.4" fill="#fff" opacity=".28"/><polygon points="500,330 500.0,850.0 418.7,843.6" fill="#fff" opacity=".28"/><polygon points="500,330 322.1,818.6 247.9,784.8" fill="#fff" opacity=".28"/><polygon points="500,330 165.8,728.3 107.6,671.2" fill="#fff" opacity=".28"/><polygon points="500,330 49.7,590.0 14.5,516.4" fill="#fff" opacity=".28"/><polygon points="500,330 -12.1,420.3 -19.9,339.1" fill="#fff" opacity=".28"/><polygon points="500,330 -12.1,239.7 8.3,160.7" fill="#fff" opacity=".28"/><polygon points="500,330 49.7,70.0 95.9,2.8" fill="#fff" opacity=".28"/><polygon points="500,330 165.8,-68.3 232.2,-115.7" fill="#fff" opacity=".28"/><polygon points="500,330 322.1,-158.6 400.8,-180.4" fill="#fff" opacity=".28"/></g></g><circle cx="500" cy="500" r="345" fill="none" stroke="#fff" stroke-width="6"/><ellipse class="glow" cx="500" cy="300" rx="230" ry="165" fill="url(#glow)" style="transform-origin:500px 300px"/><polygon points="340,447 500,425 500,716 340,688" fill="url(#kL)"/><polygon points="500,425 660,447 660,688 500,716" fill="url(#kR)"/><polygon id="bandL" points="340,484.36 500,470.11 500,512.3 340,519.3" fill="url(#goldL)"/><polygon id="bandR" points="500,470.11 660,484.36 660,519.3 500,512.3" fill="url(#goldR)"/><polygon points="340,519.3 500,512.3 500,515.79 340,522.19" fill="#6f5a25"/><polygon points="500,512.3 660,519.3 660,522.19 500,515.79" fill="#a58a3e"/><polygon points="362,489.83 408,486.17 408,508.46 362,510.9" fill="#7d6528" opacity=".55"/><polygon points="426,484.73 482,480.27 482,504.53 426,507.5" fill="#7d6528" opacity=".55"/><polygon points="518,480.27 574,484.73 574,507.5 518,504.53" fill="#8f7430" opacity=".45"/><polygon points="592,486.17 638,489.83 638,510.9 592,508.46" fill="#8f7430" opacity=".45"/><path d="M372 526.69 c-9 8 -9 24 0 36 c9 -12 9 -28 0 -36z" fill="#b79445"/><path d="M440 524.45 c-9 8 -9 24 0 36 c9 -12 9 -28 0 -36z" fill="#b79445"/><path d="M532 523.53 c-9 8 -9 24 0 36 c9 -12 9 -28 0 -36z" fill="#d9b45c"/><path d="M628 526.69 c-9 8 -9 24 0 36 c9 -12 9 -28 0 -36z" fill="#d9b45c"/><polygon points="392,550.47 470,550.22 470,584.02 392,581.34" fill="#a8873b" opacity=".9"/><path d="M568 542.25 L626 542.98 L626 677.59 L603 681.15 L603 641.04 L591 642.31 L591 683.01 L568 686.57 Z" fill="url(#goldR)"/><path d="M568 542.25 L626 542.98" stroke="#f3dd95" stroke-width="3"/><rect id="shine" class="shine" x="-60" y="400" width="46" height="340" fill="#fff" opacity=".55" transform="skewX(-18)" clip-path="url(#kaabaClip)"/><line x1="500" y1="425" x2="500" y2="716" stroke="#000" stroke-width="2" opacity=".6"/><g transform="translate(500 433)"><g class="quran"><g id="rehal"><path d="M-118,-66 L112,-6" stroke="#6b3718" stroke-width="17" stroke-linecap="round"/><path d="M118,-66 L-112,-6" stroke="#8e4d26" stroke-width="17" stroke-linecap="round"/><path d="M-118,-66 L118,-66" stroke="#7a4120" stroke-width="12" stroke-linecap="round"/></g><g transform="translate(0 -70) scale(.9)"><g class="coverwrap"><g class="cov"><path d="M0,14 C-48,-10 -112,-16 -164,2 L-164,-176 C-112,-196 -48,-190 0,-164 Z" fill="#0f6b5c" stroke="#f1d36a" stroke-width="4"/></g><g transform="scale(-1 1)"><g class="cov"><path d="M0,14 C-48,-10 -112,-16 -164,2 L-164,-176 C-112,-196 -48,-190 0,-164 Z" fill="#0b5a4d" stroke="#f1d36a" stroke-width="4"/></g></g></g><g class="pg"><path d="M0,0 C-45,-22 -105,-28 -150,-14 L-150,-172 C-105,-186 -45,-180 0,-156 Z" fill="#2a86c8"/><path d="M0,0 C-45,-22 -105,-28 -150,-14 L-150,-172 C-105,-186 -45,-180 0,-156 Z" fill="none" stroke="#f0a136" stroke-width="5" stroke-dasharray="1 9" stroke-linecap="round" transform="translate(-75 -86) scale(.94 .93) translate(75 86)"/><path d="M0,0 C-45,-22 -105,-28 -150,-14 L-150,-172 C-105,-186 -45,-180 0,-156 Z" fill="#fff4cf" stroke="#d6453d" stroke-width="2.6" transform="translate(-75 -86) scale(.86 .85) translate(75 86)"/><path d="M-12,-124 C-45,-136 -100,-142 -134,-140" fill="none" stroke="#2d2d2d" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="9 3 5 3 12 3 6 3 10 3"/><path d="M-12,-109.8 C-45,-121.8 -100,-127.8 -134,-125.8" fill="none" stroke="#2d2d2d" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="6 3 11 3 7 3 9 3 6 3 8 3"/><path d="M-12,-95.6 C-45,-107.6 -100,-113.6 -134,-111.6" fill="none" stroke="#2d2d2d" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="12 3 6 3 8 3 5 3 11 3"/><path d="M-12,-81.4 C-45,-93.4 -100,-99.4 -134,-97.4" fill="none" stroke="#2d2d2d" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="7 3 9 3 13 3 6 3 8 3"/><path d="M-12,-67.2 C-45,-79.2 -100,-85.2 -134,-83.2" fill="none" stroke="#2d2d2d" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="9 3 5 3 12 3 6 3 10 3"/><path d="M-12,-53 C-45,-65 -100,-71 -134,-69" fill="none" stroke="#2d2d2d" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="6 3 11 3 7 3 9 3 6 3 8 3"/><path d="M-12,-38.8 C-45,-50.8 -100,-56.8 -134,-54.8" fill="none" stroke="#2d2d2d" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="12 3 6 3 8 3 5 3 11 3"/><path d="M-12,-24.6 C-45,-36.6 -100,-42.6 -134,-40.6" fill="none" stroke="#2d2d2d" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="7 3 9 3 13 3 6 3 8 3"/><circle cx="-24" cy="-92" r="4.5" fill="none" stroke="#1a73c4" stroke-width="2"/><circle cx="-118" cy="-58" r="4.5" fill="none" stroke="#1a73c4" stroke-width="2"/></g><g transform="scale(-1 1)"><g class="pg"><path d="M0,0 C-45,-22 -105,-28 -150,-14 L-150,-172 C-105,-186 -45,-180 0,-156 Z" fill="#2a86c8"/><path d="M0,0 C-45,-22 -105,-28 -150,-14 L-150,-172 C-105,-186 -45,-180 0,-156 Z" fill="none" stroke="#f0a136" stroke-width="5" stroke-dasharray="1 9" stroke-linecap="round" transform="translate(-75 -86) scale(.94 .93) translate(75 86)"/><path d="M0,0 C-45,-22 -105,-28 -150,-14 L-150,-172 C-105,-186 -45,-180 0,-156 Z" fill="#fff4cf" stroke="#d6453d" stroke-width="2.6" transform="translate(-75 -86) scale(.86 .85) translate(75 86)"/><path d="M-12,-124 C-45,-136 -100,-142 -134,-140" fill="none" stroke="#2d2d2d" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="12 3 6 3 8 3 5 3 11 3"/><path d="M-12,-109.8 C-45,-121.8 -100,-127.8 -134,-125.8" fill="none" stroke="#2d2d2d" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="7 3 9 3 13 3 6 3 8 3"/><path d="M-12,-95.6 C-45,-107.6 -100,-113.6 -134,-111.6" fill="none" stroke="#2d2d2d" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="9 3 5 3 12 3 6 3 10 3"/><path d="M-12,-81.4 C-45,-93.4 -100,-99.4 -134,-97.4" fill="none" stroke="#2d2d2d" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="6 3 11 3 7 3 9 3 6 3 8 3"/><path d="M-12,-67.2 C-45,-79.2 -100,-85.2 -134,-83.2" fill="none" stroke="#2d2d2d" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="12 3 6 3 8 3 5 3 11 3"/><path d="M-12,-53 C-45,-65 -100,-71 -134,-69" fill="none" stroke="#2d2d2d" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="7 3 9 3 13 3 6 3 8 3"/><path d="M-12,-38.8 C-45,-50.8 -100,-56.8 -134,-54.8" fill="none" stroke="#2d2d2d" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="9 3 5 3 12 3 6 3 10 3"/><path d="M-12,-24.6 C-45,-36.6 -100,-42.6 -134,-40.6" fill="none" stroke="#2d2d2d" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="6 3 11 3 7 3 9 3 6 3 8 3"/><circle cx="-24" cy="-92" r="4.5" fill="none" stroke="#1a73c4" stroke-width="2"/><circle cx="-118" cy="-58" r="4.5" fill="none" stroke="#1a73c4" stroke-width="2"/></g></g><g class="flip"><path d="M0,0 C-45,-22 -105,-28 -150,-14 L-150,-172 C-105,-186 -45,-180 0,-156 Z" fill="#2a86c8"/><path d="M0,0 C-45,-22 -105,-28 -150,-14 L-150,-172 C-105,-186 -45,-180 0,-156 Z" fill="none" stroke="#f0a136" stroke-width="5" stroke-dasharray="1 9" stroke-linecap="round" transform="translate(-75 -86) scale(.94 .93) translate(75 86)"/><path d="M0,0 C-45,-22 -105,-28 -150,-14 L-150,-172 C-105,-186 -45,-180 0,-156 Z" fill="#fff4cf" stroke="#d6453d" stroke-width="2.6" transform="translate(-75 -86) scale(.86 .85) translate(75 86)"/><path d="M-12,-124 C-45,-136 -100,-142 -134,-140" fill="none" stroke="#2d2d2d" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="6 3 11 3 7 3 9 3 6 3 8 3"/><path d="M-12,-109.8 C-45,-121.8 -100,-127.8 -134,-125.8" fill="none" stroke="#2d2d2d" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="12 3 6 3 8 3 5 3 11 3"/><path d="M-12,-95.6 C-45,-107.6 -100,-113.6 -134,-111.6" fill="none" stroke="#2d2d2d" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="7 3 9 3 13 3 6 3 8 3"/><path d="M-12,-81.4 C-45,-93.4 -100,-99.4 -134,-97.4" fill="none" stroke="#2d2d2d" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="9 3 5 3 12 3 6 3 10 3"/><path d="M-12,-67.2 C-45,-79.2 -100,-85.2 -134,-83.2" fill="none" stroke="#2d2d2d" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="6 3 11 3 7 3 9 3 6 3 8 3"/><path d="M-12,-53 C-45,-65 -100,-71 -134,-69" fill="none" stroke="#2d2d2d" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="12 3 6 3 8 3 5 3 11 3"/><path d="M-12,-38.8 C-45,-50.8 -100,-56.8 -134,-54.8" fill="none" stroke="#2d2d2d" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="7 3 9 3 13 3 6 3 8 3"/><path d="M-12,-24.6 C-45,-36.6 -100,-42.6 -134,-40.6" fill="none" stroke="#2d2d2d" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="9 3 5 3 12 3 6 3 10 3"/><circle cx="-24" cy="-92" r="4.5" fill="none" stroke="#1a73c4" stroke-width="2"/><circle cx="-118" cy="-58" r="4.5" fill="none" stroke="#1a73c4" stroke-width="2"/></g><path d="M0,0 L0,-158" stroke="#0a3f36" stroke-width="3.5" opacity=".55"/></g></g></g><g fill="#111"><path transform="translate(315.7 790) scale(0.05000 -0.05000)" d="M295.0 549.0H219.0V359.0H292.0Q392.0 359.0 392.0 457.0Q392.0 500.0 366.0 524.5Q340.0 549.0 295.0 549.0ZM219.0 0.0H65.0V674.0H298.0Q411.0 674.0 479.5 614.0Q548.0 554.0 548.0 458.0Q548.0 314.0 425.0 259.0L596.0 0.0H412.0L266.0 234.0H219.0Z"/><path transform="translate(346.4 790) scale(0.05000 -0.05000)" d="M458.0 29.0Q406.0 -5.0 299.0 -5.0Q174.0 -5.0 104.5 67.5Q35.0 140.0 35.0 254.0Q35.0 375.0 102.5 443.5Q170.0 512.0 269.0 512.0Q371.0 512.0 430.0 452.5Q489.0 393.0 489.0 275.0Q489.0 252.0 481.0 196.0H183.0Q198.0 154.0 235.0 131.0Q272.0 108.0 324.0 108.0Q401.0 108.0 458.0 151.0ZM275.0 401.0Q240.0 401.0 213.0 375.5Q186.0 350.0 177.0 300.0H353.0V312.0Q346.0 401.0 275.0 401.0Z"/><path transform="translate(373.05 790) scale(0.05000 -0.05000)" d="M530.0 49.0Q530.0 -73.0 457.0 -134.5Q384.0 -196.0 274.0 -196.0Q167.0 -196.0 87.0 -158.0V-9.0Q157.0 -65.0 259.0 -65.0Q325.0 -65.0 355.0 -37.0Q385.0 -9.0 385.0 51.0V85.0Q341.0 17.0 245.0 17.0Q161.0 17.0 100.5 79.0Q40.0 141.0 40.0 263.0Q40.0 371.0 98.5 441.5Q157.0 512.0 252.0 512.0Q342.0 512.0 385.0 440.0V507.0H530.0ZM192.0 262.0Q192.0 199.0 216.0 166.0Q240.0 133.0 285.0 133.0Q332.0 133.0 358.5 168.5Q385.0 204.0 385.0 254.0Q385.0 390.0 286.0 390.0Q242.0 390.0 217.0 356.0Q192.0 322.0 192.0 262.0Z"/><path transform="translate(402.3 790) scale(0.05000 -0.05000)" d="M192.0 144.0Q218.0 118.0 218.0 81.0Q218.0 44.0 192.0 18.0Q166.0 -8.0 129.0 -8.0Q92.0 -8.0 66.0 18.0Q40.0 44.0 40.0 81.0Q40.0 118.0 66.0 144.0Q92.0 170.0 129.0 170.0Q166.0 170.0 192.0 144.0Z"/><path transform="translate(415.2 790) scale(0.05000 -0.05000)" d="M219.0 0.0H65.0V674.0H234.0L391.0 395.0Q424.0 336.0 448.5 284.5Q473.0 233.0 480.0 212.0L488.0 190.0Q478.0 264.0 478.0 395.0V674.0H632.0V0.0H463.0L302.0 279.0Q270.0 333.0 245.5 385.5Q221.0 438.0 212.0 463.0L204.0 488.0Q219.0 398.0 219.0 279.0Z"/><path transform="translate(450.05 790) scale(0.05000 -0.05000)" d="M532.0 256.0Q532.0 141.0 466.5 66.5Q401.0 -8.0 284.0 -8.0Q165.0 -8.0 100.0 63.5Q35.0 135.0 35.0 247.0Q35.0 364.0 103.0 439.5Q171.0 515.0 284.0 515.0Q402.0 515.0 467.0 442.0Q532.0 369.0 532.0 256.0ZM285.0 105.0Q333.0 105.0 356.5 145.5Q380.0 186.0 380.0 251.0Q380.0 400.0 283.0 400.0Q235.0 400.0 211.0 359.0Q187.0 318.0 187.0 253.0Q187.0 188.0 211.5 146.5Q236.0 105.0 285.0 105.0Z"/><path transform="translate(490.9 790) scale(0.05000 -0.05000)" d="M205.5 481.5Q231.0 456.0 231.0 419.0Q231.0 382.0 205.5 356.5Q180.0 331.0 143.0 331.0Q106.0 331.0 80.5 356.5Q55.0 382.0 55.0 419.0Q55.0 456.0 80.5 481.5Q106.0 507.0 143.0 507.0Q180.0 507.0 205.5 481.5ZM205.5 150.5Q231.0 125.0 231.0 88.0Q231.0 51.0 205.5 25.5Q180.0 0.0 143.0 0.0Q106.0 0.0 80.5 25.5Q55.0 51.0 55.0 88.0Q55.0 125.0 80.5 150.5Q106.0 176.0 143.0 176.0Q180.0 176.0 205.5 150.5Z"/><path transform="translate(517.7 790) scale(0.05000 -0.05000)" d="M484.0 196.0Q484.0 105.0 417.0 48.5Q350.0 -8.0 239.0 -8.0Q120.0 -8.0 45.0 34.0V189.0Q136.0 123.0 239.0 123.0Q274.0 123.0 297.0 141.5Q320.0 160.0 320.0 190.0Q320.0 200.0 317.0 209.0Q314.0 218.0 306.0 226.0Q298.0 234.0 290.5 239.5Q283.0 245.0 268.5 252.5Q254.0 260.0 244.0 265.0Q234.0 270.0 214.5 279.0Q195.0 288.0 183.0 293.0Q118.0 323.0 78.5 367.0Q39.0 411.0 39.0 484.0Q39.0 571.0 103.0 624.5Q167.0 678.0 280.0 678.0Q381.0 678.0 454.0 644.0V500.0Q373.0 547.0 286.0 547.0Q247.0 547.0 226.5 531.0Q206.0 515.0 206.0 490.0Q206.0 465.0 231.0 445.5Q256.0 426.0 306.0 404.0Q337.0 390.0 357.5 379.5Q378.0 369.0 404.5 350.5Q431.0 332.0 446.5 311.5Q462.0 291.0 473.0 261.0Q484.0 231.0 484.0 196.0Z"/><path transform="translate(555.9 790) scale(0.05000 -0.05000)" d="M312.0 202.0H45.0V322.0H312.0Z"/><path transform="translate(586.25 790) scale(0.05000 -0.05000)" d="M206.0 0.0H52.0L307.0 531.0H20.0V655.0H460.0V531.0Z"/><path transform="translate(610.25 790) scale(0.05000 -0.05000)" d="M206.0 0.0H52.0L307.0 531.0H20.0V655.0H460.0V531.0Z"/><path transform="translate(634.25 790) scale(0.05000 -0.05000)" d="M470.0 219.0Q470.0 117.0 402.5 55.5Q335.0 -6.0 211.0 -6.0Q102.0 -6.0 35.0 29.0V167.0Q103.0 125.0 187.0 125.0Q321.0 125.0 321.0 221.0Q321.0 257.0 293.5 278.0Q266.0 299.0 211.0 299.0Q134.0 299.0 63.0 266.0V656.0H430.0V532.0H205.0V421.0Q227.0 424.0 249.0 424.0Q356.0 424.0 413.0 369.0Q470.0 314.0 470.0 219.0Z"/><path transform="translate(659.25 790) scale(0.05000 -0.05000)" d="M466.0 0.0H30.0V113.0Q138.0 187.0 220.5 277.0Q303.0 367.0 303.0 436.0Q303.0 478.0 278.0 502.5Q253.0 527.0 202.0 527.0Q117.0 527.0 41.0 464.0V605.0Q74.0 629.0 127.0 646.0Q180.0 663.0 231.0 663.0Q333.0 663.0 393.5 609.5Q454.0 556.0 454.0 460.0Q454.0 287.0 234.0 124.0H466.0Z"/></g><g fill="#fff"><path d="M82.77 349.6 A443.51 443.51 0 0 1 270.62 120.41" fill="none" stroke="#fff" stroke-width="8.29"/><path d="M288.51 110.16 A443.51 443.51 0 0 1 534.23 57.81" fill="none" stroke="#fff" stroke-width="8.29"/><path d="M554.74 59.88 A443.51 443.51 0 0 1 732.2 122.13" fill="none" stroke="#fff" stroke-width="8.29"/><path d="M749.5 133.33 A443.51 443.51 0 0 1 917.23 349.6" fill="none" stroke="#fff" stroke-width="8.29"/><path transform="translate(136.35 338.26) rotate(-66.02) scale(0.07400 -0.07400) translate(-390 0)" d="M741.0 320.0Q741.0 239.0 692.0 194.5Q643.0 150.0 556.0 150.0Q542.0 150.0 535.0 151.0V267.0H545.0Q606.0 267.0 606.0 320.0Q606.0 391.0 475.0 398.0V-102.0H340.0L80.0 5.0V123.0Q137.0 160.0 196.0 190.0L57.0 249.0V383.0Q128.0 440.0 190.0 471.0Q252.0 502.0 340.0 519.0V559.0H-20.0V671.0H800.0V559.0H475.0V519.0Q543.0 517.0 602.5 495.0Q662.0 473.0 701.5 427.0Q741.0 381.0 741.0 320.0ZM340.0 255.0V395.0Q258.0 373.0 190.0 322.0ZM340.0 15.0V128.0Q270.0 104.0 209.0 73.0Z"/><path transform="translate(155.44 300.79) rotate(-59.97) scale(0.07400 -0.07400) translate(-178.5 0)" d="M312.0 202.0H45.0V322.0H312.0Z"/><path transform="translate(179.04 264.66) rotate(-53.75) scale(0.07400 -0.07400) translate(-405 0)" d="M560.0 559.0H475.0V0.0H340.0V1.0L339.0 0.0L37.0 209.0V343.0Q182.0 461.0 340.0 504.0V559.0H-20.0V671.0H560.0ZM146.0 74.0Q168.0 52.0 168.0 20.0Q168.0 -12.0 146.0 -34.0Q124.0 -56.0 92.0 -56.0Q60.0 -56.0 38.0 -34.0Q16.0 -12.0 16.0 20.0Q16.0 52.0 38.0 74.0Q60.0 96.0 92.0 96.0Q124.0 96.0 146.0 74.0ZM340.0 146.0V371.0Q237.0 330.0 163.0 274.0ZM830.0 559.0H745.0V0.0H605.0V559.0H521.0V671.0H605.0V698.0Q605.0 784.0 541.0 835.5Q477.0 887.0 361.0 887.0Q261.0 887.0 261.0 844.0Q261.0 819.0 291.0 810.0Q321.0 801.0 380.0 801.0Q428.0 801.0 475.0 808.0V721.0Q433.0 708.0 348.0 708.0Q131.0 708.0 131.0 844.0Q131.0 911.0 195.0 951.0Q259.0 991.0 361.0 991.0Q530.0 991.0 637.5 903.5Q745.0 816.0 745.0 697.0V671.0H830.0Z"/><path transform="translate(219.24 217.91) rotate(-44.87) scale(0.07400 -0.07400) translate(-429 0)" d="M313.0 431.0V312.0L182.0 221.0L383.0 134.0V559.0H118.0ZM608.0 559.0H523.0V0.0H383.0L35.0 142.0L36.0 143.0V275.0L180.0 372.0L39.0 455.0V559.0H-20.0V671.0H608.0ZM202.5 -7.5Q225.0 -30.0 225.0 -61.0Q225.0 -92.0 202.5 -114.5Q180.0 -137.0 149.0 -137.0Q118.0 -137.0 95.5 -114.5Q73.0 -92.0 73.0 -61.0Q73.0 -30.0 95.5 -7.5Q118.0 15.0 149.0 15.0Q180.0 15.0 202.5 -7.5ZM878.0 559.0H793.0V0.0H653.0V497.0Q653.0 536.0 642.5 547.5Q632.0 559.0 600.0 559.0H568.0V671.0H618.0Q651.0 671.0 668.0 637.0Q658.0 691.0 658.0 733.0V751.0H793.0V671.0H878.0Z"/><path transform="translate(267.64 176.87) rotate(-35.72) scale(0.07400 -0.07400) translate(-429.5 0)" d="M533.0 0.0H393.0Q387.0 42.0 376.0 85.0Q365.0 128.0 346.5 175.0Q328.0 222.0 299.0 251.5Q270.0 281.0 235.0 281.0Q201.0 281.0 184.0 259.0Q167.0 237.0 167.0 201.0Q167.0 173.0 172.0 146.0H36.0Q27.0 183.0 27.0 215.0Q27.0 294.0 76.0 349.0Q125.0 404.0 212.0 404.0Q334.0 404.0 393.0 285.0V559.0H-20.0V671.0H609.0V559.0H533.0ZM879.0 559.0H794.0V0.0H654.0V497.0Q654.0 536.0 643.5 547.5Q633.0 559.0 601.0 559.0H569.0V671.0H619.0Q652.0 671.0 669.0 637.0Q659.0 691.0 659.0 733.0V751.0H794.0V671.0H879.0Z"/><path transform="translate(336.05 137.34) rotate(-24.33) scale(0.07400 -0.07400) translate(-390 0)" d="M746.0 267.0Q746.0 173.0 695.5 120.0Q645.0 67.0 556.0 67.0Q542.0 67.0 535.0 68.0V194.0H545.0Q611.0 194.0 611.0 267.0Q611.0 316.0 575.5 348.0Q540.0 380.0 475.0 384.0V0.0H340.0V1.0L339.0 0.0L37.0 209.0V343.0Q119.0 409.0 188.0 449.5Q257.0 490.0 340.0 506.0V559.0H-20.0V671.0H800.0V559.0H475.0V506.0Q582.0 503.0 664.0 438.5Q746.0 374.0 746.0 267.0ZM340.0 146.0V380.0Q253.0 351.0 161.0 275.0ZM391.0 -172.0Q440.0 -172.0 447.0 -97.0Q415.0 -87.0 393.0 -87.0Q370.0 -87.0 357.0 -98.5Q344.0 -110.0 344.0 -129.0Q344.0 -149.0 357.0 -160.5Q370.0 -172.0 391.0 -172.0ZM656.0 -248.0Q598.0 -187.0 535.0 -143.0Q507.0 -265.0 389.0 -265.0Q320.0 -265.0 275.0 -228.0Q230.0 -191.0 230.0 -130.0Q230.0 -66.0 273.5 -26.5Q317.0 13.0 391.0 13.0Q467.0 13.0 536.5 -26.0Q606.0 -65.0 656.0 -118.0Z"/><path transform="translate(381.68 120) rotate(-17.3) scale(0.07400 -0.07400) translate(-270 0)" d="M560.0 559.0H475.0V0.0H340.0V1.0L339.0 0.0L37.0 209.0V343.0Q182.0 461.0 340.0 504.0V559.0H-20.0V671.0H560.0ZM146.0 74.0Q168.0 52.0 168.0 20.0Q168.0 -12.0 146.0 -34.0Q124.0 -56.0 92.0 -56.0Q60.0 -56.0 38.0 -34.0Q16.0 -12.0 16.0 20.0Q16.0 52.0 38.0 74.0Q60.0 96.0 92.0 96.0Q124.0 96.0 146.0 74.0ZM340.0 146.0V371.0Q237.0 330.0 163.0 274.0Z"/><path transform="translate(443.69 106) rotate(-8.13) scale(0.07400 -0.07400) translate(-590 0)" d="M624.0 318.0Q624.0 275.0 612.0 239.0Q675.0 235.0 705.0 191.0V559.0H-20.0V671.0H940.0Q973.0 671.0 990.0 637.0Q980.0 691.0 980.0 733.0V751.0H1115.0V671.0H1200.0V559.0H1115.0V0.0H975.0V497.0Q975.0 536.0 964.5 547.5Q954.0 559.0 922.0 559.0H845.0V0.0H705.0Q705.0 127.0 583.0 127.0H541.0Q462.0 56.0 344.0 56.0Q208.0 56.0 122.5 136.0Q37.0 216.0 37.0 376.0Q37.0 418.0 43.0 464.0H178.0Q171.0 418.0 171.0 374.0Q171.0 275.0 217.5 225.5Q264.0 176.0 340.0 176.0Q411.0 176.0 447.5 217.5Q484.0 259.0 484.0 321.0Q484.0 359.0 470.0 383.0Q456.0 407.0 428.0 407.0Q404.0 407.0 390.5 389.5Q377.0 372.0 377.0 344.0Q377.0 317.0 388.0 286.0H268.0Q252.0 320.0 252.0 363.0Q252.0 435.0 298.5 477.0Q345.0 519.0 422.0 519.0Q513.0 519.0 568.5 462.0Q624.0 405.0 624.0 318.0Z"/><path transform="translate(508.95 102.1) rotate(1.29) scale(0.07400 -0.07400) translate(-294.5 0)" d="M533.0 0.0H393.0Q387.0 42.0 376.0 85.0Q365.0 128.0 346.5 175.0Q328.0 222.0 299.0 251.5Q270.0 281.0 235.0 281.0Q201.0 281.0 184.0 259.0Q167.0 237.0 167.0 201.0Q167.0 173.0 172.0 146.0H36.0Q27.0 183.0 27.0 215.0Q27.0 294.0 76.0 349.0Q125.0 404.0 212.0 404.0Q334.0 404.0 393.0 285.0V559.0H-20.0V671.0H609.0V559.0H533.0Z"/><path transform="translate(583.66 110.89) rotate(12.13) scale(0.07400 -0.07400) translate(-473.5 0)" d="M290.0 559.0H205.0V0.0H65.0V559.0H-20.0V671.0H65.0V713.0Q65.0 819.0 133.5 871.0Q202.0 923.0 321.0 923.0Q392.0 923.0 468.5 906.5Q545.0 890.0 586.0 872.0V766.0Q542.0 782.0 468.5 796.5Q395.0 811.0 332.0 811.0Q206.0 811.0 206.0 714.0V671.0H290.0ZM882.0 0.0H742.0V445.0Q742.0 561.0 648.0 561.0Q609.0 561.0 587.0 536.0Q565.0 511.0 565.0 470.0Q565.0 426.0 588.5 405.0Q612.0 384.0 650.0 384.0Q673.0 384.0 682.0 385.0V263.0Q661.0 259.0 633.0 259.0Q538.0 259.0 494.0 316.0Q447.0 259.0 361.0 259.0Q330.0 259.0 295.0 266.0V388.0Q319.0 384.0 344.0 384.0Q429.0 384.0 429.0 470.0Q429.0 511.0 404.5 535.0Q380.0 559.0 337.0 559.0H250.0V671.0H358.0Q444.0 671.0 493.0 610.0Q540.0 681.0 628.0 681.0Q704.0 681.0 742.0 635.0V751.0H882.0V671.0H967.0V559.0H882.0Z"/><path transform="translate(664.25 137.47) rotate(24.37) scale(0.07400 -0.07400) translate(-675.5 0)" d="M588.0 408.0Q608.0 408.0 630.0 411.0V559.0H530.0V462.0Q530.0 408.0 588.0 408.0ZM1041.0 248.0Q1041.0 160.0 992.5 108.5Q944.0 57.0 857.0 57.0Q837.0 57.0 830.0 58.0V184.0H840.0Q872.0 184.0 889.0 200.5Q906.0 217.0 906.0 248.0Q906.0 288.0 880.0 304.0Q854.0 320.0 805.0 320.0Q794.0 320.0 770.0 318.0V0.0H630.0Q571.0 41.0 477.0 71.5Q383.0 102.0 307.0 102.0Q262.0 102.0 236.5 82.0Q211.0 62.0 211.0 24.0Q211.0 11.0 212.0 4.0H75.0Q70.0 34.0 70.0 56.0Q70.0 112.0 105.0 153.0Q140.0 194.0 204.0 210.0Q217.0 234.0 217.0 262.0Q217.0 322.0 82.0 322.0H41.0V440.0H72.0Q182.0 440.0 182.0 518.0Q182.0 537.0 173.0 559.0H-20.0V671.0H1102.0V559.0H770.0V433.0Q796.0 435.0 807.0 435.0Q910.0 435.0 975.5 386.0Q1041.0 337.0 1041.0 248.0ZM356.0 259.0Q356.0 235.0 349.0 217.0Q513.0 201.0 630.0 135.0V297.0Q609.0 293.0 586.0 293.0Q496.0 293.0 443.0 336.0Q390.0 379.0 390.0 461.0V559.0H312.0Q321.0 536.0 321.0 510.0Q321.0 407.0 199.0 392.0Q356.0 375.0 356.0 259.0ZM1371.0 559.0H1286.0V0.0H1146.0V497.0Q1146.0 536.0 1135.5 547.5Q1125.0 559.0 1093.0 559.0H1061.0V671.0H1111.0Q1144.0 671.0 1161.0 637.0Q1151.0 691.0 1151.0 733.0V751.0H1286.0V671.0H1371.0Z"/><path transform="translate(758.97 197.78) rotate(40.59) scale(0.07400 -0.07400) translate(-597 0)" d="M294.0 -7.0Q278.0 -10.0 258.0 -10.0Q157.0 -10.0 102.0 66.5Q47.0 143.0 45.0 277.0Q44.0 347.0 50.5 403.5Q57.0 460.0 74.0 511.0Q91.0 562.0 119.0 596.5Q147.0 631.0 192.0 651.0Q237.0 671.0 296.0 671.0H329.0V559.0H300.0Q267.0 559.0 244.0 542.0Q221.0 525.0 209.0 500.5Q197.0 476.0 190.0 435.0Q183.0 394.0 181.5 360.5Q180.0 327.0 180.0 277.0Q180.0 113.0 271.0 113.0Q287.0 113.0 294.0 114.0ZM859.0 0.0H719.0V169.0Q719.0 267.0 658.0 267.0Q638.0 267.0 620.5 250.0Q603.0 233.0 587.5 208.5Q572.0 184.0 552.5 159.0Q533.0 134.0 499.0 117.0Q465.0 100.0 419.0 100.0Q378.0 100.0 341.0 112.0V227.0Q368.0 219.0 399.0 219.0Q418.0 219.0 435.5 229.5Q453.0 240.0 461.5 250.0Q470.0 260.0 487.0 285.5Q504.0 311.0 510.0 319.0Q498.0 386.0 455.5 420.0Q413.0 454.0 347.0 454.0V559.0H289.0V671.0H945.0V559.0H859.0ZM627.0 385.0Q691.0 385.0 719.0 346.0V559.0H476.0Q592.0 509.0 623.0 385.0ZM1214.0 559.0H1129.0V0.0H989.0V497.0Q989.0 536.0 978.5 547.5Q968.0 559.0 936.0 559.0H904.0V671.0H954.0Q987.0 671.0 1004.0 637.0Q994.0 691.0 994.0 733.0V751.0H1129.0V671.0H1214.0Z"/><path transform="translate(812.2 253.15) rotate(51.67) scale(0.07400 -0.07400) translate(-442.5 0)" d="M550.0 0.0H410.0V169.0Q410.0 267.0 349.0 267.0Q329.0 267.0 311.5 250.0Q294.0 233.0 278.5 208.5Q263.0 184.0 243.5 159.0Q224.0 134.0 190.0 117.0Q156.0 100.0 110.0 100.0Q69.0 100.0 32.0 112.0V227.0Q59.0 219.0 90.0 219.0Q109.0 219.0 126.5 229.5Q144.0 240.0 152.5 250.0Q161.0 260.0 178.0 285.5Q195.0 311.0 201.0 319.0Q189.0 386.0 146.5 420.0Q104.0 454.0 38.0 454.0V559.0H-20.0V671.0H636.0V559.0H550.0ZM318.0 385.0Q382.0 385.0 410.0 346.0V559.0H167.0Q283.0 509.0 314.0 385.0ZM905.0 559.0H820.0V0.0H680.0V497.0Q680.0 536.0 669.5 547.5Q659.0 559.0 627.0 559.0H595.0V671.0H645.0Q678.0 671.0 695.0 637.0Q685.0 691.0 685.0 733.0V751.0H820.0V671.0H905.0Z"/><path transform="translate(840.55 294.01) rotate(58.83) scale(0.07400 -0.07400) translate(-230 0)" d="M419.0 -9.0H236.0L53.0 116.0V226.0H153.0Q221.0 226.0 256.0 255.5Q291.0 285.0 291.0 336.0Q291.0 369.0 273.5 388.0Q256.0 407.0 227.0 407.0Q199.0 407.0 182.0 389.5Q165.0 372.0 165.0 345.0Q165.0 319.0 170.0 301.0H43.0Q34.0 330.0 34.0 362.0Q34.0 432.0 85.5 475.5Q137.0 519.0 222.0 519.0Q314.0 519.0 370.0 466.0Q426.0 413.0 426.0 336.0Q426.0 252.0 371.5 201.5Q317.0 151.0 227.0 137.0L419.0 6.0ZM480.0 559.0H-20.0V671.0H289.0Q289.0 676.0 289.5 686.0Q290.0 696.0 290.0 698.0Q290.0 729.0 279.5 744.0Q269.0 759.0 238.0 759.0Q221.0 759.0 176.0 749.5Q131.0 740.0 104.0 740.0Q54.0 740.0 17.0 762.0V869.0Q48.0 852.0 91.0 852.0Q117.0 852.0 167.5 864.0Q218.0 876.0 254.0 876.0Q333.0 876.0 375.0 834.5Q417.0 793.0 417.0 718.0Q417.0 694.0 413.0 671.0H480.0Z"/><path transform="translate(862.82 336.4) rotate(65.73) scale(0.07400 -0.07400) translate(-417.5 0)" d="M206.0 794.0V671.0H647.0Q648.0 678.0 648.0 688.0Q648.0 728.0 592.0 728.0Q561.0 728.0 508.5 724.0Q456.0 720.0 426.0 720.0Q341.0 721.0 297.0 763.5Q253.0 806.0 243.0 874.0Q206.0 850.0 206.0 794.0ZM802.0 262.0Q802.0 156.0 727.5 73.0Q653.0 -10.0 532.0 -10.0Q451.0 -10.0 393.0 37.0Q335.0 84.0 335.0 163.0V559.0H205.0V0.0H65.0V559.0H-20.0V671.0H65.0V793.0Q65.0 899.0 133.5 951.0Q202.0 1003.0 321.0 1003.0Q454.0 1003.0 614.0 962.0V860.0Q494.0 892.0 352.0 895.0Q360.0 860.0 381.0 842.5Q402.0 825.0 444.0 825.0Q465.0 825.0 525.0 829.0Q585.0 833.0 620.0 833.0Q696.0 833.0 734.0 795.0Q772.0 757.0 772.0 701.0Q772.0 691.0 770.0 671.0H855.0V559.0H475.0V163.0Q475.0 138.0 491.0 124.0Q507.0 110.0 532.0 110.0Q591.0 110.0 626.5 157.5Q662.0 205.0 662.0 262.0Q662.0 343.0 577.0 343.0Q555.0 343.0 535.0 339.0V461.0Q566.0 468.0 598.0 468.0Q695.0 468.0 748.5 412.0Q802.0 356.0 802.0 262.0Z"/></g><g fill="#fff"><path d="M118.67 641.65 A406.79 406.79 0 0 0 218.15 793.32" fill="none" stroke="#fff" stroke-width="6.05"/><path d="M227.28 801.83 A406.79 406.79 0 0 0 358.35 881.33" fill="none" stroke="#fff" stroke-width="6.05"/><path transform="translate(95.34 672.77) rotate(66.88) scale(0.05400 -0.05400) translate(-390 0)" d="M741.0 320.0Q741.0 239.0 692.0 194.5Q643.0 150.0 556.0 150.0Q542.0 150.0 535.0 151.0V267.0H545.0Q606.0 267.0 606.0 320.0Q606.0 391.0 475.0 398.0V-102.0H340.0L80.0 5.0V123.0Q137.0 160.0 196.0 190.0L57.0 249.0V383.0Q128.0 440.0 190.0 471.0Q252.0 502.0 340.0 519.0V559.0H-20.0V671.0H800.0V559.0H475.0V519.0Q543.0 517.0 602.5 495.0Q662.0 473.0 701.5 427.0Q741.0 381.0 741.0 320.0ZM340.0 255.0V395.0Q258.0 373.0 190.0 322.0ZM340.0 15.0V128.0Q270.0 104.0 209.0 73.0Z"/><path transform="translate(108.37 700.56) rotate(62.88) scale(0.05400 -0.05400) translate(-178.5 0)" d="M312.0 202.0H45.0V322.0H312.0Z"/><path transform="translate(123.72 728.07) rotate(58.78) scale(0.05400 -0.05400) translate(-405 0)" d="M560.0 559.0H475.0V0.0H340.0V1.0L339.0 0.0L37.0 209.0V343.0Q182.0 461.0 340.0 504.0V559.0H-20.0V671.0H560.0ZM146.0 74.0Q168.0 52.0 168.0 20.0Q168.0 -12.0 146.0 -34.0Q124.0 -56.0 92.0 -56.0Q60.0 -56.0 38.0 -34.0Q16.0 -12.0 16.0 20.0Q16.0 52.0 38.0 74.0Q60.0 96.0 92.0 96.0Q124.0 96.0 146.0 74.0ZM340.0 146.0V371.0Q237.0 330.0 163.0 274.0ZM830.0 559.0H745.0V0.0H605.0V559.0H521.0V671.0H605.0V698.0Q605.0 784.0 541.0 835.5Q477.0 887.0 361.0 887.0Q261.0 887.0 261.0 844.0Q261.0 819.0 291.0 810.0Q321.0 801.0 380.0 801.0Q428.0 801.0 475.0 808.0V721.0Q433.0 708.0 348.0 708.0Q131.0 708.0 131.0 844.0Q131.0 911.0 195.0 951.0Q259.0 991.0 361.0 991.0Q530.0 991.0 637.5 903.5Q745.0 816.0 745.0 697.0V671.0H830.0Z"/><path transform="translate(149 765.32) rotate(52.91) scale(0.05400 -0.05400) translate(-429 0)" d="M313.0 431.0V312.0L182.0 221.0L383.0 134.0V559.0H118.0ZM608.0 559.0H523.0V0.0H383.0L35.0 142.0L36.0 143.0V275.0L180.0 372.0L39.0 455.0V559.0H-20.0V671.0H608.0ZM202.5 -7.5Q225.0 -30.0 225.0 -61.0Q225.0 -92.0 202.5 -114.5Q180.0 -137.0 149.0 -137.0Q118.0 -137.0 95.5 -114.5Q73.0 -92.0 73.0 -61.0Q73.0 -30.0 95.5 -7.5Q118.0 15.0 149.0 15.0Q180.0 15.0 202.5 -7.5ZM878.0 559.0H793.0V0.0H653.0V497.0Q653.0 536.0 642.5 547.5Q632.0 559.0 600.0 559.0H568.0V671.0H618.0Q651.0 671.0 668.0 637.0Q658.0 691.0 658.0 733.0V751.0H793.0V671.0H878.0Z"/><path transform="translate(178.85 800.77) rotate(46.88) scale(0.05400 -0.05400) translate(-429.5 0)" d="M533.0 0.0H393.0Q387.0 42.0 376.0 85.0Q365.0 128.0 346.5 175.0Q328.0 222.0 299.0 251.5Q270.0 281.0 235.0 281.0Q201.0 281.0 184.0 259.0Q167.0 237.0 167.0 201.0Q167.0 173.0 172.0 146.0H36.0Q27.0 183.0 27.0 215.0Q27.0 294.0 76.0 349.0Q125.0 404.0 212.0 404.0Q334.0 404.0 393.0 285.0V559.0H-20.0V671.0H609.0V559.0H533.0ZM879.0 559.0H794.0V0.0H654.0V497.0Q654.0 536.0 643.5 547.5Q633.0 559.0 601.0 559.0H569.0V671.0H619.0Q652.0 671.0 669.0 637.0Q659.0 691.0 659.0 733.0V751.0H794.0V671.0H879.0Z"/><path transform="translate(220.97 840.21) rotate(39.36) scale(0.05400 -0.05400) translate(-390 0)" d="M746.0 267.0Q746.0 173.0 695.5 120.0Q645.0 67.0 556.0 67.0Q542.0 67.0 535.0 68.0V194.0H545.0Q611.0 194.0 611.0 267.0Q611.0 316.0 575.5 348.0Q540.0 380.0 475.0 384.0V0.0H340.0V1.0L339.0 0.0L37.0 209.0V343.0Q119.0 409.0 188.0 449.5Q257.0 490.0 340.0 506.0V559.0H-20.0V671.0H800.0V559.0H475.0V506.0Q582.0 503.0 664.0 438.5Q746.0 374.0 746.0 267.0ZM340.0 146.0V380.0Q253.0 351.0 161.0 275.0ZM391.0 -172.0Q440.0 -172.0 447.0 -97.0Q415.0 -87.0 393.0 -87.0Q370.0 -87.0 357.0 -98.5Q344.0 -110.0 344.0 -129.0Q344.0 -149.0 357.0 -160.5Q370.0 -172.0 391.0 -172.0ZM656.0 -248.0Q598.0 -187.0 535.0 -143.0Q507.0 -265.0 389.0 -265.0Q320.0 -265.0 275.0 -228.0Q230.0 -191.0 230.0 -130.0Q230.0 -66.0 273.5 -26.5Q317.0 13.0 391.0 13.0Q467.0 13.0 536.5 -26.0Q606.0 -65.0 656.0 -118.0Z"/><path transform="translate(249.42 861.67) rotate(34.72) scale(0.05400 -0.05400) translate(-270 0)" d="M560.0 559.0H475.0V0.0H340.0V1.0L339.0 0.0L37.0 209.0V343.0Q182.0 461.0 340.0 504.0V559.0H-20.0V671.0H560.0ZM146.0 74.0Q168.0 52.0 168.0 20.0Q168.0 -12.0 146.0 -34.0Q124.0 -56.0 92.0 -56.0Q60.0 -56.0 38.0 -34.0Q16.0 -12.0 16.0 20.0Q16.0 52.0 38.0 74.0Q60.0 96.0 92.0 96.0Q124.0 96.0 146.0 74.0ZM340.0 146.0V371.0Q237.0 330.0 163.0 274.0Z"/><path transform="translate(288.91 886.06) rotate(28.67) scale(0.05400 -0.05400) translate(-590 0)" d="M624.0 318.0Q624.0 275.0 612.0 239.0Q675.0 235.0 705.0 191.0V559.0H-20.0V671.0H940.0Q973.0 671.0 990.0 637.0Q980.0 691.0 980.0 733.0V751.0H1115.0V671.0H1200.0V559.0H1115.0V0.0H975.0V497.0Q975.0 536.0 964.5 547.5Q954.0 559.0 922.0 559.0H845.0V0.0H705.0Q705.0 127.0 583.0 127.0H541.0Q462.0 56.0 344.0 56.0Q208.0 56.0 122.5 136.0Q37.0 216.0 37.0 376.0Q37.0 418.0 43.0 464.0H178.0Q171.0 418.0 171.0 374.0Q171.0 275.0 217.5 225.5Q264.0 176.0 340.0 176.0Q411.0 176.0 447.5 217.5Q484.0 259.0 484.0 321.0Q484.0 359.0 470.0 383.0Q456.0 407.0 428.0 407.0Q404.0 407.0 390.5 389.5Q377.0 372.0 377.0 344.0Q377.0 317.0 388.0 286.0H268.0Q252.0 320.0 252.0 363.0Q252.0 435.0 298.5 477.0Q345.0 519.0 422.0 519.0Q513.0 519.0 568.5 462.0Q624.0 405.0 624.0 318.0Z"/><path transform="translate(331.98 906.66) rotate(22.45) scale(0.05400 -0.05400) translate(-294.5 0)" d="M533.0 0.0H393.0Q387.0 42.0 376.0 85.0Q365.0 128.0 346.5 175.0Q328.0 222.0 299.0 251.5Q270.0 281.0 235.0 281.0Q201.0 281.0 184.0 259.0Q167.0 237.0 167.0 201.0Q167.0 173.0 172.0 146.0H36.0Q27.0 183.0 27.0 215.0Q27.0 294.0 76.0 349.0Q125.0 404.0 212.0 404.0Q334.0 404.0 393.0 285.0V559.0H-20.0V671.0H609.0V559.0H533.0Z"/></g><g fill="#fff"><path transform="translate(659.58 905.75) rotate(-21.47) scale(0.04600 -0.04600) translate(-331 0)" d="M645.0 0.0H452.0L226.0 335.0L444.0 674.0H627.0L406.0 337.0ZM219.0 0.0H65.0V674.0H219.0Z"/><path transform="translate(689.75 892.55) rotate(-25.8) scale(0.04600 -0.04600) translate(-345 0)" d="M269.0 286.0 262.0 262.0H424.0L417.0 286.0Q388.0 384.0 369.5 453.0Q351.0 522.0 347.0 542.0L343.0 562.0Q335.0 507.0 269.0 286.0ZM184.0 0.0H23.0L248.0 674.0H442.0L667.0 0.0H502.0L461.0 138.0H225.0Z"/><path transform="translate(717.88 877.66) rotate(-29.98) scale(0.04600 -0.04600) translate(-307 0)" d="M295.0 549.0H219.0V359.0H292.0Q392.0 359.0 392.0 457.0Q392.0 500.0 366.0 524.5Q340.0 549.0 295.0 549.0ZM219.0 0.0H65.0V674.0H298.0Q411.0 674.0 479.5 614.0Q548.0 554.0 548.0 458.0Q548.0 314.0 425.0 259.0L596.0 0.0H412.0L266.0 234.0H219.0Z"/><path transform="translate(737.45 865.67) rotate(-33) scale(0.04600 -0.04600) translate(-152 0)" d="M229.0 0.0H75.0V674.0H229.0Z"/><path transform="translate(757.77 851.64) rotate(-36.24) scale(0.04600 -0.04600) translate(-345 0)" d="M269.0 286.0 262.0 262.0H424.0L417.0 286.0Q388.0 384.0 369.5 453.0Q351.0 522.0 347.0 542.0L343.0 562.0Q335.0 507.0 269.0 286.0ZM184.0 0.0H23.0L248.0 674.0H442.0L667.0 0.0H502.0L461.0 138.0H225.0Z"/><path transform="translate(784.19 830.66) rotate(-40.68) scale(0.04600 -0.04600) translate(-348.5 0)" d="M219.0 0.0H65.0V674.0H234.0L391.0 395.0Q424.0 336.0 448.5 284.5Q473.0 233.0 480.0 212.0L488.0 190.0Q478.0 264.0 478.0 395.0V674.0H632.0V0.0H463.0L302.0 279.0Q270.0 333.0 245.5 385.5Q221.0 438.0 212.0 463.0L204.0 488.0Q219.0 398.0 219.0 279.0Z"/><path transform="translate(808.9 807.7) rotate(-45.11) scale(0.04600 -0.04600) translate(-345 0)" d="M269.0 286.0 262.0 262.0H424.0L417.0 286.0Q388.0 384.0 369.5 453.0Q351.0 522.0 347.0 542.0L343.0 562.0Q335.0 507.0 269.0 286.0ZM184.0 0.0H23.0L248.0 674.0H442.0L667.0 0.0H502.0L461.0 138.0H225.0Z"/><path transform="translate(839.74 773.26) rotate(-51.19) scale(0.04600 -0.04600) translate(-370.5 0)" d="M696.0 339.0Q696.0 233.0 653.0 153.0Q610.0 73.0 532.0 31.0L738.0 -84.0L563.0 -151.0L364.0 -7.0Q216.0 -6.0 128.0 89.0Q40.0 184.0 40.0 339.0Q40.0 494.0 129.5 589.5Q219.0 685.0 368.0 685.0Q518.0 685.0 607.0 590.0Q696.0 495.0 696.0 339.0ZM249.0 489.5Q205.0 434.0 205.0 339.0Q205.0 244.0 249.0 188.5Q293.0 133.0 368.0 133.0Q443.0 133.0 487.0 188.5Q531.0 244.0 531.0 339.0Q531.0 434.0 487.0 489.5Q443.0 545.0 368.0 545.0Q293.0 545.0 249.0 489.5Z"/><path transform="translate(860.14 745.76) rotate(-55.69) scale(0.04600 -0.04600) translate(-334 0)" d="M608.0 261.0Q608.0 129.0 534.0 59.5Q460.0 -10.0 334.0 -10.0Q210.0 -10.0 135.0 59.0Q60.0 128.0 60.0 254.0V674.0H214.0V255.0Q214.0 130.0 334.0 130.0Q454.0 130.0 454.0 260.0V674.0H608.0Z"/><path transform="translate(876.85 719.27) rotate(-59.81) scale(0.04600 -0.04600) translate(-307 0)" d="M295.0 549.0H219.0V359.0H292.0Q392.0 359.0 392.0 457.0Q392.0 500.0 366.0 524.5Q340.0 549.0 295.0 549.0ZM219.0 0.0H65.0V674.0H298.0Q411.0 674.0 479.5 614.0Q548.0 554.0 548.0 458.0Q548.0 314.0 425.0 259.0L596.0 0.0H412.0L266.0 234.0H219.0Z"/><path transform="translate(891.84 691.2) rotate(-63.99) scale(0.04600 -0.04600) translate(-345 0)" d="M269.0 286.0 262.0 262.0H424.0L417.0 286.0Q388.0 384.0 369.5 453.0Q351.0 522.0 347.0 542.0L343.0 562.0Q335.0 507.0 269.0 286.0ZM184.0 0.0H23.0L248.0 674.0H442.0L667.0 0.0H502.0L461.0 138.0H225.0Z"/><path transform="translate(905.45 660.33) rotate(-68.42) scale(0.04600 -0.04600) translate(-348.5 0)" d="M219.0 0.0H65.0V674.0H234.0L391.0 395.0Q424.0 336.0 448.5 284.5Q473.0 233.0 480.0 212.0L488.0 190.0Q478.0 264.0 478.0 395.0V674.0H632.0V0.0H463.0L302.0 279.0Q270.0 333.0 245.5 385.5Q221.0 438.0 212.0 463.0L204.0 488.0Q219.0 398.0 219.0 279.0Z"/></g><g transform="translate(80 500)"><g class="badge "><circle r="66" fill="#fff" stroke="#0e6f62" stroke-width="3"/><path d="M20,-36 L20,2 Q20,22 -2,22 L-22,22 Q-36,22 -36,8" fill="none" stroke="#111" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/></g></g><g transform="translate(920 500)"><g class="badge b2"><circle r="66" fill="#fff" stroke="#0e6f62" stroke-width="3"/><path d="M-7,-40 Q8,-44 12,-30 L7,40 Q0,44 -4,38 L-1,-12 Q-3,-24 -7,-28 Z" fill="#111"/></g></g><g transform="translate(500 920)"><g class="badge b3"><circle r="66" fill="#fff" stroke="#0e6f62" stroke-width="3"/><path d="M26,-14 L26,-34 L-18,-34 L-18,36" fill="none" stroke="#111" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/></g></g><circle class="spin" cx="500" cy="500" r="352" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-dasharray="300 1912"/><circle class="spin2" cx="500" cy="500" r="352" fill="none" stroke="#f6d86b" stroke-width="7" stroke-linecap="round" stroke-dasharray="120 2092" opacity=".9"/></svg>
+  <div class="kq-bar"></div>
+  <div class="kq-text"><span>লোড হচ্ছে</span><span class="kq-dots"><i></i><i></i><i></i></span></div>
+</div>
+
+  <div id="mushafScrollWrap" class="kq-mushaf-scroll-wrap is-fit-page" oncontextmenu="return false;">
+    <div id="mushafCard" class="kq-mushaf-card"></div>
+  </div>
+
+  <div id="kqWordPopover" class="kq-word-popover" style="display:none;"></div>
+
+  <script>
+
+      function hideKqLoader() {
+        try {
+          var l = document.getElementById('kq-loader');
+          if (l) {
+            l.classList.add('kq-hide');
+            setTimeout(function() { if (l.classList.contains('kq-hide')) l.style.display = 'none'; }, 450);
+          }
+        } catch(e) {}
+      }
+      function showKqLoader() {
+        // Native Compose shimmer is displayed; HTML loader suppressed
+        try {
+          var l = document.getElementById('kq-loader');
+          if (l) l.style.display = 'none';
+        } catch(e) {}
+      }
+    
+
+    (function () {
+      'use strict';
+
+      // ৯টি রো-এর অপরিবর্তনীয় নিখুঁত জ্যামিতিক উচ্চতা ও অবস্থান
+      const ROW_GEOMETRY = [
+        { ly: 118.95, lh: 63.32, sy: 118.95, sh: 15.93, ay: 135.13, ah: 45.70 },
+        { ly: 182.52, lh: 63.32, sy: 181.09, sh: 15.93, ay: 197.27, ah: 45.70 },
+        { ly: 246.09, lh: 63.32, sy: 243.22, sh: 15.93, ay: 259.40, ah: 45.70 },
+        { ly: 309.67, lh: 63.32, sy: 305.36, sh: 15.93, ay: 321.54, ah: 45.70 },
+        { ly: 373.24, lh: 63.32, sy: 367.49, sh: 15.93, ay: 383.67, ah: 45.70 },
+        { ly: 436.81, lh: 63.32, sy: 429.62, sh: 15.93, ay: 445.81, ah: 45.70 },
+        { ly: 500.38, lh: 63.32, sy: 491.76, sh: 15.93, ay: 507.94, ah: 45.70 },
+        { ly: 553.89, lh: 61.88, sy: 553.89, sh: 15.93, ay: 570.07, ah: 45.70 },
+        { ly: 616.03, lh: 61.88, sy: 616.03, sh: 15.93, ay: 632.21, ah: 45.70 }
+      ];
+
+      const THEME_ORTHO_DEFAULTS = {
+        dark:     { bg: '#0B1324', arabic: '#FEF3C7', meaning: '#E2E8F0' },
+        light:    { bg: '#FFFFFF', arabic: '#000000', meaning: '#111827' },
+        sepia:    { bg: '#FAF3E0', arabic: '#261408', meaning: '#2D1E12' },
+        emerald:  { bg: '#03221B', arabic: '#FEF3C7', meaning: '#ECFDF5' },
+        midnight: { bg: '#111633', arabic: '#FDE68A', meaning: '#E0E7FF' },
+        cream:    { bg: '#FFFDF5', arabic: '#064E3B', meaning: '#1C1917' }
+      };
+
+      const BN_DIGITS = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+      function toBanglaNum(num) {
+        return String(num).replace(/[0-9]/g, d => BN_DIGITS[parseInt(d, 10)] || d);
+      }
+
+      // তাৎক্ষণিকভাবে অ্যান্ড্রয়েড ব্রিজ থেকে কনফিগ সংগ্রহ যাতে অন্য সংস্করণের এসভিজি ফ্ল্যাশ না করে
+      let initConfig = null;
+      if (window.AndroidBridge && typeof window.AndroidBridge.getInitConfig === 'function') {
+        try {
+          const cfgStr = window.AndroidBridge.getInitConfig();
+          if (cfgStr) initConfig = JSON.parse(cfgStr);
+        } catch (e) {}
+      }
+
+      let isClassicMode = initConfig && typeof initConfig.isClassic === 'boolean' ? initConfig.isClassic : false;
+      let cropMargins = initConfig && typeof initConfig.cropMargins === 'boolean' ? initConfig.cropMargins : true;
+      let showMeaning = initConfig && typeof initConfig.showMeaning === 'boolean' ? initConfig.showMeaning : true;
+      let currentClassicPage = initConfig && initConfig.pageNum ? Math.max(1, initConfig.pageNum) : 1;
+      let currentTheme = initConfig && initConfig.themeId ? initConfig.themeId : 'dark';
+      document.documentElement.dataset.theme = currentTheme;
+      document.body.dataset.theme = currentTheme;
+      document.body.classList.remove('kq-theme-dark', 'kq-theme-light', 'kq-theme-sepia', 'kq-theme-emerald', 'kq-theme-midnight', 'kq-theme-cream');
+      document.body.classList.add(`kq-theme-${currentTheme}`);
+      (function applyBootThemeVars() {
+        const bootDef = THEME_ORTHO_DEFAULTS[currentTheme] || THEME_ORTHO_DEFAULTS.light;
+        const cAr = initConfig && (initConfig.customAr || initConfig.customArabic) ? (initConfig.customAr || initConfig.customArabic) : bootDef.arabic;
+        const cBn = initConfig && (initConfig.customBn || initConfig.customBangla) ? (initConfig.customBn || initConfig.customBangla) : bootDef.meaning;
+        const cBg = initConfig && initConfig.customBg ? initConfig.customBg : bootDef.bg;
+        document.documentElement.style.setProperty('--ortho-arabic-color', cAr);
+        document.documentElement.style.setProperty('--ortho-trans-color', cBn);
+        document.documentElement.style.setProperty('--bg-body', cBg);
+        document.documentElement.style.setProperty('--classic-card-bg', cBg);
+      })();
+
+      function applyMushafSvgFit(svgEl) {
+        if (!svgEl) return;
+        if (isClassicMode) {
+          svgEl.setAttribute('viewBox', cropMargins ? '88 108 406 620' : '0 0 595.276 841.89');
+          svgEl.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+          return;
+        }
+        if (cropMargins !== false) {
+          svgEl.setAttribute('viewBox', '18 10 506 700');
+        } else {
+          svgEl.setAttribute('viewBox', '0 0 542.25 720.15');
+        }
+        svgEl.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+      }
+      window.addEventListener('resize', () => {
+        const c = document.getElementById('mushafCard');
+        if (c) applyMushafSvgFit(c.querySelector('svg'));
+      });
+
+      if (isClassicMode) {
+        document.body.classList.add('classic-mode');
+      } else {
+        document.body.classList.remove('classic-mode');
+      }
+
+      let svgTemplateBase = null;
+      let svgTemplateBaseWithMeaning = null;
+      let svgTemplateBaseWithoutMeaning = null;
+      let currentPageData = null;
+      let wordMarks = {};
+      let activeBookmark = null;
+      let pageZoom = 100;
+      let selectedWordEl = null;
+
+      // টাচ / সোয়াইপ হ্যান্ডলিং
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let touchLastX = 0;
+      let touchLastY = 0;
+      let touchMoved = false;
+      let lastTapTime = 0;
+      let isDragging = false;
+      let tapDebounceTimer = null;
+
+      function createMushafTemplateNoMeaning(base) {
+        let tmpl = base;
+        // ১. বাংলা অর্থের ব্যাকগ্রাউন্ড রেক্ট্যাঙ্গেল বাদ দেওয়া
+        tmpl = tmpl.replace(/<rect[^>]+class="cls-(?:7|11)"[^>]*\/>/g, '');
+        // ২. বাংলা অর্থের চারপাশের বর্ডার পাথগুলো বাদ দেওয়া
+        tmpl = tmpl.replace(/<path[^>]+class="cls-8"[^>]+d="M198\.[0-9]+[^"]*"[^>]*\/>/g, '');
+        // ৩. আরবি তাজবীদ স্ট্রিপ ও মূল আরবি রো পুরো প্রস্থে প্রসারিত করা
+        tmpl = tmpl.replace(/<rect class="(cls-[13])" x="198\.(?:62|59)" (y="[^"]+") width="290\.35" (height="[^"]+")\/>/g,
+          '<rect class="$1" x="56.15" $2 width="432.82" $3/>');
+        // ৪. আরবির গ্রিড লাইন পুরো পেজের প্রস্থে (432.82pt) প্রসারিত করা
+        tmpl = tmpl.replace(/M488\.[0-9]+,([0-9\.]+)v([0-9\.]+)H198\.[0-9]+v-([0-9\.]+)h290\.1Z/g,
+          'M488.85,$1v$2H56.15v-$2h432.7Z');
+        tmpl = tmpl.replace(/M489\.[0-9]+,([0-9\.]+)H198\.[0-9]+v([0-9\.]+)h290\.6v-([0-9\.]+)h0Z/g,
+          'M489.1,$1H55.9v$2h433.2v-$2h0Z');
+        return tmpl;
+      }
+
+      let svgTemplatePromise = null;
+      function loadSvgTemplate() {
+        if (svgTemplateBaseWithMeaning && svgTemplateBaseWithoutMeaning) {
+          return Promise.resolve(showMeaning ? svgTemplateBaseWithMeaning : svgTemplateBaseWithoutMeaning);
+        }
+        if (svgTemplatePromise) {
+          return svgTemplatePromise;
+        }
+        svgTemplatePromise = (async () => {
+          try {
+            let text = '';
+            if (window.AndroidBridge && typeof window.AndroidBridge.getSvgTemplate === 'function') {
+              try {
+                text = window.AndroidBridge.getSvgTemplate();
+              } catch (bridgeErr) {
+                console.warn('Bridge getSvgTemplate error', bridgeErr);
+              }
+            }
+            if (!text) {
+              const res = await fetch('quran_ortho_template.svg');
+              text = await res.text();
+            }
+            if (text) {
+              const endSvgIdx = text.lastIndexOf('</svg>');
+              const rawBase = endSvgIdx !== -1 ? text.substring(0, endSvgIdx) : text;
+              svgTemplateBaseWithMeaning = rawBase;
+              svgTemplateBaseWithoutMeaning = createMushafTemplateNoMeaning(rawBase);
+              svgTemplateBase = rawBase;
+            }
+          } catch (e) {
+            console.error('Failed to fetch SVG template', e);
+          } finally {
+            svgTemplatePromise = null;
+          }
+          return showMeaning ? (svgTemplateBaseWithMeaning || svgTemplateBase) : (svgTemplateBaseWithoutMeaning || svgTemplateBase);
+        })();
+        return svgTemplatePromise;
+      }
+
+      // শুধুমাত্র মুসহাফ ভিউ মোড হলে ব্যাকগ্রাউন্ডে প্রি-লোড
+      if (!isClassicMode) {
+        loadSvgTemplate();
+      }
+
+      function buildMarginBookmarkDotsSvg(pageNum) {
+        if (!activeBookmark || !activeBookmark.wordId) return '';
+        const m = String(activeBookmark.wordId).match(/^p(\d+)_r(\d+)_/);
+        if (!m) return '';
+        const bmPage = parseInt(m[1], 10);
+        const bmRow = parseInt(m[2], 10);
+        if (bmPage !== pageNum) return '';
+
+        const g = ROW_GEOMETRY[bmRow] || ROW_GEOMETRY[0];
+        const cy = (g.ay + (g.ah / 2)).toFixed(2);
+        return `
+          <g class="kq-margin-bookmark-dot">
+            <circle cx="502.5" cy="${cy}" r="8.2" fill="rgba(239, 68, 68, 0.22)" />
+            <circle cx="502.5" cy="${cy}" r="5.2" fill="#EF4444" stroke="#B91C1C" stroke-width="0.9" />
+            <circle cx="502.5" cy="${cy}" r="1.7" fill="#FFFFFF" />
+          </g>
+        `;
+      }
+
+      function renderMushafSvg(pageData) {
+        if (!pageData) return;
+        currentPageData = pageData;
+        if (!pageData.rows) pageData.rows = [];
+        const card = document.getElementById('mushafCard');
+        if (!card) return;
+
+        if (!svgTemplateBaseWithMeaning || !svgTemplateBaseWithoutMeaning) {
+          loadSvgTemplate().then(() => {
+            const dataToRender = currentPageData || pageData;
+            if (dataToRender) {
+              renderMushafSvg(dataToRender);
+            }
+          });
+          return;
+        }
+
+        const activeTemplate = showMeaning ? svgTemplateBaseWithMeaning : svgTemplateBaseWithoutMeaning;
+
+        // ১. হেডার প্লেট: সূরার নাম, পারা ও পৃষ্ঠা নং (উপরের অলঙ্কৃত ফ্রেমের ঠিক মাঝখানে)
+        const headerX = "170";
+        const headerW = "204";
+        const headerTitle = pageData.header_center_title || pageData.surah_name_bn || pageData.surah_name_ar || '';
+        let foContent = `
+          <foreignObject x="${headerX}" y="83" width="${headerW}" height="22.5">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="kq-ortho-header-plate">
+              <div class="kq-ortho-header-title">${headerTitle}</div>
+              <div class="kq-ortho-header-sub">পারা ${toBanglaNum(pageData.juz)} • পৃষ্ঠা ${toBanglaNum(pageData.page)}</div>
+            </div>
+          </foreignObject>
+        `;
+
+        // ২. ৯টি রো
+        const rows = pageData.rows || [];
+        rows.forEach((r, idx) => {
+          const g = ROW_GEOMETRY[idx] || ROW_GEOMETRY[0];
+
+          // শব্দসমূহ <span class="kq-word">
+          let wordsHtml = '';
+          if (r.words && Array.isArray(r.words)) {
+            r.words.forEach((w, wIdx) => {
+              const wordId = `p${pageData.page}_r${idx}_w${wIdx}`;
+              const markColor = wordMarks[wordId] || '';
+              const markClass = markColor ? `marked-${markColor}` : '';
+              const isBm = (activeBookmark && activeBookmark.wordId === wordId) ? 'bookmarked' : '';
+              wordsHtml += `<span class="kq-word ${markClass} ${isBm}" data-word-id="${wordId}" data-word-text="${w}" data-ayah-ref="${r.ayah_ref || ''}" data-surah="${r.surah_name || ''}" data-meaning="${encodeURIComponent(r.meaning || '')}" data-translit="${encodeURIComponent(r.translit || '')}">${w}</span> `;
+            });
+          } else {
+            wordsHtml = r.arabic || '';
+          }
+
+          if (showMeaning) {
+            // ১. বাম পাশের অর্থ বক্স
+            const mText = r.meaning || '';
+            let meaningInlineStyle = '';
+            if (mText.length > 78) {
+              meaningInlineStyle = 'font-size: 8.2px; line-height: 1.18;';
+            } else if (mText.length > 58) {
+              meaningInlineStyle = 'font-size: 8.6px; line-height: 1.25;';
+            }
+
+            foContent += `
+              <foreignObject x="56.15" y="${g.ly}" width="142.64" height="${g.lh}">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="kq-ortho-meaning-box">
+                  <div class="kq-ortho-meaning-text" style="${meaningInlineStyle}">${mText}</div>
+                </div>
+              </foreignObject>
+            `;
+
+            // ২. ডান পাশের আরবি বক্স (AASaddamQuran)
+            foContent += `
+              <foreignObject x="198.62" y="${g.sy}" width="290.35" height="61.88" style="overflow:visible;">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="kq-ortho-arabic-box" id="orthoLine_${idx}">
+                  ${wordsHtml}
+                </div>
+              </foreignObject>
+            `;
+          } else {
+            // বাংলা অর্থ লুকানো থাকলে: সম্পূর্ণ পেজ জুড়ে আরবি বক্স (প্রস্থ ৪৩২.৮২)
+            foContent += `
+              <foreignObject x="56.15" y="${g.sy}" width="432.82" height="61.88" style="overflow:visible;">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="kq-ortho-arabic-box full-width" id="orthoLine_${idx}">
+                  ${wordsHtml}
+                </div>
+              </foreignObject>
+            `;
+          }
+        });
+
+        // ৩. মার্জিন বুকমার্ক ডট
+                // ৩. সাংকেতিক চিহ্নের লাইনের নিচের স্পষ্ট ডিভাইডার দাগ ও পৃথক খোপ (Tajweed Strip Divider)
+        let tajweedDividersSvg = '';
+        rows.forEach((r, idx) => {
+          const g = ROW_GEOMETRY[idx] || ROW_GEOMETRY[0];
+          const lineX1 = showMeaning ? 198.62 : 56.15;
+          const lineX2 = 488.97;
+          const divY = (g.sy + g.sh).toFixed(2);
+          tajweedDividersSvg += `<line x1="${lineX1}" y1="${divY}" x2="${lineX2}" y2="${divY}" class="kq-tajweed-strip-divider" />`;
+        });
+
+        // ৪. মার্জিন বুকমার্ক ডট
+        const marginDotsSvg = `<g id="kqBookmarkMarginDots">${buildMarginBookmarkDotsSvg(pageData.page)}</g>`;
+        const fullSvg = `${activeTemplate}<g id="kqDynamicQuranPage">${foContent}${tajweedDividersSvg}${marginDotsSvg}</g></svg>`;
+
+        card.innerHTML = fullSvg;
+        const svgEl = card.querySelector('svg');
+        if (svgEl) {
+          svgEl.removeAttribute('width');
+          svgEl.removeAttribute('height');
+          svgEl.style.width = '100%';
+          svgEl.style.height = '100%';
+          svgEl.style.display = 'block';
+          applyMushafSvgFit(svgEl);
+        }
+        // লম্বা আরবি লাইনের বাম/ডান প্রান্ত যেন কখনোই বর্ডার না ছোঁয় (অটো-ফিট)
+        requestAnimationFrame(() => {
+          card.querySelectorAll('.kq-ortho-arabic-box').forEach(box => {
+            if (box.scrollWidth > box.clientWidth + 2) {
+              const ratio = Math.max(0.82, (box.clientWidth - 4) / box.scrollWidth);
+              const computed = parseFloat(window.getComputedStyle(box).fontSize) || 22.8;
+              box.style.setProperty('font-size', (computed * ratio).toFixed(2) + 'px', 'important');
+            }
+          });
+        });
+        attachWordClickHandlers();
+        hideKqLoader();
+        notifyBridgeReadyOnce();
+      }
+
+      function attachWordClickHandlers() {
+        document.querySelectorAll('.kq-word').forEach(el => {
+          el.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (isDragging) return;
+            openWordPopover(el);
+          });
+        });
+      }
+
+      function analyzeTajweed(word) {
+        const rules = [];
+        if (/[\u08E4]/.test(word)) {
+          rules.push({ name: 'মাদ্দে আসলী (১ আলিফ টান)', symbol: '১', color: '#10B981', desc: '১ আলিফ টেনে পড়তে হবে' });
+        }
+        if (/[\u06E2\u06E3]/.test(word)) {
+          rules.push({ name: 'মাদ্দে মুত্তাছিল (৪ আলিফ)', symbol: '৪', color: '#EC4899', desc: '৪ আলিফ টেনে পড়তে হবে' });
+        }
+        if (/[نّمّ]/.test(word)) {
+          rules.push({ name: 'ওয়াজিব গুন্নাহ', symbol: 'গু', color: '#E11D48', desc: 'নাক দিয়ে গুন্নাহ করে পড়া ওয়াজিব' });
+        }
+        if (/[قطبدج]/.test(word) && /[\u0652]/.test(word)) {
+          rules.push({ name: 'ক্বলক্বলাহ (প্রতিধ্বনি)', symbol: 'ক্ব', color: '#0284C7', desc: 'প্রতিধ্বনি করে পড়তে হবে' });
+        }
+        if (/[\u06D6-\u06DC]/.test(word)) {
+          rules.push({ name: 'ওয়াক্ফ নিদর্শন', symbol: 'ওয়', color: '#8B5CF6', desc: 'থামার বা মিলিয়ে পড়ার নিয়ম' });
+        }
+        return rules;
+      }
+
+      function openWordPopover(wordEl) {
+        selectedWordEl = wordEl;
+        const popover = document.getElementById('kqWordPopover');
+        if (!popover) return;
+
+        const rawWord = wordEl.dataset.wordText || wordEl.textContent.trim();
+        const translit = decodeURIComponent(wordEl.dataset.translit || '');
+        const meaning = decodeURIComponent(wordEl.dataset.meaning || '');
+        const ayahRef = wordEl.dataset.ayahRef || '';
+        const surah = wordEl.dataset.surah || '';
+        const wordId = wordEl.dataset.wordId || '';
+
+        // অ্যান্ড্রয়েড নেটিভ লেয়ারে রিপোর্ট (অ্যান্ড্রয়েডে নেটিভ বটম শিট ব্যবহার হবে)
+        if (window.AndroidBridge && window.AndroidBridge.onWordClicked) {
+          try {
+            window.AndroidBridge.onWordClicked(wordId, rawWord, translit, meaning, ayahRef, surah);
+          } catch (e) {}
+          return;
+        }
+
+        const tajweed = analyzeTajweed(rawWord);
+        let tajweedHtml = '';
+        if (tajweed.length > 0) {
+          tajweedHtml = tajweed.map(t => `
+            <span class="kq-popover-tajweed-badge" style="border-color:${t.color}; color:${t.color};">
+              <strong>${t.symbol}</strong> ${t.name}
+            </span>
+          `).join(' ');
+        } else {
+          tajweedHtml = `<span style="font-size:11px; color:#94A3B8;">সাধারণ তিলাওয়াত নিয়ম</span>`;
+        }
+
+        const isBookmarked = wordEl.classList.contains('bookmarked');
+        const bmIcon = isBookmarked
+          ? '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:3px;"><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>'
+          : '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:3px;"><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2zm0 15l-5-2.18L7 18V5h10v13z"/></svg>';
+        const bmLabel = bmIcon + (isBookmarked ? 'চিহ্নিত বাতিল' : 'শব্দ বুকমার্ক');
+
+        // সূরা ও আয়াত নম্বর এবং শব্দের ইনডেক্স বের করা
+        const surahMatch = String(ayahRef).match(/^(\d+):(\d+)/);
+        const sNum = surahMatch ? parseInt(surahMatch[1], 10) : 1;
+        const aNum = surahMatch ? parseInt(surahMatch[2], 10) : 1;
+        const wMatch = String(wordId).match(/_w(\d+)$/);
+        const wIdx = wMatch ? (parseInt(wMatch[1], 10) + 1) : 1;
+
+        // শব্দে ক্লিক করার সাথে সাথে অডিও উচ্চারণ প্লে করা
+        if (window.AndroidBridge && window.AndroidBridge.onPlayWordAudio) {
+          try {
+            window.AndroidBridge.onPlayWordAudio(sNum, aNum, wIdx, wordId);
+          } catch (e) {}
+        }
+
+        popover.innerHTML = `
+          <div style="display:flex; align-items:center; justify-content:space-between; width:100%; margin-bottom:6px;">
+            <div class="kq-popover-word-title" style="margin:0;">${rawWord}</div>
+            <div style="display:inline-flex; align-items:center; gap:6px;">
+              <button type="button" class="kq-popover-audio-btn" id="btnPopoverWordAudio" title="শব্দের বিশুদ্ধ উচ্চারণ শুনুন">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg> শব্দ
+              </button>
+              <button type="button" class="kq-popover-audio-btn" id="btnPopoverAyahAudio" style="background:linear-gradient(135deg, #B45309, #78350F);" title="সম্পূর্ণ আয়াতের তিলাওয়াত শুনুন">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;"><path d="M8 5v14l11-7z"/></svg> আয়াত
+              </button>
+            </div>
+          </div>
+          <div class="kq-popover-meta">
+            ${translit ? `<div><strong>উচ্চারণ:</strong> ${translit}</div>` : ''}
+            ${meaning ? `<div><strong>অর্থ:</strong> ${meaning}</div>` : ''}
+            ${ayahRef ? `<div><strong>আয়াত:</strong> ${ayahRef} ${surah ? `(${surah})` : ''}</div>` : ''}
+          </div>
+          <div style="padding-top:4px; display:flex; flex-wrap:wrap; gap:4px;">
+            ${tajweedHtml}
+          </div>
+          <div class="kq-popover-actions">
+            <button type="button" class="kq-popover-btn" id="btnPopoverBookmark">${bmLabel}</button>
+            <div class="kq-popover-colors">
+              <span class="kq-color-dot dot-yellow" data-color="yellow" title="হলুদ"></span>
+              <span class="kq-color-dot dot-green"  data-color="green"  title="সবুজ"></span>
+              <span class="kq-color-dot dot-blue"   data-color="blue"   title="নীল"></span>
+              <span class="kq-color-dot dot-coral"  data-color="coral"  title="লাল"></span>
+              <span class="kq-color-dot dot-clear"  data-color="clear"  title="মুছুন"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span>
+            </div>
+          </div>
+        `;
+
+        document.getElementById('btnPopoverBookmark').onclick = () => {
+          toggleBookmarkSelectedWord();
+        };
+
+        const btnAudio = document.getElementById('btnPopoverWordAudio');
+        if (btnAudio) {
+          btnAudio.onclick = (e) => {
+            e.stopPropagation();
+            if (window.AndroidBridge && window.AndroidBridge.onPlayWordAudio) {
+              try {
+                window.AndroidBridge.onPlayWordAudio(sNum, aNum, wIdx, wordId);
+              } catch (err) {}
+            }
+          };
+        }
+
+        const btnAyahAudio = document.getElementById('btnPopoverAyahAudio');
+        if (btnAyahAudio) {
+          btnAyahAudio.onclick = (e) => {
+            e.stopPropagation();
+            if (window.AndroidBridge && window.AndroidBridge.onPlayAyahAudio) {
+              try {
+                window.AndroidBridge.onPlayAyahAudio(sNum, aNum, surah);
+              } catch (err) {}
+            }
+          };
+        }
+
+        popover.querySelectorAll('.kq-color-dot').forEach(dot => {
+          dot.onclick = () => {
+            const c = dot.dataset.color;
+            markSelectedWord(c);
+          };
+        });
+
+        // পপওভার পজিশনিং
+        const rect = wordEl.getBoundingClientRect();
+        popover.style.display = 'flex';
+        let top = rect.bottom + 8;
+        if (top + 220 > window.innerHeight) {
+          top = Math.max(10, rect.top - 210);
+        }
+        let left = rect.left - 50;
+        if (left < 10) left = 10;
+        if (left + 280 > window.innerWidth) left = window.innerWidth - 290;
+
+        popover.style.top = top + 'px';
+        popover.style.left = left + 'px';
+      }
+
+      function markSelectedWord(color) {
+        if (!selectedWordEl) return;
+        const wordId = selectedWordEl.dataset.wordId;
+        if (!wordId) return;
+
+        selectedWordEl.classList.remove('marked-yellow', 'marked-green', 'marked-blue', 'marked-coral');
+        if (color === 'clear') {
+          delete wordMarks[wordId];
+        } else {
+          selectedWordEl.classList.add(`marked-${color}`);
+          wordMarks[wordId] = color;
+        }
+
+        const popover = document.getElementById('kqWordPopover');
+        if (popover) popover.style.display = 'none';
+
+        if (window.AndroidBridge && window.AndroidBridge.onWordMarked) {
+          try {
+            window.AndroidBridge.onWordMarked(wordId, color);
+          } catch (e) {}
+        }
+      }
+
+      function toggleBookmarkSelectedWord() {
+        if (!selectedWordEl) return;
+        const wordId = selectedWordEl.dataset.wordId;
+        const rawWord = selectedWordEl.dataset.wordText || '';
+        const pageNum = currentPageData ? currentPageData.page : 1;
+
+        if (activeBookmark && activeBookmark.wordId === wordId) {
+          selectedWordEl.classList.remove('bookmarked');
+          activeBookmark = null;
+        } else {
+          document.querySelectorAll('.kq-word.bookmarked').forEach(el => el.classList.remove('bookmarked'));
+          selectedWordEl.classList.add('bookmarked');
+          activeBookmark = { wordId, wordText: rawWord, page: pageNum };
+        }
+
+        const grp = document.getElementById('kqBookmarkMarginDots');
+        if (grp) grp.innerHTML = buildMarginBookmarkDotsSvg(pageNum);
+
+        const popover = document.getElementById('kqWordPopover');
+        if (popover) popover.style.display = 'none';
+
+        if (window.AndroidBridge && window.AndroidBridge.onBookmarkSet) {
+          try {
+            window.AndroidBridge.onBookmarkSet(wordId, pageNum, !!activeBookmark);
+          } catch (e) {}
+        }
+      }
+
+      // ========================================================
+      // উন্নত ২ডি জুম, প্যান এবং পিঞ্চ-টু-জুম ইঞ্জিন
+      // (Smooth Pinch-to-Zoom, 2D Pan, Double-Tap & Edge Bounding)
+      // ========================================================
+      let currentScale = 1.0;
+      let panX = 0;
+      let panY = 0;
+      let isPinching = false;
+      let pinchStartDistance = 0;
+      let pinchStartScale = 1.0;
+      // NOTE: touchStartX/touchStartY/touchMoved/lastTapTime/tapDebounceTimer
+      // ইতিমধ্যে উপরের "টাচ / সোয়াইপ হ্যান্ডলিং" ব্লকে একই স্কোপে ঘোষিত —
+      // এখানে পুনরায় let করা হলে SyntaxError হবে (window.KQApp তৈরি হবে না)।
+      let lastTouchX = 0;
+      let lastTouchY = 0;
+
+      function updateCardTransform(withAnimation) {
+        const card = document.getElementById('mushafCard');
+        const wrap = document.getElementById('mushafScrollWrap');
+        if (!card || !wrap) return;
+
+        const wrapRect = wrap.getBoundingClientRect();
+        const wrapW = wrapRect.width || window.innerWidth;
+        const wrapH = wrapRect.height || window.innerHeight;
+
+        if (currentScale <= 1.02) {
+          currentScale = 1.0;
+          panX = 0;
+          panY = 0;
+          wrap.classList.add('is-fit-page');
+          if (window.AndroidBridge && window.AndroidBridge.setZoomed) {
+            try { window.AndroidBridge.setZoomed(false); } catch (e) {}
+          }
+        } else {
+          wrap.classList.remove('is-fit-page');
+          // বাউন্ডারি ক্ল্যাম্পিং: পৃষ্ঠা যেন ভিউপোর্টের বাইরে হারিয়ে না যায়
+          const maxPanX = Math.max(0, (wrapW * (currentScale - 1)) / 2);
+          const maxPanY = Math.max(0, (wrapH * (currentScale - 1)) / 2);
+
+          panX = Math.max(-maxPanX, Math.min(maxPanX, panX));
+          panY = Math.max(-maxPanY, Math.min(maxPanY, panY));
+
+          if (window.AndroidBridge && window.AndroidBridge.setZoomed) {
+            try { window.AndroidBridge.setZoomed(true); } catch (e) {}
+          }
+        }
+
+        pageZoom = Math.round(currentScale * 100);
+        card.style.transition = withAnimation ? 'transform 0.28s cubic-bezier(0.2, 0, 0, 1)' : 'none';
+        card.style.transformOrigin = 'center center';
+        card.style.transform = `translate3d(${panX.toFixed(2)}px, ${panY.toFixed(2)}px, 0px) scale(${currentScale.toFixed(3)})`;
+      }
+
+      function applyZoom(zoom, withAnimation = true) {
+        const z = Math.max(100, Math.min(350, zoom || 100));
+        currentScale = z / 100;
+        if (currentScale <= 1.02) {
+          currentScale = 1.0;
+          panX = 0;
+          panY = 0;
+        }
+        updateCardTransform(withAnimation);
+      }
+
+      const wrap = document.getElementById('mushafScrollWrap');
+
+      // ১. টাচ স্টার্ট (পিঞ্চ ডিটেকশন ও প্যান ইনিশিয়ালাইজেশন)
+      wrap.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 2) {
+          isPinching = true;
+          pinchStartDistance = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY
+          );
+          pinchStartScale = currentScale;
+          if (window.AndroidBridge && window.AndroidBridge.setZoomed) {
+            try { window.AndroidBridge.setZoomed(true); } catch (err) {}
+          }
+        } else if (e.touches.length === 1) {
+          isPinching = false;
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+          lastTouchX = touchStartX;
+          lastTouchY = touchStartY;
+          touchMoved = false;
+        }
+      }, { passive: false });
+
+      // ২. টাচ মুভ (স্মুথ ২ডি প্যানিং এবং লাইভ পিঞ্চ স্কেলিং)
+      wrap.addEventListener('touchmove', (e) => {
+        if (e.touches.length === 2 && isPinching) {
+          e.preventDefault();
+          const curDist = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY
+          );
+          if (pinchStartDistance > 0) {
+            const factor = curDist / pinchStartDistance;
+            currentScale = Math.max(1.0, Math.min(3.5, pinchStartScale * factor));
+            updateCardTransform(false);
+          }
+        } else if (e.touches.length === 1) {
+          const curX = e.touches[0].clientX;
+          const curY = e.touches[0].clientY;
+          const dx = curX - lastTouchX;
+          const dy = curY - lastTouchY;
+          lastTouchX = curX;
+          lastTouchY = curY;
+
+          if (Math.hypot(curX - touchStartX, curY - touchStartY) > 6) {
+            touchMoved = true;
+            const popover = document.getElementById('kqWordPopover');
+            if (popover) popover.style.display = 'none';
+          }
+
+          // যদি জুম করা থাকে, তাহলে স্বাধীনভাবে উপরে-নিচে ও ডানে-বামে ২ডি প্যান হবে
+          if (currentScale > 1.02) {
+            e.preventDefault();
+            panX += dx;
+            panY += dy;
+            updateCardTransform(false);
+          }
+        }
+      }, { passive: false });
+
+      // ৩. টাচ এন্ড (ডাবল-ট্যাপ জুম, সিঙ্গেল-ট্যাপ ফুলস্ক্রিন ও বাউন্ডারি স্ন্যাপিং)
+      wrap.addEventListener('touchend', (e) => {
+        if (isPinching && e.touches.length < 2) {
+          isPinching = false;
+          if (currentScale < 1.08) {
+            currentScale = 1.0;
+            panX = 0;
+            panY = 0;
+          }
+          updateCardTransform(true);
+          return;
+        }
+
+        if (e.touches.length === 0) {
+          if (currentScale > 1.02) {
+            updateCardTransform(true);
+          }
+
+          if (!touchMoved) {
+            const now = Date.now();
+            const target = e.target;
+            const isWord = target && target.closest('.kq-word');
+            const popover = document.getElementById('kqWordPopover');
+
+            if (!isWord) {
+              if (popover && popover.style.display !== 'none') {
+                popover.style.display = 'none';
+              } else {
+                // ডাবল ট্যাপ চেক
+                if (now - lastTapTime < 280) {
+                  if (tapDebounceTimer) {
+                    clearTimeout(tapDebounceTimer);
+                    tapDebounceTimer = null;
+                  }
+                  // ডাবল ট্যাপ = ১.০x এবং ২.০x এর মধ্যে টগল
+                  if (currentScale > 1.15) {
+                    currentScale = 1.0;
+                    panX = 0;
+                    panY = 0;
+                  } else {
+                    currentScale = 2.0;
+                    const wrapRect = wrap.getBoundingClientRect();
+                    panX = (wrapRect.width / 2 - lastTouchX) * 0.7;
+                    panY = (wrapRect.height / 2 - lastTouchY) * 0.7;
+                  }
+                  updateCardTransform(true);
+                } else {
+                  // সিঙ্গেল ট্যাপ = ফুলস্ক্রিন / ইমার্সিভ টপ বার টগল
+                  if (tapDebounceTimer) clearTimeout(tapDebounceTimer);
+                  tapDebounceTimer = setTimeout(() => {
+                    if (window.AndroidBridge && window.AndroidBridge.onToggleImmersive) {
+                      try { window.AndroidBridge.onToggleImmersive(); } catch (err) {}
+                    }
+                    tapDebounceTimer = null;
+                  }, 280);
+                }
+                lastTapTime = now;
+              }
+            }
+          }
+        }
+      });
+
+      // ক্লিক আউটসাইড পপওভার হাইড
+      document.addEventListener('click', (e) => {
+        const popover = document.getElementById('kqWordPopover');
+        if (popover && !popover.contains(e.target) && !e.target.closest('.kq-word')) {
+          popover.style.display = 'none';
+        }
+      });
+
+      const classicSvgCache = {};
+
+      // ক্লাসিক মোডে প্রতিটি শব্দের ওপর অদৃশ্য কিন্তু স্পর্শযোগ্য টাচ ওভারলে তৈরি
+      function attachClassicWordOverlay(card, pageData) {
+        const svgEl = card.querySelector('svg');
+        if (!svgEl || !pageData || !pageData.rows) return;
+
+        let existing = svgEl.querySelector('#kqClassicTouchOverlay');
+        if (existing) existing.remove();
+
+        const overlayGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        overlayGroup.setAttribute('id', 'kqClassicTouchOverlay');
+
+        const rows = pageData.rows || [];
+        rows.forEach((r, idx) => {
+          const g = ROW_GEOMETRY[idx] || ROW_GEOMETRY[0];
+          const words = r.words || [];
+          if (words.length === 0) return;
+
+          const startX = showMeaning ? 198.62 : 88.0;
+          const endX = 490.0;
+          const rowW = endX - startX;
+          const wordW = rowW / words.length;
+
+          words.forEach((w, wIdx) => {
+            // RTL সাজানো: প্রথম শব্দ একদম ডানে
+            const x = endX - (wIdx + 1) * wordW;
+            const y = g.sy;
+            const h = 61.88;
+
+            const wordId = `p${pageData.page}_r${idx}_w${wIdx}`;
+            const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            rect.setAttribute('x', x.toFixed(2));
+            rect.setAttribute('y', y.toFixed(2));
+            rect.setAttribute('width', wordW.toFixed(2));
+            rect.setAttribute('height', h.toFixed(2));
+            rect.setAttribute('class', 'kq-classic-word-touch kq-word');
+            rect.setAttribute('data-word-id', wordId);
+            rect.setAttribute('data-word-text', w);
+            rect.setAttribute('data-ayah-ref', r.ayah_ref || '');
+            rect.setAttribute('data-surah', r.surah_name || '');
+            rect.setAttribute('data-meaning', encodeURIComponent(r.meaning || ''));
+            rect.setAttribute('data-translit', encodeURIComponent(r.translit || ''));
+
+            rect.addEventListener('click', (e) => {
+              e.stopPropagation();
+              if (isDragging) return;
+              openWordPopover(rect);
+            });
+
+            overlayGroup.appendChild(rect);
+          });
+        });
+
+        svgEl.appendChild(overlayGroup);
+      }
+
+      async function renderClassicPage(pageNum) {
+        // ভূমিকা পৃষ্ঠা ১-১০ বাদ দিয়ে ন্যূনতম পৃষ্ঠা ১১ (ফাতিহা/কভার) থেকে শুরু
+        const targetPage = Math.max(1, pageNum || 1);
+        const card = document.getElementById('mushafCard');
+        if (!card) return;
+
+        const existingSvg = card.querySelector('svg');
+        if (currentClassicPage === targetPage && existingSvg && card.dataset.renderedClassic === String(targetPage)) {
+          existingSvg.classList.toggle('kq-hide-meaning', !showMeaning);
+          card.classList.toggle('kq-hide-meaning', !showMeaning);
+          document.body.classList.toggle('kq-classic-hide-meaning', !showMeaning);
+          return;
+        }
+
+        currentClassicPage = targetPage;
+        card.dataset.renderedClassic = String(targetPage);
+
+        const pStr = String(currentClassicPage).padStart(3, '0');
+        const url = `classic_pages/p_${pStr}.svg`;
+        let svgText = classicSvgCache[currentClassicPage];
+        if (!svgText) {
+          if (window.AndroidBridge && typeof window.AndroidBridge.getClassicSvg === 'function') {
+            try {
+              svgText = window.AndroidBridge.getClassicSvg(currentClassicPage);
+              if (svgText) {
+                classicSvgCache[currentClassicPage] = svgText;
+              }
+            } catch (err) {
+              console.warn('Bridge getClassicSvg error:', err);
+            }
+          }
+          if (!svgText) {
+            try {
+              const res = await fetch(url);
+              if (res.ok) {
+                svgText = await res.text();
+                classicSvgCache[currentClassicPage] = svgText;
+              }
+            } catch (e) {
+              console.warn('Classic SVG fetch error:', e);
+            }
+          }
+        }
+
+        if (svgText) {
+          card.innerHTML = svgText;
+          const svgEl = card.querySelector('svg');
+          if (svgEl) {
+            svgEl.classList.add('kq-classic-vector-svg');
+            svgEl.classList.add(`kq-theme-${currentTheme}`);
+            svgEl.classList.toggle('kq-hide-meaning', !showMeaning);
+            svgEl.removeAttribute('width');
+            svgEl.removeAttribute('height');
+            svgEl.style.width = '100%';
+            svgEl.style.height = '100%';
+            svgEl.style.display = 'block';
+
+            if (cropMargins !== false) {
+              svgEl.setAttribute('viewBox', '86 108 426 620');
+              svgEl.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+            } else {
+              svgEl.setAttribute('viewBox', '0 0 595.276 841.89');
+              svgEl.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+            }
+          }
+          card.classList.toggle('kq-hide-meaning', !showMeaning);
+          document.body.classList.toggle('kq-classic-hide-meaning', !showMeaning);
+          document.body.classList.add('classic-mode');
+
+          if (currentPageData && currentPageData.rows && currentPageData.rows.length > 0) {
+            attachClassicWordOverlay(card, currentPageData);
+          }
+
+          prefetchAdjacentClassic(currentClassicPage);
+          hideKqLoader();
+          notifyBridgeReadyOnce();
+        } else {
+          // ক্লাসিক মোডে মূল ছাপা এসভিজি না পাওয়া গেলে কখনোই নতুন ভেক্টর মোডে পরিবর্তন করা যাবে না
+          hideKqLoader();
+          card.innerHTML = `
+            <div style="width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; box-sizing:border-box;">
+              <div style="width:100%; max-width:340px; background:rgba(212,175,55,0.06); border:1.2px dashed rgba(212,175,55,0.45); border-radius:18px; padding:24px 16px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:12px;">
+                <div style="width:48px; height:48px; border-radius:50%; background:rgba(212,175,55,0.15); display:flex; align-items:center; justify-content:center; color:#D4AF37;">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/></svg>
+                </div>
+                <div style="font-family:'Kalpurush',sans-serif; font-size:15px; font-weight:bold; color:var(--ortho-arabic-color, #D4AF37);">
+                  জনপ্রিয় মুদ্রিত সংস্করণ (পৃষ্ঠা ${toBanglaNum(currentClassicPage)})
+                </div>
+                <div style="font-family:'Kalpurush',sans-serif; font-size:12px; color:#94A3B8; line-height:1.5;">
+                  এই পৃষ্ঠার মূল মুদ্রিত সংস্করণ লোড হচ্ছে। আপনি অফলাইনে থাকলে ইন্টারনেট সংযোগ চালু করুন অথবা ডাউনলোড ম্যানেজার থেকে এই পারা ডাউনলোড করুন।
+                </div>
+                <button onclick="if(window.KQApp&&window.KQApp.loadFromBridge) window.KQApp.loadFromBridge();" style="margin-top:6px; background:#0F6B56; color:#FFFFFF; border:1px solid #D4AF37; border-radius:10px; padding:7px 18px; font-family:'Kalpurush',sans-serif; font-size:12px; font-weight:bold; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg> পুনরায় চেষ্টা করুন
+                </button>
+              </div>
+            </div>
+          `;
+          notifyBridgeReadyOnce();
+        }
+      }
+
+      function prefetchAdjacentClassic(p) {
+        const nextP = p + 1;
+        if (nextP <= 44 && !classicSvgCache[nextP]) {
+          setTimeout(() => {
+            fetch(`classic_pages/p_${String(nextP).padStart(3, '0')}.svg`)
+              .then(r => r.ok ? r.text() : null)
+              .then(t => {
+                if (t) {
+                  classicSvgCache[nextP] = t;
+                }
+              })
+              .catch(() => {});
+          }, 350);
+        }
+      }
+
+      let bridgeReadyNotified = false;
+      function notifyBridgeReadyOnce() {
+        if (bridgeReadyNotified) return;
+        bridgeReadyNotified = true;
+        if (window.AndroidBridge && typeof window.AndroidBridge.onReady === 'function') {
+          try { window.AndroidBridge.onReady(); } catch (e) {}
+        }
+      }
+
+      function isDarkColorHex(hex) {
+        if (!hex || typeof hex !== 'string') return false;
+        const clean = hex.replace('#', '').trim();
+        if (clean.length !== 6) return false;
+        const r = parseInt(clean.substring(0, 2), 16) || 0;
+        const g = parseInt(clean.substring(2, 4), 16) || 0;
+        const b = parseInt(clean.substring(4, 6), 16) || 0;
+        const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+        return lum < 0.45;
+      }
+
+      // গ্লোবাল অ্যান্ড্রয়েড ব্রিজ অবজেক্ট (Kotlin থেকে কল করার জন্য)
+      window.KQApp = {
+        setZoom: function(percent) {
+          applyZoom(percent, true);
+        },
+        resetZoom: function() {
+          applyZoom(100, true);
+        },
+        loadFromBridge: function () {
+          if (window.AndroidBridge && typeof window.AndroidBridge.getInitConfig === 'function') {
+            try {
+              const cfgStr = window.AndroidBridge.getInitConfig();
+              if (cfgStr) {
+                const cfg = JSON.parse(cfgStr);
+                if (typeof cfg.isClassic === 'boolean') isClassicMode = cfg.isClassic;
+                if (cfg.pageNum) currentClassicPage = cfg.pageNum;
+                if (typeof cfg.cropMargins === 'boolean') cropMargins = cfg.cropMargins;
+                if (typeof cfg.showMeaning === 'boolean') showMeaning = cfg.showMeaning;
+                const cAr = cfg.customAr || cfg.customArabic || null;
+                const cBn = cfg.customBn || cfg.customBangla || null;
+                if (cfg.themeId) this.setTheme(cfg.themeId, cfg.customBg || null, cAr, cBn);
+                if (cfg.arabicScale || cfg.banglaScale) this.setFontScale(cfg.arabicScale, cfg.banglaScale);
+                if (cfg.wordMarks) wordMarks = cfg.wordMarks;
+                if (cfg.activeBookmark !== undefined) activeBookmark = cfg.activeBookmark;
+              }
+            } catch (e) {}
+          }
+          if (isClassicMode) {
+            renderClassicPage(currentClassicPage);
+            return;
+          }
+          if (window.AndroidBridge && typeof window.AndroidBridge.getPageJson === 'function') {
+            try {
+              const raw = window.AndroidBridge.getPageJson();
+              if (raw && raw.length > 5) {
+                this.setPageData(raw);
+              }
+            } catch (err) {
+              console.error('loadFromBridge error', err);
+            }
+          }
+        },
+
+        setPageData: function (jsonStr) {
+          try {
+            const data = (typeof jsonStr === 'string') ? JSON.parse(jsonStr) : jsonStr;
+            currentPageData = data;
+            if (isClassicMode) {
+              renderClassicPage(data.page);
+            } else {
+              renderMushafSvg(data);
+            }
+          } catch (e) {
+            console.error('Failed to parse page json', e);
+          }
+        },
+
+        setBengaliMeaning: function (show) {
+          const nextShow = (show !== false);
+          const changed = (nextShow !== showMeaning);
+          showMeaning = nextShow;
+          const card = document.getElementById('mushafCard');
+          if (card) {
+            card.classList.toggle('kq-hide-meaning', !showMeaning);
+            const svgEl = card.querySelector('svg');
+            if (svgEl) {
+              svgEl.classList.toggle('kq-hide-meaning', !showMeaning);
+            }
+          }
+          document.body.classList.toggle('kq-classic-hide-meaning', !showMeaning);
+          if (changed && !isClassicMode && currentPageData) {
+            renderMushafSvg(currentPageData);
+          }
+        },
+
+        setCropMargins: function (crop) {
+          cropMargins = !!crop;
+          const card = document.getElementById('mushafCard');
+          if (card) {
+            const svgEl = card.querySelector('svg');
+            if (svgEl) {
+              applyMushafSvgFit(svgEl);
+            }
+          }
+        },
+
+        setFontScale: function (arScale, bnScale) {
+          const root = document.documentElement;
+          if (arScale) root.style.setProperty('--arabic-font-scale', String(arScale));
+          if (bnScale) root.style.setProperty('--bangla-font-scale', String(bnScale));
+        },
+
+        setClassicMode: function (isClassic, pageNum) {
+          const nextClassic = !!isClassic;
+          if (nextClassic !== isClassicMode) {
+            const card = document.getElementById('mushafCard');
+            if (card) card.innerHTML = '';
+          }
+          isClassicMode = nextClassic;
+          if (isClassicMode) {
+            document.body.classList.add('classic-mode');
+            const p = pageNum || (currentPageData ? currentPageData.page : 1);
+            renderClassicPage(p);
+          } else {
+            document.body.classList.remove('classic-mode');
+            if (currentPageData) {
+              renderMushafSvg(currentPageData);
+            }
+          }
+        },
+
+        setTheme: function (themeId, customBg, customAr, customBn) {
+          currentTheme = themeId || 'light';
+          document.documentElement.dataset.theme = currentTheme;
+          document.body.dataset.theme = currentTheme;
+          document.body.classList.remove('kq-theme-dark', 'kq-theme-light', 'kq-theme-sepia', 'kq-theme-emerald', 'kq-theme-midnight', 'kq-theme-cream');
+          document.body.classList.add(`kq-theme-${currentTheme}`);
+
+          const def = THEME_ORTHO_DEFAULTS[currentTheme] || THEME_ORTHO_DEFAULTS.light;
+          const root = document.documentElement;
+          const arCol = customAr || def.arabic;
+          const bnCol = customBn || def.meaning;
+          const hasTrueCustomBg = !!(customBg && String(customBg).trim() !== '' && String(customBg).toLowerCase() !== String(def.bg).toLowerCase());
+          const bgCol = hasTrueCustomBg ? customBg : def.bg;
+
+          root.style.setProperty('--classic-arabic-color', arCol);
+          root.style.setProperty('--classic-trans-color', bnCol);
+          root.style.setProperty('--classic-tajweed-color', '#FDE68A');
+          root.style.setProperty('--classic-notes-color', '#D97706');
+
+          const _c = document.getElementById('mushafCard');
+          if (_c) {
+            const _s = _c.querySelector('svg');
+            if (_s) {
+              _s.classList.remove('kq-theme-dark', 'kq-theme-light', 'kq-theme-sepia', 'kq-theme-emerald', 'kq-theme-midnight', 'kq-theme-cream');
+              _s.classList.add(`kq-theme-${currentTheme}`);
+            }
+          }
+
+          root.style.setProperty('--ortho-arabic-color', arCol);
+          root.style.setProperty('--ortho-trans-color', bnCol);
+          root.style.setProperty('--bg-body', bgCol);
+          root.style.setProperty('--classic-card-bg', bgCol);
+
+          if (hasTrueCustomBg) {
+            const darkCustom = isDarkColorHex(customBg);
+            document.body.classList.add('has-custom-page-bg');
+            root.style.setProperty('--custom-page-bg', customBg);
+            root.style.setProperty('--custom-page-frame-bg', customBg);
+            root.style.setProperty('--custom-arabic-row-bg', customBg);
+            root.style.setProperty('--custom-tajweed-strip-bg', darkCustom ? '#182C3C' : '#C2EBD5');
+            root.style.setProperty('--custom-meaning-odd-bg', darkCustom ? '#162234' : '#FFF9C5');
+            root.style.setProperty('--custom-meaning-even-bg', darkCustom ? '#201B32' : '#F8C8DC');
+            root.style.setProperty('--custom-grid-line-color', darkCustom ? '#10B981' : '#006838');
+            root.style.setProperty('--custom-header-title-color', darkCustom ? '#FDE68A' : '#B91C1C');
+            root.style.setProperty('--custom-header-sub-color', darkCustom ? '#6EE7B7' : '#006838');
+          } else {
+            document.body.classList.remove('has-custom-page-bg');
+          }
+        },
+
+        setWordMarks: function (marksJson) {
+          try {
+            wordMarks = (typeof marksJson === 'string') ? JSON.parse(marksJson) : (marksJson || {});
+            if (currentPageData && !isClassicMode) renderMushafSvg(currentPageData);
+          } catch (e) {}
+        },
+
+        setActiveBookmark: function (bmJson) {
+          try {
+            activeBookmark = (typeof bmJson === 'string') ? JSON.parse(bmJson) : bmJson;
+            if (currentPageData && !isClassicMode) {
+              const grp = document.getElementById('kqBookmarkMarginDots');
+              if (grp) grp.innerHTML = buildMarginBookmarkDotsSvg(currentPageData.page);
+            }
+          } catch (e) {}
+        },
+
+        zoomIn: function () { applyZoom(pageZoom + 25); },
+        zoomOut: function () { applyZoom(pageZoom - 25); },
+        fitToPage: function () { applyZoom(100); }
+      };
+
+      // তাৎক্ষণিক কনফিগ সিঙ্ক ও পেজ লোড (রেন্ডার শেষ হলে notifyBridgeReadyOnce কল হবে)
+      if (isClassicMode) {
+        window.KQApp.loadFromBridge();
+      } else {
+        loadSvgTemplate().then(() => {
+          if (window.KQApp && typeof window.KQApp.loadFromBridge === 'function') {
+            window.KQApp.loadFromBridge();
+          }
+        });
+      }
+
+      // সেফটি ফলব্যাক (যদি কোনো কারণে ব্রিজ ডেটা দেরিতে আসে)
+      setTimeout(() => {
+        notifyBridgeReadyOnce();
+      }, 1800);
+    })();
+  </script>
+</body>
+</html>

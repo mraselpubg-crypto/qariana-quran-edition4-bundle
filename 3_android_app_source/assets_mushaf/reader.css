@@ -1,0 +1,2779 @@
+/* ==========================================================================
+   ক্বারীয়ানা কুরআন শরীফ - প্রিমিয়াম ডিজিটাল বুক রিডার স্টাইলিং
+   ========================================================================== */
+
+/* অ্যান্ড্রয়েড সিস্টেম হাই-কনট্রাস্ট টেক্সট ওভাররাইড ও ফন্ট সুরক্ষা */
+*,
+*::before,
+*::after {
+  -webkit-text-stroke: 0 !important;
+  text-shadow: none !important;
+  font-synthesis: none !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+/* লোকাল কালপুরুষ ফন্ট (Kalpurush & KalpurushNumerals) */
+@font-face {
+  font-family: 'Kalpurush';
+  src: url('fonts/kalpurush.ttf') format('truetype'),
+    local('Kalpurush');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'KalpurushNumerals';
+  src: url('fonts/kalpurush.ttf') format('truetype'),
+    local('Kalpurush');
+  unicode-range: U+09E6-09EF, U+0030-0039;
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: block;
+}
+
+/* অফিশিয়াল ক্বারীয়ানা আরবি তাজবীদ ফন্ট (AASaddamQuran / AASQv2) */
+@font-face {
+  font-family: 'AASaddamQuran';
+  src: url('fonts/qariana_secret_font.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'AASQv2';
+  src: url('fonts/qariana_secret_font.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'AAR-SQ-002';
+  src: url('fonts/qariana_secret_font.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+
+:root {
+  --font-bengali: 'KalpurushNumerals', 'Hind Siliguri', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* থিম ভ্যারিয়েবল (ডিফল্ট: রয়েল ডার্ক OLED) */
+  --bg-app: #070A12;
+  --bg-surface: #0E1626;
+  --bg-surface-elevated: #162238;
+  --bg-book-frame: #0A111E;
+  --bg-page: #10192A;
+  --bg-bottom-bar: rgba(14, 22, 38, 0.95);
+  --bg-progress-track: #1E293B;
+
+  --border-gold: #D97706;
+  --border-gold-light: rgba(217, 119, 6, 0.35);
+  --border-emerald: #10B981;
+  --border-subtle: #1E293B;
+
+  --color-gold: #F59E0B;
+  --color-emerald: #10B981;
+  --color-emerald-dark: #064E3B;
+
+  /* টেক্সট ও কাস্টমাইজেবল কালারস */
+  --text-arabic: #FDE68A;
+  --bg-arabic-block: transparent;
+
+  --text-translit: #38BDF8;
+  --bg-translit-block: rgba(56, 189, 248, 0.08);
+
+  --text-trans: #E2E8F0;
+  --bg-trans-block: rgba(255, 255, 255, 0.03);
+  --ortho-arabic-color: #FEF3C7;
+  --ortho-trans-color: #E2E8F0;
+
+  --text-primary: #F8FAFC;
+  --text-secondary: #CBD5E1;
+  --text-muted: #94A3B8;
+  --text-header: #FFFFFF;
+
+  /* ফন্ট সাইজ */
+  --font-arabic-size: 32px;
+  --font-bangla-size: 16px;
+
+  /* শ্যাডো ও ট্রানজিশন */
+  --shadow-page: 0 16px 40px rgba(0, 0, 0, 0.6);
+  --shadow-book-spine: inset 0 0 35px rgba(0, 0, 0, 0.7);
+  --radius-card: 16px;
+  --radius-button: 12px;
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ☀️ লাইট পেপার মোড */
+body[data-theme="light"] {
+  --bg-app: #F1F5F9;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #F8FAFC;
+  --bg-book-frame: #E2E8F0;
+  --bg-page: #FFFDF9;
+  --bg-bottom-bar: rgba(255, 255, 255, 0.96);
+  --bg-progress-track: #CBD5E1;
+  --border-subtle: #CBD5E1;
+  --border-gold: #B45309;
+  --border-gold-light: rgba(180, 83, 9, 0.35);
+  --color-gold: #B45309;
+  --text-arabic: #064E3B;
+  --bg-arabic-block: transparent;
+  --text-translit: #0369A1;
+  --bg-translit-block: rgba(3, 105, 161, 0.07);
+  --text-trans: #1E293B;
+  --bg-trans-block: rgba(15, 23, 42, 0.03);
+  --ortho-arabic-color: #000000;
+  --ortho-trans-color: #111827;
+  --text-primary: #0F172A;
+  --text-secondary: #334155;
+  --text-muted: #475569;
+  --text-header: #0F172A;
+  --shadow-page: 0 10px 30px rgba(15, 23, 42, 0.08);
+  --shadow-book-spine: inset 0 0 25px rgba(15, 23, 42, 0.05);
+}
+
+/* 📜 সেপিয়া আই-কেয়ার মোড */
+body[data-theme="sepia"] {
+  --bg-app: #E7DCBF;
+  --bg-surface: #F3EBD8;
+  --bg-surface-elevated: #EDE3CD;
+  --bg-book-frame: #DFD3B5;
+  --bg-page: #FAF5E8;
+  --bg-bottom-bar: rgba(243, 235, 216, 0.96);
+  --bg-progress-track: #D0C29F;
+  --border-subtle: #D0C29F;
+  --border-gold: #92400E;
+  --border-gold-light: rgba(146, 64, 14, 0.35);
+  --color-gold: #92400E;
+  --text-arabic: #3A2312;
+  --bg-arabic-block: transparent;
+  --text-translit: #68452B;
+  --bg-translit-block: rgba(104, 69, 43, 0.08);
+  --text-trans: #2D2319;
+  --bg-trans-block: rgba(0, 0, 0, 0.03);
+  --ortho-arabic-color: #261408;
+  --ortho-trans-color: #2D1E12;
+  --text-primary: #2D1E12;
+  --text-secondary: #4A3525;
+  --text-muted: #6E5644;
+  --text-header: #352110;
+  --shadow-page: 0 12px 30px rgba(78, 54, 30, 0.12);
+  --shadow-book-spine: inset 0 0 30px rgba(78, 54, 30, 0.09);
+}
+
+/* 🌿 রয়েল এমারেল্ড মোড */
+body[data-theme="emerald"] {
+  --bg-app: #022019;
+  --bg-surface: #06392D;
+  --bg-surface-elevated: #094738;
+  --bg-book-frame: #03271F;
+  --bg-page: #053328;
+  --bg-bottom-bar: rgba(6, 57, 45, 0.96);
+  --bg-progress-track: #0D5947;
+  --border-subtle: #0D5947;
+  --text-arabic: #FDE68A;
+  --bg-arabic-block: transparent;
+  --text-translit: #6EE7B7;
+  --bg-translit-block: rgba(110, 231, 183, 0.08);
+  --text-trans: #ECFDF5;
+  --bg-trans-block: rgba(0, 0, 0, 0.15);
+  --ortho-arabic-color: #FEF3C7;
+  --ortho-trans-color: #ECFDF5;
+  --text-primary: #ECFDF5;
+  --text-secondary: #A7F3D0;
+  --text-muted: #6EE7B7;
+  --text-header: #FFFFFF;
+  --shadow-page: 0 16px 40px rgba(0, 0, 0, 0.5);
+  --shadow-book-spine: inset 0 0 30px rgba(0, 0, 0, 0.6);
+}
+
+/* 🌌 মিডনাইট ব্লু মোড */
+body[data-theme="midnight"] {
+  --bg-app: #0A0D1E;
+  --bg-surface: #111633;
+  --bg-surface-elevated: #192048;
+  --bg-book-frame: #0D1128;
+  --bg-page: #131836;
+  --bg-bottom-bar: rgba(17, 22, 51, 0.96);
+  --bg-progress-track: #252E63;
+  --border-subtle: #252E63;
+  --text-arabic: #FDE68A;
+  --bg-arabic-block: transparent;
+  --text-translit: #7DD3FC;
+  --bg-translit-block: rgba(125, 211, 252, 0.08);
+  --text-trans: #E0E7FF;
+  --bg-trans-block: rgba(255, 255, 255, 0.04);
+  --ortho-arabic-color: #FDE68A;
+  --ortho-trans-color: #E0E7FF;
+  --text-primary: #EEF2FF;
+  --text-secondary: #C7D2FE;
+  --text-muted: #818CF8;
+  --text-header: #FFFFFF;
+  --shadow-page: 0 16px 40px rgba(0, 0, 0, 0.65);
+  --shadow-book-spine: inset 0 0 30px rgba(0, 0, 0, 0.7);
+}
+
+/* 📖 ক্রিম পেপার মোড */
+body[data-theme="cream"] {
+  --bg-app: #F5EFE0;
+  --bg-surface: #FFFDF7;
+  --bg-surface-elevated: #F9F4E8;
+  --bg-book-frame: #EAE2CE;
+  --bg-page: #FFFDF5;
+  --bg-bottom-bar: rgba(255, 253, 247, 0.96);
+  --bg-progress-track: #DDD2B8;
+  --border-subtle: #DDD2B8;
+  --border-gold: #9A3412;
+  --border-gold-light: rgba(154, 52, 18, 0.3);
+  --color-gold: #9A3412;
+  --text-arabic: #064E3B;
+  --bg-arabic-block: transparent;
+  --text-translit: #0369A1;
+  --bg-translit-block: rgba(3, 105, 161, 0.07);
+  --text-trans: #1C1917;
+  --bg-trans-block: rgba(0, 0, 0, 0.025);
+  --ortho-arabic-color: #064E3B;
+  --ortho-trans-color: #1C1917;
+  --text-primary: #1C1917;
+  --text-secondary: #44403C;
+  --text-muted: #57534E;
+  --text-header: #1C1917;
+  --shadow-page: 0 12px 30px rgba(68, 64, 60, 0.1);
+  --shadow-book-spine: inset 0 0 25px rgba(68, 64, 60, 0.06);
+}
+
+/* ==========================================================================
+   বেসিক রিসেট ও টাইপোগ্রাফি
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-bengali);
+  background-color: var(--bg-app);
+  color: var(--text-trans);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+button,
+input,
+select,
+textarea,
+option {
+  font-family: var(--font-bengali);
+}
+
+/* যেকোনো সংখ্যার (০-৯ / 0-9) জন্য সরাসরি কালপুরুষ ফন্ট */
+.kq-num {
+  font-family: 'Kalpurush', sans-serif !important;
+}
+
+/* টপ হেডার বার */
+.kq-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-gold-light);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.kq-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.kq-app-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+.kq-app-title h1 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-gold);
+  line-height: 1.2;
+}
+
+.kq-app-title p {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.kq-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.kq-btn-icon {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-header);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 1.1rem;
+}
+
+.kq-btn-icon:hover,
+.kq-btn-icon:active {
+  background: var(--border-gold-light);
+  color: var(--color-gold);
+  border-color: var(--color-gold);
+}
+
+/* ==========================================================================
+   PWA ইনস্টল ব্যানার (ROSDM-স্টাইল রেসপন্সিভ)
+   ========================================================================== */
+.kq-install-banner {
+  background: linear-gradient(90deg, #064E3B, #0E1626);
+  border-bottom: 1px solid var(--border-gold-light);
+  padding: 8px 16px;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  animation: slideDown 0.3s ease;
+}
+
+.kq-install-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+}
+
+.kq-install-badge {
+  background: var(--color-gold);
+  color: #000;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+.kq-install-btn {
+  background: linear-gradient(135deg, #F59E0B, #D97706);
+  color: #000;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+/* ==========================================================================
+   মেইন রিডার এরিয়া ও পেজ ফ্রেম (বইয়ের মতো খাঁটি পৃষ্ঠা)
+   ========================================================================== */
+.kq-reader-viewport {
+  flex: 1;
+  padding: 16px 12px 90px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.kq-book-page {
+  position: relative;
+  background-color: var(--bg-page);
+  border: 2px solid var(--border-gold-light);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-page);
+  width: 100%;
+  max-width: 680px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+  box-shadow: var(--shadow-book-spine);
+}
+
+/* পিসিতে ডাবল পেজ স্প্রেড সাপোর্ট */
+@media (min-width: 992px) {
+  body.double-page-mode .kq-reader-viewport {
+    max-width: 1400px;
+    gap: 16px;
+  }
+
+  body.double-page-mode .kq-book-page {
+    max-width: 640px;
+  }
+}
+
+/* ইসলামিক অলংকরণ হেডার */
+.kq-page-ornament-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px dashed var(--border-gold-light);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.kq-page-meta-badge {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-gold-light);
+  color: var(--color-gold);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 8px;
+}
+
+.kq-surah-title-plate {
+  text-align: center;
+  background: linear-gradient(135deg, rgba(6, 78, 59, 0.2), rgba(217, 119, 6, 0.15));
+  border: 1px solid var(--border-gold);
+  border-radius: 12px;
+  padding: 6px 18px;
+}
+
+.kq-surah-title-plate h2 {
+  font-family: 'Amiri', 'AAR-SQ-002', serif;
+  font-size: 1.35rem;
+  color: var(--color-gold);
+  line-height: 1.2;
+}
+
+.kq-surah-title-plate span {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* বিসমিল্লাহ ব্লক */
+.kq-bismillah-banner {
+  text-align: center;
+  margin: 12px 0 20px;
+  padding: 10px;
+  background: radial-gradient(circle, rgba(217, 119, 6, 0.1) 0%, transparent 70%);
+}
+
+.kq-bismillah-text {
+  font-family: 'AAR-SQ-002', 'Scheherazade New', 'Amiri', serif;
+  font-size: 1.8rem;
+  color: var(--text-arabic);
+  direction: rtl;
+  letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   আয়াত ব্লক ও কাস্টমাইজেবল টাইপোগ্রাফি
+   ========================================================================== */
+.kq-verses-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.kq-ayah-card {
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: var(--transition);
+}
+
+.kq-ayah-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kq-ayah-number-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-gold);
+  color: var(--color-gold);
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* আরবি আয়াত টেক্সট */
+.kq-arabic-verse {
+  font-family: 'AASaddamQuran', 'AASQv2', 'AAR-SQ-003', 'AAR-SQ-002', 'KarianaQuran', 'Amiri', serif;
+  font-feature-settings: "kern" 1, "liga" 1, "dlig" 1;
+  font-size: var(--font-arabic-size);
+  color: var(--text-arabic);
+  background-color: var(--bg-arabic-block);
+  direction: rtl;
+  line-height: 2.3;
+  text-align: right;
+  padding: 8px 10px;
+  border-radius: 8px;
+  word-spacing: 6px;
+}
+
+/* ইন্টারেক্টিভ শব্দ (নুক্তা / মার্কিং ও বুকমার্ক সাপোর্ট) */
+.kq-word {
+  display: inline-block;
+  padding: 0 4px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.kq-word:hover {
+  background: rgba(245, 158, 11, 0.2);
+  transform: translateY(-2px);
+  text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+}
+
+.kq-word.marked-yellow {
+  background: rgba(234, 179, 8, 0.35) !important;
+  color: #FEF08A !important;
+  border-bottom: 2px solid #EAB308;
+}
+
+.kq-word.marked-green {
+  background: rgba(16, 185, 129, 0.35) !important;
+  color: #A7F3D0 !important;
+  border-bottom: 2px solid #10B981;
+}
+
+.kq-word.marked-blue {
+  background: rgba(56, 189, 248, 0.35) !important;
+  color: #BAE6FD !important;
+  border-bottom: 2px solid #38BDF8;
+}
+
+.kq-word.marked-coral {
+  background: rgba(244, 63, 94, 0.35) !important;
+  color: #FECDD3 !important;
+  border-bottom: 2px solid #F43F5E;
+}
+
+body[data-theme="light"] .kq-word.marked-yellow,
+body[data-theme="sepia"] .kq-word.marked-yellow {
+  color: #713F12 !important;
+}
+
+body[data-theme="light"] .kq-word.marked-green,
+body[data-theme="sepia"] .kq-word.marked-green {
+  color: #064E3B !important;
+}
+
+body[data-theme="light"] .kq-word.marked-blue,
+body[data-theme="sepia"] .kq-word.marked-blue {
+  color: #0C4A6E !important;
+}
+
+body[data-theme="light"] .kq-word.marked-coral,
+body[data-theme="sepia"] .kq-word.marked-coral {
+  color: #881337 !important;
+}
+
+.kq-word.bookmarked {
+  background: rgba(239, 68, 68, 0.24) !important;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.38) !important;
+  border-radius: 5px;
+}
+
+.kq-word.bookmarked::after,
+.kq-word.bookmarked::before {
+  content: none !important;
+  display: none !important;
+}
+
+/* বাংলা উচ্চারণ (টগলযোগ্য) */
+.kq-verse-transliteration {
+  font-size: calc(var(--font-bangla-size) - 1px);
+  color: var(--text-translit);
+  background-color: var(--bg-translit-block);
+  line-height: 1.6;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border-left: 3px solid var(--text-translit);
+  display: block;
+}
+
+/* বাংলা অর্থ (টগলযোগ্য) */
+.kq-verse-translation {
+  font-size: var(--font-bangla-size);
+  color: var(--text-trans);
+  background-color: var(--bg-trans-block);
+  line-height: 1.7;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border-left: 3px solid var(--color-gold);
+  display: block;
+}
+
+/* যখন ইউজার টগল করে হাইড করবেন */
+.kq-hidden {
+  display: none !important;
+}
+
+/* পেজ ফুটার */
+.kq-page-ornament-footer {
+  margin-top: 24px;
+  border-top: 1px dashed var(--border-gold-light);
+  padding-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   বটম ফ্লোটিং কন্ট্রোল বার (মোবাইলের জন্য দারুণ সুবিধাজনক)
+   ========================================================================== */
+.kq-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: var(--bg-bottom-bar, rgba(14, 22, 38, 0.95));
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border-gold-light);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-page);
+}
+
+.kq-nav-btn {
+  background: linear-gradient(135deg, var(--bg-surface-elevated), var(--bg-surface));
+  border: 1px solid var(--border-gold-light);
+  color: var(--text-header);
+  padding: 10px 18px;
+  border-radius: var(--radius-button);
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.kq-nav-btn:hover,
+.kq-nav-btn:active {
+  background: var(--color-gold);
+  color: #000;
+  border-color: var(--color-gold);
+}
+
+.kq-page-quick-jump {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+.kq-page-quick-jump select {
+  background: transparent;
+  border: none;
+  color: var(--color-gold);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+}
+
+.kq-page-quick-jump select option {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   কাস্টমাইজেশন প্যানেল / সেটিংস ড্রয়ার (মডেল ড্রয়ার)
+   ========================================================================== */
+.kq-settings-drawer {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: none;
+  justify-content: flex-end;
+}
+
+.kq-drawer-content {
+  background: var(--bg-surface);
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+  overflow-y: auto;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+  animation: slideLeft 0.3s ease;
+}
+
+.kq-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 12px;
+}
+
+.kq-drawer-header h3 {
+  color: var(--color-gold);
+  font-size: 1.15rem;
+}
+
+.kq-setting-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.kq-setting-group-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* টগল সুইচ */
+.kq-toggle-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-surface-elevated);
+  padding: 12px 14px;
+  border-radius: var(--radius-button);
+  border: 1px solid var(--border-subtle);
+}
+
+.kq-switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+}
+
+.kq-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.kq-slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #334155;
+  transition: .3s;
+  border-radius: 34px;
+}
+
+.kq-slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
+
+input:checked+.kq-slider {
+  background-color: var(--color-emerald);
+}
+
+input:checked+.kq-slider:before {
+  transform: translateX(22px);
+}
+
+/* থিম বাটন গ্রিড */
+.kq-theme-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.kq-theme-btn {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface-elevated);
+  color: var(--text-header);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.kq-theme-btn.active {
+  border-color: var(--color-gold);
+  background: var(--border-gold-light);
+  color: var(--color-gold);
+}
+
+/* ফন্ট সাইজ রেঞ্জ কন্ট্রোল */
+.kq-range-control {
+  background: var(--bg-surface-elevated);
+  padding: 14px;
+  border-radius: var(--radius-button);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.kq-range-control label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  color: var(--text-header);
+}
+
+.kq-range-control input[type="range"] {
+  width: 100%;
+  accent-color: var(--color-gold);
+  cursor: pointer;
+}
+
+/* কালার পিকার আইটেমস ও মাল্টিপল কালার সোয়াচ কার্ড */
+.kq-color-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-surface-elevated);
+  padding: 10px 14px;
+  border-radius: var(--radius-button);
+  border: 1px solid var(--border-subtle);
+}
+
+.kq-color-item input[type="color"] {
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: transparent;
+}
+
+.kq-custom-color-card {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.kq-color-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.kq-color-card-title {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--text-header);
+}
+
+.kq-color-card-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+  line-height: 1.3;
+}
+
+.kq-color-picker-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 2px solid var(--border-gold);
+  background: var(--bg-surface);
+  cursor: pointer;
+  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+  transition: transform 0.15s ease;
+}
+
+.kq-color-picker-wrap:hover {
+  transform: scale(1.06);
+}
+
+.kq-color-picker-wrap input[type="color"] {
+  position: absolute;
+  inset: -6px;
+  width: 54px;
+  height: 54px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+}
+
+.kq-color-picker-wrap .material-icons-round {
+  position: relative;
+  z-index: 2;
+  font-size: 16px;
+  color: #FFFFFF;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 50%;
+  padding: 3px;
+  pointer-events: none;
+}
+
+.kq-swatch-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.kq-swatch-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid rgba(148, 163, 184, 0.45);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  position: relative;
+  padding: 0;
+}
+
+.kq-swatch-btn:hover {
+  transform: scale(1.14);
+  border-color: var(--color-gold);
+}
+
+.kq-swatch-btn.active {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 2px var(--bg-surface-elevated), 0 0 0 4px var(--color-gold);
+  transform: scale(1.1);
+}
+
+/* কীফ্রেম এনিমেশন */
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   মেটেরিয়াল আইকন ও ডুয়াল ভিউ সুইচিং স্টাইল (Dual Mode View)
+   ========================================================================== */
+.material-icons-round {
+  font-family: 'Material Icons Round';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 20px;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  vertical-align: middle;
+}
+
+/* ভিউ সুইচ মোড বার */
+.kq-view-switcher {
+  display: inline-flex;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-gold-light);
+  border-radius: 20px;
+  padding: 3px;
+  gap: 4px;
+}
+
+.kq-view-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 16px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.kq-view-tab.active {
+  background: linear-gradient(135deg, var(--color-emerald-dark), #047857);
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+/* রিডিং প্রগ্রেস উইজেট (কতটুকু পড়া হয়েছে ও বাকি কতটুকু) */
+.kq-reading-progress-bar {
+  background: var(--bg-surface-elevated);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 6px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.kq-progress-track {
+  flex: 1;
+  max-width: 220px;
+  height: 6px;
+  background: var(--bg-progress-track, #1E293B);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0 10px;
+}
+
+.kq-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10B981, #F59E0B);
+  width: 10%;
+  transition: width 0.3s ease;
+}
+
+/* মূল বইয়ের পৃষ্ঠা ভিউ (InDesign Mushaf SVG View) */
+.kq-mushaf-viewport {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.kq-mushaf-card {
+  width: 100%;
+  max-width: 680px;
+  background: #0B1324;
+  border: 2px solid var(--border-gold);
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.2s ease, background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.kq-mushaf-card svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.kq-ortho-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ==========================================================================
+   ডার্ক / লাইট / সেপিয়া / এমারেল্ড থিম অনুযায়ী এসভিজি পেজ টেমপ্লেট (quran_ortho_template.svg) কালার অ্যাডজাস্টমেন্ট
+   - .cls-4 : সম্পূর্ণ পৃষ্ঠার মূল ব্যাকগ্রাউন্ড ও আউটার বর্ডার স্ট্রোক
+   - .cls-3 : ডান পাশের ৯টি মূল আরবি আয়াত বক্স ও অর্নামেন্ট কাটআউট
+   - .cls-1 : প্রতিটি আরবি লাইনের উপরের পাতলা তাজবীদ চিহ্নের বক্স
+   - .cls-7 : বাম পাশের বিজোড় রো (১, ৩, ৫, ৭, ৯) বাংলা অর্থ বক্স
+   - .cls-11: বাম পাশের জোড় রো (২, ৪, ৬, ৮) বাংলা অর্থ বক্স
+   - .cls-10: উপরের মাঝখানের সূরা ও পারা হেডার প্লেট বক্স
+   - .cls-8, .cls-2, .cls-6 : সম্পূর্ণ পৃষ্ঠার গ্রিড লাইন, ফ্রেম ও সবুজ নকশা
+   - .cls-5, .cls-9 : কোণার ও হেডারের ফুলের অলঙ্করণ
+   ========================================================================== */
+
+/* ১. ডার্ক মোড (OLED Eye-Care Dark Page Template) */
+body[data-theme="dark"] .kq-mushaf-card {
+  background: #0B1324;
+  border-color: #D97706;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+}
+
+body[data-theme="dark"] .kq-mushaf-card svg .cls-4 {
+  fill: #0B1324 !important;
+  stroke: #10B981 !important;
+}
+
+body[data-theme="dark"] .kq-mushaf-card svg .cls-3 {
+  fill: #0F1A2E !important;
+}
+
+body[data-theme="dark"] .kq-mushaf-card svg .cls-1 {
+  fill: #162642 !important;
+}
+
+body[data-theme="dark"] .kq-mushaf-card svg .cls-7 {
+  fill: #162133 !important;
+}
+
+body[data-theme="dark"] .kq-mushaf-card svg .cls-11 {
+  fill: #1C192E !important;
+}
+
+body[data-theme="dark"] .kq-mushaf-card svg .cls-10 {
+  fill: #0D2338 !important;
+}
+
+body[data-theme="dark"] .kq-mushaf-card svg .cls-8,
+body[data-theme="dark"] .kq-mushaf-card svg .cls-2,
+body[data-theme="dark"] .kq-mushaf-card svg .cls-6 {
+  fill: #10B981 !important;
+}
+
+body[data-theme="dark"] .kq-mushaf-card svg .cls-5,
+body[data-theme="dark"] .kq-mushaf-card svg .cls-9 {
+  fill: #F59E0B !important;
+}
+
+body[data-theme="dark"] .kq-ortho-header-title {
+  color: #FDE68A !important;
+}
+
+body[data-theme="dark"] .kq-ortho-header-sub {
+  color: #6EE7B7 !important;
+}
+
+/* ২. লাইট পেপার মোড (Original Print Colors) */
+body[data-theme="light"] .kq-mushaf-card {
+  background: #FFFFFF;
+  border-color: #006838;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.14);
+}
+
+body[data-theme="light"] .kq-mushaf-card svg .cls-4 {
+  fill: #FFFFFF !important;
+  stroke: #006838 !important;
+}
+
+body[data-theme="light"] .kq-mushaf-card svg .cls-3 {
+  fill: #FFFFFF !important;
+}
+
+body[data-theme="light"] .kq-mushaf-card svg .cls-1 {
+  fill: #C2EBD5 !important;
+}
+
+body[data-theme="light"] .kq-mushaf-card svg .cls-7 {
+  fill: #FFF9C5 !important;
+}
+
+body[data-theme="light"] .kq-mushaf-card svg .cls-11 {
+  fill: #F8C8DC !important;
+}
+
+body[data-theme="light"] .kq-mushaf-card svg .cls-10 {
+  fill: #FEFFFF !important;
+}
+
+body[data-theme="light"] .kq-mushaf-card svg .cls-8 {
+  fill: #006838 !important;
+}
+
+body[data-theme="light"] .kq-mushaf-card svg .cls-2 {
+  fill: #06a64f !important;
+}
+
+body[data-theme="light"] .kq-mushaf-card svg .cls-6 {
+  fill: #00a651 !important;
+}
+
+body[data-theme="light"] .kq-mushaf-card svg .cls-5 {
+  fill: #ed1c24 !important;
+}
+
+body[data-theme="light"] .kq-mushaf-card svg .cls-9 {
+  fill: #ec2227 !important;
+}
+
+body[data-theme="light"] .kq-ortho-header-title {
+  color: #B91C1C !important;
+}
+
+body[data-theme="light"] .kq-ortho-header-sub {
+  color: #006838 !important;
+}
+
+/* ৩. সেপিয়া মোড (Warm Vintage Parchment) */
+body[data-theme="sepia"] .kq-mushaf-card {
+  background: #FAF3E0;
+  border-color: #8B5A2B;
+  box-shadow: 0 14px 36px rgba(78, 54, 30, 0.18);
+}
+
+body[data-theme="sepia"] .kq-mushaf-card svg .cls-4 {
+  fill: #FAF3E0 !important;
+  stroke: #6B4423 !important;
+}
+
+body[data-theme="sepia"] .kq-mushaf-card svg .cls-3 {
+  fill: #FDF8EC !important;
+}
+
+body[data-theme="sepia"] .kq-mushaf-card svg .cls-1 {
+  fill: #E8DFC8 !important;
+}
+
+body[data-theme="sepia"] .kq-mushaf-card svg .cls-7 {
+  fill: #F5E8C7 !important;
+}
+
+body[data-theme="sepia"] .kq-mushaf-card svg .cls-11 {
+  fill: #EFE0D4 !important;
+}
+
+body[data-theme="sepia"] .kq-mushaf-card svg .cls-10 {
+  fill: #FDF8EC !important;
+}
+
+body[data-theme="sepia"] .kq-mushaf-card svg .cls-8,
+body[data-theme="sepia"] .kq-mushaf-card svg .cls-2,
+body[data-theme="sepia"] .kq-mushaf-card svg .cls-6 {
+  fill: #6B4423 !important;
+}
+
+body[data-theme="sepia"] .kq-mushaf-card svg .cls-5,
+body[data-theme="sepia"] .kq-mushaf-card svg .cls-9 {
+  fill: #B45309 !important;
+}
+
+body[data-theme="sepia"] .kq-ortho-header-title {
+  color: #4A2511 !important;
+}
+
+body[data-theme="sepia"] .kq-ortho-header-sub {
+  color: #6B4423 !important;
+}
+
+/* ৪. এমারেল্ড মোড (Royal Deep Emerald) */
+body[data-theme="emerald"] .kq-mushaf-card {
+  background: #03221B;
+  border-color: #10B981;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+}
+
+body[data-theme="emerald"] .kq-mushaf-card svg .cls-4 {
+  fill: #03221B !important;
+  stroke: #34D399 !important;
+}
+
+body[data-theme="emerald"] .kq-mushaf-card svg .cls-3 {
+  fill: #052E24 !important;
+}
+
+body[data-theme="emerald"] .kq-mushaf-card svg .cls-1 {
+  fill: #083D30 !important;
+}
+
+body[data-theme="emerald"] .kq-mushaf-card svg .cls-7 {
+  fill: #07362A !important;
+}
+
+body[data-theme="emerald"] .kq-mushaf-card svg .cls-11 {
+  fill: #0A3E32 !important;
+}
+
+body[data-theme="emerald"] .kq-mushaf-card svg .cls-10 {
+  fill: #06392D !important;
+}
+
+body[data-theme="emerald"] .kq-mushaf-card svg .cls-8,
+body[data-theme="emerald"] .kq-mushaf-card svg .cls-2,
+body[data-theme="emerald"] .kq-mushaf-card svg .cls-6 {
+  fill: #34D399 !important;
+}
+
+body[data-theme="emerald"] .kq-mushaf-card svg .cls-5,
+body[data-theme="emerald"] .kq-mushaf-card svg .cls-9 {
+  fill: #F59E0B !important;
+}
+
+body[data-theme="emerald"] .kq-ortho-header-title {
+  color: #FDE68A !important;
+}
+
+body[data-theme="emerald"] .kq-ortho-header-sub {
+  color: #A7F3D0 !important;
+}
+
+/* ৫. মিডনাইট ব্লু মোড (Midnight Royal Indigo) */
+body[data-theme="midnight"] .kq-mushaf-card {
+  background: #111633;
+  border-color: #6366F1;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.78);
+}
+
+body[data-theme="midnight"] .kq-mushaf-card svg .cls-4 {
+  fill: #111633 !important;
+  stroke: #818CF8 !important;
+}
+
+body[data-theme="midnight"] .kq-mushaf-card svg .cls-3 {
+  fill: #161C40 !important;
+}
+
+body[data-theme="midnight"] .kq-mushaf-card svg .cls-1 {
+  fill: #202859 !important;
+}
+
+body[data-theme="midnight"] .kq-mushaf-card svg .cls-7 {
+  fill: #1A214B !important;
+}
+
+body[data-theme="midnight"] .kq-mushaf-card svg .cls-11 {
+  fill: #211D47 !important;
+}
+
+body[data-theme="midnight"] .kq-mushaf-card svg .cls-10 {
+  fill: #181F46 !important;
+}
+
+body[data-theme="midnight"] .kq-mushaf-card svg .cls-8,
+body[data-theme="midnight"] .kq-mushaf-card svg .cls-2,
+body[data-theme="midnight"] .kq-mushaf-card svg .cls-6 {
+  fill: #38BDF8 !important;
+}
+
+body[data-theme="midnight"] .kq-mushaf-card svg .cls-5,
+body[data-theme="midnight"] .kq-mushaf-card svg .cls-9 {
+  fill: #F59E0B !important;
+}
+
+body[data-theme="midnight"] .kq-ortho-header-title {
+  color: #FDE68A !important;
+}
+
+body[data-theme="midnight"] .kq-ortho-header-sub {
+  color: #7DD3FC !important;
+}
+
+/* ৬. ক্রিম পেপার মোড (Soft Warm Cream Paper) */
+body[data-theme="cream"] .kq-mushaf-card {
+  background: #FFFDF5;
+  border-color: #065F46;
+  box-shadow: 0 14px 36px rgba(68, 64, 60, 0.14);
+}
+
+body[data-theme="cream"] .kq-mushaf-card svg .cls-4 {
+  fill: #FFFDF5 !important;
+  stroke: #065F46 !important;
+}
+
+body[data-theme="cream"] .kq-mushaf-card svg .cls-3 {
+  fill: #FFFDF7 !important;
+}
+
+body[data-theme="cream"] .kq-mushaf-card svg .cls-1 {
+  fill: #DDF3E8 !important;
+}
+
+body[data-theme="cream"] .kq-mushaf-card svg .cls-7 {
+  fill: #FDF6D8 !important;
+}
+
+body[data-theme="cream"] .kq-mushaf-card svg .cls-11 {
+  fill: #F9E4EC !important;
+}
+
+body[data-theme="cream"] .kq-mushaf-card svg .cls-10 {
+  fill: #FFFDF7 !important;
+}
+
+body[data-theme="cream"] .kq-mushaf-card svg .cls-8,
+body[data-theme="cream"] .kq-mushaf-card svg .cls-2,
+body[data-theme="cream"] .kq-mushaf-card svg .cls-6 {
+  fill: #047857 !important;
+}
+
+body[data-theme="cream"] .kq-mushaf-card svg .cls-5,
+body[data-theme="cream"] .kq-mushaf-card svg .cls-9 {
+  fill: #DC2626 !important;
+}
+
+body[data-theme="cream"] .kq-ortho-header-title {
+  color: #991B1B !important;
+}
+
+body[data-theme="cream"] .kq-ortho-header-sub {
+  color: #047857 !important;
+}
+
+/* ৭. ইউজারের পছন্দের যেকোনো কাস্টম ব্যাকগ্রাউন্ড কালার ওভাররাইড (Custom Background Color) */
+body.has-custom-page-bg .kq-book-page {
+  background-color: var(--custom-page-bg, #FFFFFF) !important;
+}
+
+body.has-custom-page-bg .kq-arabic-verse {
+  background-color: var(--custom-arabic-row-bg, #FFFFFF) !important;
+}
+
+body.has-custom-page-bg .kq-mushaf-card {
+  background: var(--custom-page-frame-bg, #FFFFFF) !important;
+}
+
+body.has-custom-page-bg .kq-mushaf-card svg .cls-4 {
+  fill: var(--custom-page-frame-bg, #FFFFFF) !important;
+  stroke: var(--custom-grid-line-color, #006838) !important;
+}
+
+body.has-custom-page-bg .kq-mushaf-card svg .cls-3 {
+  fill: var(--custom-page-bg, #FFFFFF) !important;
+}
+
+body.has-custom-page-bg .kq-mushaf-card svg .cls-1 {
+  fill: var(--custom-tajweed-strip-bg, #C2EBD5) !important;
+}
+
+body.has-custom-page-bg .kq-mushaf-card svg .cls-7 {
+  fill: var(--custom-meaning-odd-bg, #FFF9C5) !important;
+}
+
+body.has-custom-page-bg .kq-mushaf-card svg .cls-11 {
+  fill: var(--custom-meaning-even-bg, #F8C8DC) !important;
+}
+
+body.has-custom-page-bg .kq-mushaf-card svg .cls-10 {
+  fill: var(--custom-page-bg, #FEFFFF) !important;
+}
+
+body.has-custom-page-bg .kq-mushaf-card svg .cls-8,
+body.has-custom-page-bg .kq-mushaf-card svg .cls-2,
+body.has-custom-page-bg .kq-mushaf-card svg .cls-6 {
+  fill: var(--custom-grid-line-color, #006838) !important;
+}
+
+body.has-custom-page-bg .kq-ortho-header-title {
+  color: var(--custom-header-title-color, #991B1B) !important;
+}
+
+body.has-custom-page-bg .kq-ortho-header-sub {
+  color: var(--custom-header-sub-color, #006838) !important;
+}
+
+/* এসভিজি হেডার প্লেট */
+.kq-ortho-header-plate {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  user-select: none;
+}
+
+.kq-ortho-header-title {
+  font-family: var(--font-bengali);
+  font-size: 8px;
+  font-weight: 700;
+  color: #FDE68A;
+  line-height: 1.1;
+}
+
+.kq-ortho-header-sub {
+  font-family: var(--font-bengali);
+  font-size: 6.8px;
+  font-weight: 600;
+  color: #6EE7B7;
+  line-height: 1.1;
+}
+
+/* বাম পাশের অর্থ বক্স */
+.kq-ortho-meaning-box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3px 7px;
+  box-sizing: border-box;
+  text-align: left;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+.kq-ortho-meaning-text {
+  font-family: var(--font-bengali);
+  font-size: calc(9.2px * var(--bangla-font-scale, 1));
+  line-height: 1.3;
+  font-weight: 500;
+  color: var(--ortho-trans-color, #111827);
+  overflow: hidden;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+/* ডান পাশের আরবি লাইন ও ভাসমান তাজবীদ সাংকেতিক চিহ্ন (১০০% ন্যাচারাল প্রস্থ ও উচ্চতা - বড় প্রিন্ট ফন্ট) */
+.kq-ortho-arabic-box {
+  width: 100%;
+  height: 100%;
+  direction: rtl;
+  text-align: justify;
+  text-align-last: justify;
+  font-family: 'AASaddamQuran', 'AASQv2', 'AAR-SQ-002', serif;
+  font-size: 24px;
+  line-height: 46px;
+  padding: 9px 4px 0 4px;
+  box-sizing: border-box;
+  color: var(--ortho-arabic-color, #FEF3C7);
+  white-space: nowrap;
+  overflow: visible;
+  transform: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  word-spacing: -1px;
+}
+
+.kq-mushaf-scroll-wrap {
+  width: 100%;
+  overflow: auto;
+  display: block;
+  text-align: center;
+  direction: ltr;
+  padding-bottom: 8px;
+  cursor: grab;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-gold, #F59E0B) rgba(15, 23, 42, 0.5);
+}
+
+.kq-mushaf-scroll-wrap.is-grabbing {
+  cursor: grabbing !important;
+}
+
+.kq-mushaf-scroll-wrap .kq-mushaf-card {
+  display: inline-block;
+  margin: 0 auto;
+  vertical-align: top;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+/* ইন্টারঅ্যাক্টিভ শব্দ */
+.kq-ortho-arabic-box .kq-word {
+  display: inline;
+  padding: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  position: relative;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+.kq-mushaf-scroll-wrap.is-grabbing .kq-word {
+  cursor: grabbing !important;
+}
+
+/* পৃষ্ঠা ভিউ জুম ইন/আউট ও ফুল স্ক্রিন কন্ট্রোল বার */
+.kq-page-zoom-bar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--bg-surface-elevated, #162238);
+  border: 1px solid var(--border-gold, rgba(245, 158, 11, 0.35));
+  border-radius: 999px;
+  padding: 5px 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  user-select: none;
+  flex-wrap: wrap;
+}
+
+.kq-zoom-btn {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: var(--color-gold, #F59E0B);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  padding: 0;
+}
+
+.kq-zoom-btn:hover {
+  background: var(--color-gold, #F59E0B);
+  color: #000;
+}
+
+.kq-zoom-btn .material-icons-round {
+  font-size: 18px;
+}
+
+.kq-zoom-level {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-header, #F8FAFC);
+  min-width: 48px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.kq-zoom-divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(245, 158, 11, 0.25);
+  margin: 0 2px;
+}
+
+.kq-fit-page-btn {
+  background: rgba(245, 158, 11, 0.14);
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  color: var(--text-header, #FDE68A);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: var(--font-bengali);
+}
+
+.kq-fit-page-btn:hover,
+.kq-fit-page-btn.active {
+  background: var(--color-gold, #F59E0B);
+  color: #000;
+  border-color: var(--color-gold, #F59E0B);
+}
+
+.kq-fit-page-btn .material-icons-round {
+  font-size: 15px;
+}
+
+.kq-fullscreen-btn {
+  background: rgba(16, 185, 129, 0.14);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #10B981;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: var(--font-bengali);
+}
+
+.kq-fullscreen-btn:hover {
+  background: #10B981;
+  color: #000;
+}
+
+.kq-fullscreen-btn .material-icons-round {
+  font-size: 16px;
+}
+
+.kq-fs-nav-group {
+  display: none;
+  align-items: center;
+  gap: 8px;
+}
+
+.kq-fs-page-btn {
+  background: var(--bg-surface-elevated, rgba(255, 255, 255, 0.08));
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: var(--text-header, #F8FAFC);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  font-family: var(--font-bengali);
+}
+
+.kq-fs-page-btn:hover {
+  border-color: #F59E0B;
+  color: #F59E0B;
+}
+
+.kq-fs-page-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-gold, #F59E0B);
+  padding: 0 4px;
+}
+
+/* ==========================================================================
+   ফুল স্ক্রিন পেজ ভিউ মোড (শুধু একটি টপবার + সম্পূর্ণ স্ক্রিন জুড়ে শুধু পেজ)
+   ========================================================================== */
+body.kq-page-fullscreen {
+  overflow: hidden !important;
+  background: var(--bg-app, #060B14) !important;
+}
+
+body.kq-page-fullscreen>header,
+body.kq-page-fullscreen .kq-header,
+body.kq-page-fullscreen .kq-reading-progress-bar,
+body.kq-page-fullscreen #readingProgressWidget,
+body.kq-page-fullscreen #pwaInstallBanner,
+body.kq-page-fullscreen .kq-page-ornament-header,
+body.kq-page-fullscreen .kq-page-ornament-footer,
+body.kq-page-fullscreen .kq-bottom-bar,
+body.kq-page-fullscreen nav.kq-bottom-bar,
+body.kq-page-fullscreen .kq-mushaf-hint {
+  display: none !important;
+}
+
+body.kq-page-fullscreen .kq-reader-viewport {
+  padding: 0 !important;
+  margin: 0 !important;
+  max-width: 100vw !important;
+  width: 100vw !important;
+  height: 100vh !important;
+}
+
+body.kq-page-fullscreen .kq-book-page {
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  max-width: 100vw !important;
+  width: 100vw !important;
+  height: 100vh !important;
+}
+
+body.kq-page-fullscreen .kq-book-page::before {
+  display: none !important;
+}
+
+body.kq-page-fullscreen .kq-mushaf-viewport {
+  width: 100vw !important;
+  height: 100vh !important;
+  justify-content: flex-start !important;
+  padding-top: 50px !important;
+  box-sizing: border-box !important;
+}
+
+body.kq-page-fullscreen .kq-page-zoom-bar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100vw !important;
+  height: 50px !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(245, 158, 11, 0.35) !important;
+  background: var(--bg-surface, rgba(10, 17, 30, 0.96)) !important;
+  backdrop-filter: blur(12px) !important;
+  z-index: 9000 !important;
+  justify-content: space-between !important;
+  padding: 0 16px !important;
+  box-sizing: border-box !important;
+}
+
+body.kq-page-fullscreen .kq-fs-nav-group {
+  display: inline-flex !important;
+}
+
+body.kq-page-fullscreen .kq-mushaf-scroll-wrap {
+  width: 100vw !important;
+  height: calc(100vh - 50px) !important;
+  padding: 6px 0 !important;
+  box-sizing: border-box !important;
+  overflow: auto !important;
+}
+
+/* ফুল স্ক্রিনে ফিট টু পেজ (Fit to Page) থাকা অবস্থায় সম্পূর্ণ পাতা স্ক্রিনে ফিট থাকবে */
+body.kq-page-fullscreen .kq-mushaf-scroll-wrap.is-fit-page {
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: default !important;
+}
+
+body.kq-page-fullscreen .kq-mushaf-scroll-wrap.is-fit-page .kq-mushaf-card {
+  width: min(96vw, calc((100vh - 64px) * 0.7279)) !important;
+  max-width: min(680px, calc((100vh - 64px) * 0.7279)) !important;
+  min-width: 0 !important;
+  max-height: calc(100vh - 64px) !important;
+  margin: 0 auto !important;
+}
+
+.kq-mushaf-scroll-wrap.is-fit-page {
+  cursor: default;
+}
+
+.kq-ortho-arabic-box .kq-word:hover {
+  background: rgba(245, 158, 11, 0.25);
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.4);
+}
+
+.kq-ortho-arabic-box .kq-word.marked-yellow {
+  background: rgba(234, 179, 8, 0.4) !important;
+  border-bottom: 2px solid #EAB308;
+}
+
+.kq-ortho-arabic-box .kq-word.marked-green {
+  background: rgba(16, 185, 129, 0.4) !important;
+  border-bottom: 2px solid #10B981;
+}
+
+.kq-ortho-arabic-box .kq-word.marked-blue {
+  background: rgba(56, 189, 248, 0.4) !important;
+  border-bottom: 2px solid #38BDF8;
+}
+
+.kq-ortho-arabic-box .kq-word.marked-coral {
+  background: rgba(244, 63, 94, 0.4) !important;
+  border-bottom: 2px solid #F43F5E;
+}
+
+.kq-ortho-arabic-box .kq-word.bookmarked {
+  background: rgba(239, 68, 68, 0.24) !important;
+  box-shadow: 0 0 7px rgba(239, 68, 68, 0.4) !important;
+  border-radius: 5px;
+}
+
+.kq-ortho-arabic-box .kq-word.bookmarked::before,
+.kq-ortho-arabic-box .kq-word.bookmarked::after {
+  content: none !important;
+  display: none !important;
+}
+
+.kq-mushaf-hint {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* শব্দ পপওভার (Word Tajweed, Bookmark & Highlight Popover) */
+.kq-word-popover {
+  position: absolute;
+  z-index: 1000;
+  background: var(--bg-surface, #0E1626);
+  border: 1px solid var(--border-gold);
+  border-radius: 16px;
+  padding: 12px 14px;
+  box-shadow: var(--shadow-page, 0 16px 40px rgba(0, 0, 0, 0.85));
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 240px;
+  max-width: 320px;
+  animation: slideUp 0.15s ease;
+  color: var(--text-primary, #F8FAFC);
+}
+
+.kq-popover-word-title {
+  font-family: 'AASaddamQuran', 'AASQv2', 'AAR-SQ-002', serif;
+  font-size: 26px;
+  line-height: 1.4;
+  color: var(--color-gold);
+  text-align: center;
+  border-bottom: 1px solid var(--border-subtle, #1E293B);
+  padding-bottom: 6px;
+  direction: rtl;
+}
+
+.kq-popover-tajweed-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  border-radius: 8px;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid #10B981;
+  color: var(--text-primary, #A7F3D0);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.kq-popover-meaning-hint {
+  font-size: 0.8rem;
+  color: var(--text-secondary, #CBD5E1);
+  background: var(--bg-surface-elevated, #162238);
+  border: 1px solid var(--border-subtle, transparent);
+  padding: 6px 8px;
+  border-radius: 8px;
+  line-height: 1.4;
+}
+
+.kq-popover-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.kq-popover-btn {
+  background: var(--bg-surface-elevated, #162238);
+  border: 1px solid var(--border-subtle, #1E293B);
+  border-radius: 10px;
+  color: var(--text-primary, #E2E8F0);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  justify-content: center;
+}
+
+.kq-popover-btn:hover {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: #F59E0B;
+  color: var(--color-gold, #F59E0B);
+}
+
+.kq-popover-colors {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 4px 2px;
+  border-top: 1px solid var(--border-subtle, #1E293B);
+}
+
+.kq-color-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform 0.15s;
+}
+
+.kq-color-dot:hover {
+  transform: scale(1.15);
+  border-color: var(--text-primary, #FFFFFF);
+}
+
+.kq-color-dot.dot-yellow {
+  background: #EAB308;
+}
+
+.kq-color-dot.dot-green {
+  background: #10B981;
+}
+
+.kq-color-dot.dot-blue {
+  background: #38BDF8;
+}
+
+.kq-color-dot.dot-coral {
+  background: #F43F5E;
+}
+
+.kq-color-dot.dot-clear {
+  background: #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: #FFF;
+}
+
+/* স্ক্রিনশট ও স্নিপিং টুল শিল্ড কার্টেইন */
+#screenshotShield {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 11, 20, 0.96);
+  backdrop-filter: blur(25px);
+  z-index: 999999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+#screenshotShield.active {
+  display: flex;
+}
+
+.kq-shield-content {
+  background: #0E1626;
+  border: 2px solid #EF4444;
+  border-radius: 24px;
+  padding: 32px 24px;
+  text-align: center;
+  max-width: 440px;
+  width: 100%;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+}
+
+.kq-shield-icon {
+  font-size: 48px !important;
+  color: #EF4444;
+  margin-bottom: 12px;
+}
+
+.kq-shield-content h3 {
+  color: #EF4444;
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+}
+
+.kq-shield-content p {
+  color: #CBD5E1;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.kq-shield-btn {
+  background: linear-gradient(135deg, #10B981, #059669);
+  color: #FFF;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* অ্যান্টি-প্রিন্ট ও অননুমোদিত সেভ ব্লকিং */
+@media print {
+  body {
+    display: none !important;
+    visibility: hidden !important;
+  }
+}
+
+/* =========================================================
+   মেইন হোম পেজ: ক্বারীয়ানা পাবলিকেশনস ও বুকশেলফ লাইব্রেরি ভিউ
+   ========================================================= */
+.kq-home-library-view {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 24px 16px 60px;
+  animation: fadeIn 0.25s ease;
+}
+
+.kq-library-hero {
+  background: linear-gradient(135deg, rgba(6, 78, 59, 0.72), rgba(15, 23, 42, 0.95));
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 22px;
+  padding: 28px 26px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  box-shadow: var(--shadow-page);
+}
+
+body[data-theme="light"] .kq-library-hero {
+  background: linear-gradient(135deg, #ECFDF5, #FFFBEB);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+body[data-theme="sepia"] .kq-library-hero {
+  background: linear-gradient(135deg, #F5E8C7, #EDE3CD);
+  border-color: rgba(146, 64, 14, 0.35);
+}
+
+.kq-library-hero-text h2 {
+  color: var(--color-gold, #F59E0B);
+  font-size: 1.55rem;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.kq-library-hero-text p {
+  color: var(--text-secondary, #CBD5E1);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  max-width: 680px;
+}
+
+.kq-continue-banner {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.14), rgba(16, 185, 129, 0.12));
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.kq-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.kq-section-heading h3 {
+  font-size: 1.2rem;
+  color: var(--text-primary, #F8FAFC);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.kq-books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 20px;
+}
+
+.kq-book-card {
+  background: var(--bg-surface, #0F172A);
+  border: 1px solid var(--border-gold-light, rgba(245, 158, 11, 0.24));
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+  position: relative;
+  box-shadow: var(--shadow-page);
+}
+
+.kq-book-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-gold, #F59E0B);
+}
+
+.kq-book-cover {
+  height: 168px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(245, 158, 11, 0.22);
+}
+
+.kq-book-cover-ar {
+  font-family: 'AASaddamQuran', 'Amiri', serif;
+  font-size: 2rem;
+  color: #FDE68A;
+  text-align: center;
+  margin: auto 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.55);
+  line-height: 1.3;
+}
+
+.kq-book-badges-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  z-index: 2;
+}
+
+.kq-book-pill {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.kq-book-pill.purchased {
+  background: rgba(16, 185, 129, 0.22);
+  color: #6EE7B7;
+  border: 1px solid rgba(16, 185, 129, 0.45);
+}
+
+.kq-book-pill.preview {
+  background: rgba(245, 158, 11, 0.2);
+  color: #FDE68A;
+  border: 1px solid rgba(245, 158, 11, 0.45);
+}
+
+.kq-book-pill.price {
+  background: rgba(15, 23, 42, 0.85);
+  color: #F59E0B;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.kq-book-body {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 10px;
+}
+
+.kq-book-title {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--text-primary, #F8FAFC);
+  line-height: 1.35;
+}
+
+.kq-book-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary, #94A3B8);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.kq-book-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--color-gold, #F59E0B);
+  background: rgba(245, 158, 11, 0.08);
+  padding: 7px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(245, 158, 11, 0.22);
+}
+
+.kq-book-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.kq-book-open-btn {
+  flex: 1;
+  background: linear-gradient(135deg, #10B981, #059669);
+  color: #FFF;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.kq-book-buy-btn {
+  background: rgba(245, 158, 11, 0.14);
+  color: var(--color-gold, #F59E0B);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.kq-header-library-btn {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.45);
+  padding: 7px 13px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  gap: 5px;
+}
+
+body[data-theme="light"] .kq-header-library-btn,
+body[data-theme="sepia"] .kq-header-library-btn {
+  color: #047857;
+  background: rgba(16, 185, 129, 0.12);
+}
+
+.kq-quick-theme-btn {
+  background: rgba(245, 158, 11, 0.14);
+  color: var(--color-gold);
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  padding: 7px 13px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: var(--transition);
+}
+
+.kq-quick-theme-btn:hover {
+  background: var(--color-gold);
+  color: #000;
+}
+
+/* =========================================================
+   মোবাইল ও ট্যাবলেট ফুল রেসপন্সিভ অপ্টিমাইজেশন (Mobile & Tablet Responsive)
+   ========================================================= */
+.kq-reader-viewport,
+.kq-book-page,
+.kq-mushaf-viewport,
+.kq-mushaf-scroll-wrap,
+.kq-verses-container {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.kq-mushaf-scroll-wrap.is-fit-page .kq-mushaf-card {
+  width: 100% !important;
+  max-width: 680px !important;
+  min-width: 0 !important;
+  margin: 0 auto !important;
+}
+
+@media (min-width: 769px) {
+  .kq-reader-viewport {
+    padding: 10px 16px 76px;
+  }
+
+  .kq-book-page {
+    padding: 14px 20px;
+  }
+
+  .kq-page-ornament-header {
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+  }
+
+  .kq-page-zoom-bar {
+    margin-bottom: 8px;
+  }
+
+  body:not(.kq-page-fullscreen) .kq-mushaf-scroll-wrap.is-fit-page .kq-mushaf-card {
+    width: min(100%, calc((100vh - 355px) * 0.753)) !important;
+    max-width: min(680px, calc((100vh - 355px) * 0.753)) !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .kq-header {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 12px;
+  }
+
+  .kq-view-switcher {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .kq-view-tab {
+    flex: 1;
+    justify-content: center;
+    padding: 6px 10px;
+  }
+
+  .kq-library-hero {
+    padding: 20px 16px;
+  }
+
+  .kq-books-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .kq-install-banner {
+    flex-wrap: wrap;
+    padding: 8px 10px;
+    gap: 8px;
+  }
+
+  .kq-install-info {
+    width: 100%;
+    font-size: 0.78rem;
+  }
+
+  .kq-header {
+    padding: 8px 10px;
+    gap: 6px;
+  }
+
+  .kq-header-left {
+    gap: 8px;
+  }
+
+  .kq-app-logo {
+    width: 30px;
+    height: 30px;
+  }
+
+  .kq-app-title h1 {
+    font-size: 0.9rem;
+  }
+
+  .kq-app-title p {
+    font-size: 0.68rem;
+  }
+
+  .kq-header-actions {
+    gap: 5px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .kq-header-library-btn,
+  .kq-quick-theme-btn,
+  #btnHeaderBuy {
+    padding: 5px 8px !important;
+    font-size: 0.72rem !important;
+  }
+
+  .kq-btn-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+  }
+
+  .kq-reading-progress-bar {
+    padding: 6px 10px;
+    font-size: 0.72rem;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .kq-progress-track {
+    max-width: 110px;
+    margin: 0 4px;
+  }
+
+  .kq-reader-viewport {
+    padding: 8px 6px 76px;
+  }
+
+  .kq-book-page {
+    padding: 10px 6px;
+    border-radius: 12px;
+  }
+
+  .kq-page-ornament-header {
+    gap: 6px;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+  }
+
+  .kq-page-meta-badge {
+    font-size: 0.7rem;
+    padding: 3px 7px;
+    white-space: nowrap;
+  }
+
+  .kq-surah-title-plate {
+    padding: 4px 10px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .kq-surah-title-plate h2 {
+    font-size: 1.05rem;
+  }
+
+  .kq-surah-title-plate span {
+    font-size: 0.68rem;
+  }
+
+  .kq-page-zoom-bar {
+    border-radius: 14px;
+    padding: 6px 8px;
+    gap: 5px;
+    width: 100%;
+  }
+
+  .kq-fit-page-btn,
+  .kq-fullscreen-btn {
+    padding: 4px 8px;
+    font-size: 0.72rem;
+  }
+
+  .kq-bottom-bar {
+    padding: 6px 10px;
+    gap: 6px;
+  }
+
+  .kq-nav-btn {
+    padding: 8px 10px;
+    font-size: 0.78rem;
+    gap: 4px;
+  }
+
+  .kq-page-quick-jump {
+    padding: 4px 10px;
+  }
+
+  .kq-page-quick-jump select {
+    font-size: 0.8rem;
+  }
+
+  .kq-drawer-content {
+    max-width: 100%;
+    width: 100%;
+    padding: 16px 12px;
+  }
+
+  .kq-library-hero-text h2 {
+    font-size: 1.2rem;
+  }
+
+  .kq-library-hero-text p {
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 430px) {
+  #btnHeaderBuy span:last-child {
+    display: none;
+  }
+}
+
+
+/* ==========================================================================
+   ক্বারীয়ানা কুরআন - থিম সচেতন রো ব্যান্ড ও ফুল-উইডথ রেসপন্সিভ স্টাইল
+   ========================================================================== */
+.kq-mushaf-scroll-wrap.is-fit-page .kq-mushaf-card {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 auto !important;
+}
+
+.kq-ortho-arabic-box {
+  width: 100%;
+  height: 100%;
+  direction: rtl;
+  text-align: justify;
+  text-align-last: justify;
+  font-family: 'AASaddamQuran', 'AASQv2', 'AAR-SQ-002', serif;
+  font-size: calc(22.8px * var(--arabic-font-scale, 1)) !important;
+  line-height: 45px !important;
+  padding: 8px 7px 0 7px;
+  box-sizing: border-box;
+  color: var(--ortho-arabic-color, #000000);
+  white-space: nowrap;
+  overflow: visible;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  word-spacing: -1px;
+}
+
+.kq-ortho-arabic-box.full-width {
+  padding: 8px 12px 0 12px !important;
+  text-align: center !important;
+  text-align-last: center !important;
+  word-spacing: normal !important;
+}
+
+/* -------------------------------------------------------------
+   সাংকেতিক চিহ্নের লাইনের নিচের অনুভূমিক বিভাজন দাগ ও খোপ (Tajweed Strip Divider)
+   ------------------------------------------------------------- */
+.kq-tajweed-strip-divider {
+  stroke: rgba(212, 175, 55, 0.6) !important;
+  stroke-width: 0.85px !important;
+  stroke-linecap: round;
+}
+
+body[data-theme="light"] .kq-tajweed-strip-divider {
+  stroke: #94A3B8 !important;
+}
+
+body[data-theme="dark"] .kq-tajweed-strip-divider {
+  stroke: rgba(212, 175, 55, 0.5) !important;
+}
+
+body[data-theme="sepia"] .kq-tajweed-strip-divider {
+  stroke: #B8966E !important;
+}
+
+body[data-theme="emerald"] .kq-tajweed-strip-divider {
+  stroke: rgba(212, 175, 55, 0.65) !important;
+}
+
+body[data-theme="midnight"] .kq-tajweed-strip-divider {
+  stroke: rgba(253, 230, 138, 0.55) !important;
+}
+
+body[data-theme="cream"] .kq-tajweed-strip-divider {
+  stroke: #A89060 !important;
+}
+
+/* -------------------------------------------------------------
+   শব্দ উচ্চারণ চলাকালীন রিয়েল-টাইম অডিও সিঙ্ক হাইলাইট (Active Reciting)
+   ------------------------------------------------------------- */
+.kq-word.active-reciting,
+.kq-classic-word-touch.active-reciting {
+  background: rgba(212, 175, 55, 0.45) !important;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.8) !important;
+  border-radius: 4px;
+  color: #FFFFFF !important;
+  transition: all 0.15s ease-in-out;
+}
+
+/* -------------------------------------------------------------
+   পপওভার সাউন্ড বাটন (Sound/Audio Icon in Popover)
+   ------------------------------------------------------------- */
+.kq-popover-audio-btn {
+  background: linear-gradient(135deg, #0F6B56, #064E3B);
+  color: #FEF3C7;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.kq-popover-audio-btn:active {
+  transform: scale(0.95);
+  background: #0F6B56;
+}
+
+/* -------------------------------------------------------------
+   ক্লাসিক ভিউ ইন্টারঅ্যাক্টিভ টাচ ওভারলে (Classic Mode Touch Overlay)
+   ------------------------------------------------------------- */
+.kq-classic-word-touch {
+  cursor: pointer;
+  fill: transparent;
+  pointer-events: all;
+  transition: fill 0.15s ease;
+}
+
+.kq-classic-word-touch:hover,
+.kq-classic-word-touch:active {
+  fill: rgba(212, 175, 55, 0.25);
+  stroke: #D4AF37;
+  stroke-width: 0.8px;
+  rx: 3px;
+}
+
+.kq-classic-word-touch.marked-yellow {
+  fill: rgba(234, 179, 8, 0.35) !important;
+  stroke: #EAB308 !important;
+  stroke-width: 1px;
+}
+
+.kq-classic-word-touch.marked-green {
+  fill: rgba(16, 185, 129, 0.35) !important;
+  stroke: #10B981 !important;
+  stroke-width: 1px;
+}
+
+.kq-classic-word-touch.marked-blue {
+  fill: rgba(56, 189, 248, 0.35) !important;
+  stroke: #38BDF8 !important;
+  stroke-width: 1px;
+}
+
+.kq-classic-word-touch.marked-coral {
+  fill: rgba(244, 63, 94, 0.35) !important;
+  stroke: #F43F5E !important;
+  stroke-width: 1px;
+}

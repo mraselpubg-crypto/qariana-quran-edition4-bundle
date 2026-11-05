@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 1565" width="800" height="1565">
+<defs>
+<linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3d27a"/><stop offset=".5" stop-color="#d9a441"/><stop offset="1" stop-color="#f3d27a"/></linearGradient>
+<linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eaf7f0"/><stop offset="1" stop-color="#dff1e8"/></linearGradient>
+<linearGradient id="panelGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d4f3c"/><stop offset="1" stop-color="#13694f"/></linearGradient>
+<filter id="soft" x="-5%" y="-20%" width="110%" height="150%"><feDropShadow dx="0" dy="2" stdDeviation="2.2" flood-color="#0f5c47" flood-opacity=".16"/></filter>
+<path id="leaf" d="M0 0 C6 -9 17 -9 24 0 C17 9 6 9 0 0Z" fill="#6fbf9f"/>
+<pattern id="borderPat" width="30" height="30" patternUnits="userSpaceOnUse">
+  <rect width="30" height="30" fill="#0f5c47"/>
+  <path d="M0 15 C7 4 12 4 15 15 C18 26 23 26 30 15" fill="none" stroke="#2f8f72" stroke-width="1.4"/>
+  <g transform="translate(15 15)"><g fill="#fdf3d2"><ellipse cx="0" cy="-4.6" rx="3.23" ry="3.8" transform="rotate(0.0)"/><ellipse cx="0" cy="-4.6" rx="3.23" ry="3.8" transform="rotate(72.0)"/><ellipse cx="0" cy="-4.6" rx="3.23" ry="3.8" transform="rotate(144.0)"/><ellipse cx="0" cy="-4.6" rx="3.23" ry="3.8" transform="rotate(216.0)"/><ellipse cx="0" cy="-4.6" rx="3.23" ry="3.8" transform="rotate(288.0)"/></g><circle r="2.6" fill="#e9b949"/></g>
+  <use href="#leaf" transform="translate(2 8) scale(.35) rotate(-30)"/>
+  <use href="#leaf" transform="translate(28 22) scale(.35) rotate(150)"/>
+</pattern>
+</defs>
+<rect id="page-bg" width="800" height="1565" fill="url(#bgGrad)"/>
+<g id="page-frame">
+<rect id="border-band" x="12" y="20" width="776" height="1525" rx="30" fill="url(#borderPat)"/>
+<rect x="12" y="20" width="776" height="1525" rx="30" fill="none" stroke="url(#gold)" stroke-width="3"/>
+<rect id="inner-page" x="40" y="52" width="720" height="1461" rx="16" fill="#f2faf6" stroke="url(#gold)" stroke-width="3"/>
+</g>
+<!-- SLIM TOP HEADER BAR (for general pages) -->
+<g id="slim-header-panel">
+<rect x="50" y="64" width="700" height="52" rx="12" fill="#e6f5ee" stroke="url(#gold)" stroke-width="1.6"/>
+<line x1="50" y1="120" x2="750" y2="120" stroke="url(#gold)" stroke-width="2"/>
+<rect id="slot-header-left" x="62" y="70" width="160" height="40" rx="10" fill="#fff" stroke="#bfe3d2" stroke-width="1.4" filter="url(#soft)"/>
+<rect id="slot-header-center" x="325" y="68" width="150" height="44" rx="22" fill="#fff" stroke="#e9b949" stroke-width="2" filter="url(#soft)"/>
+<rect id="slot-header-right" x="578" y="70" width="160" height="40" rx="10" fill="#fff" stroke="#bfe3d2" stroke-width="1.4" filter="url(#soft)"/>
+</g>
+<g id="arabic-text-area">
+<rect id="arabic-text-bounds" x="48" y="126" width="704" height="1327" rx="18" fill="#ffffff" fill-opacity=".45" stroke="#bfe3d2" stroke-width="1.5"/>
+<g id="row-01" class="line-row">
+  <rect id="line-01" class="line-slot" x="50" y="136" width="700" height="71" rx="10" fill="#ffffff" stroke="#bfe3d2" stroke-width="1.2" filter="url(#soft)"/>
+</g>
+<g id="row-02" class="line-row">
+  <rect id="line-02" class="line-slot" x="50" y="224.29" width="700" height="71" rx="10" fill="#ffffff" stroke="#bfe3d2" stroke-width="1.2" filter="url(#soft)"/>
+</g>
+<g id="row-03" class="line-row">
+  <rect id="line-03" class="line-slot" x="50" y="312.57" width="700" height="71" rx="10" fill="#ffffff" stroke="#bfe3d2" stroke-width="1.2" filter="url(#soft)"/>
+</g>
+<g id="row-04" class="line-row">
+  <rect id="line-04" class="line-slot" x="50" y="400.86" width="700" height="71" rx="10" fill="#ffffff" stroke="#bfe3d2" stroke-width="1.2" filter="url(#soft)"/>
+</g>
+<g id="row-05" class="line-row">
+  <rect id="line-05" class="line-slot" x="50" y="489.14" width="700" height="71" rx="10" fill="#ffffff" stroke="#bfe3d2" stroke-width="1.2" filter="url(#soft)"/>
+</g>
+<g id="row-06" class="line-row">
+  <rect id="line-06" class="line-slot" x="50" y="577.43" width="700" height="71" rx="10" fill="#ffffff" stroke="#bfe3d2" stroke-width="1.2" filter="url(#soft)"/>
+</g>
+<g id="row-07" class="line-row">
+  <rect id="line-07" class="line-slot" x="50" y="665.71" width="700" height="71" rx="10" fill="#ffffff" stroke="#bfe3d2" stroke-width="1.2" filter="url(#soft)"/>
+</g>
+<g id="row-08" class="line-row">
+  <rect id="line-08" class="line-slot" x="50" y="754" width="700" height="71" rx="10" fill="#ffffff" stroke="#bfe3d2" stroke-width="1.2" filter="url(#soft)"/>
+</g>
+<g id="row-09" class="line-row">
+  <rect id="line-09" class="line-slot" x="50" y="842.29" width="700" height="71" rx="10" fill="#ffffff" stroke="#bfe3d2" stroke-width="1.2" filter="url(#soft)"/>
+</g>
+<g id="row-10" class="line-row">
+  <rect id="line-10" class="line-slot" x="50" y="930.57" width="700" height="71" rx="10" fill="#ffffff" stroke="#bfe3d2" stroke-width="1.2" filter="url(#soft)"/>
+</g>
+<g id="row-11" class="line-row">
+  <rect id="line-11" class="line-slot" x="50" y="1018.86" width="700" height="71" rx="10" fill="#ffffff" stroke="#bfe3d2" stroke-width="1.2" filter="url(#soft)"/>
+</g>
+<g id="row-12" class="line-row">
+  <rect id="line-12" class="line-slot" x="50" y="1107.14" width="700" height="71" rx="10" fill="#ffffff" stroke="#bfe3d2" stroke-width="1.2" filter="url(#soft)"/>
+</g>
+<g id="row-13" class="line-row">
+  <rect id="line-13" class="line-slot" x="50" y="1195.43" width="700" height="71" rx="10" fill="#ffffff" stroke="#bfe3d2" stroke-width="1.2" filter="url(#soft)"/>
+</g>
+<g id="row-14" class="line-row">
+  <rect id="line-14" class="line-slot" x="50" y="1283.71" width="700" height="71" rx="10" fill="#ffffff" stroke="#bfe3d2" stroke-width="1.2" filter="url(#soft)"/>
+</g>
+<g id="row-15" class="line-row">
+  <rect id="line-15" class="line-slot" x="50" y="1372" width="700" height="71" rx="10" fill="#ffffff" stroke="#bfe3d2" stroke-width="1.2" filter="url(#soft)"/>
+</g>
+</g>
+<g id="footer">
+<line x1="110" y1="1491" x2="350" y2="1491" stroke="url(#gold)" stroke-width="2.5" stroke-linecap="round"/><line x1="450" y1="1491" x2="690" y2="1491" stroke="url(#gold)" stroke-width="2.5" stroke-linecap="round"/>
+<rect id="slot-footer-center" x="360" y="1469" width="80" height="44" rx="22" fill="#fff" stroke="#e9b949" stroke-width="2" filter="url(#soft)"/>
+<rect id="slot-footer-left" x="84" y="1473" width="130" height="36" rx="18" fill="none"/>
+<rect id="slot-footer-right" x="586" y="1473" width="130" height="36" rx="18" fill="none"/>
+</g></svg>

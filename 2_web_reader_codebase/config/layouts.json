@@ -1,0 +1,44 @@
+{
+  "_note": "পৃষ্ঠা-লেআউট রেজিস্ট্রি। সূরা বা পারা শুরুর পৃষ্ঠায় আর্চ (arch) টেমপ্লেট এবং অন্যান্য সাধারণ পৃষ্ঠায় স্লিম হেডার (standard) টেমপ্লেট ব্যবহৃত হয়।",
+  "default": "hafezi15",
+  "layouts": [
+    {
+      "id": "hafezi15",
+      "label_bn": "১৫ লাইন",
+      "title_bn": "হাফেজী ১৫ লাইন (কুদরতুল্লাহ/এমদাদিয়া)",
+      "lines": 15,
+      "pages": 610,
+      "pages_dir": "data/qudratullah_pages",
+      "surah_pages": "data/surah-pages.json",
+      "juz_file": "data/juzs.json",
+      "bg_arabic": "assets/bg/page-bg-arabic.svg",
+      "bg_translation": "assets/bg/page-bg-translation.svg",
+      "bg_arch_arabic": "assets/bg/page-bg-arabic.svg",
+      "bg_arch_translation": "assets/bg/page-bg-translation.svg",
+      "bg_std_arabic": "assets/bg/page-bg-standard-15-ar.svg",
+      "bg_std_translation": "assets/bg/page-bg-standard-15-sub.svg",
+      "info": null,
+      "bg_start_arabic": "assets/bg/page-bg-surah-start-15-ar.svg",
+      "bg_start_translation": "assets/bg/page-bg-surah-start-15-sub.svg"
+    },
+    {
+      "id": "hafezi14",
+      "label_bn": "১৪ লাইন",
+      "title_bn": "হাফেজী ১৪ লাইন",
+      "lines": 14,
+      "pages": null,
+      "pages_dir": "data/layout14/pages",
+      "surah_pages": "data/layout14/surah-pages.json",
+      "juz_file": "data/layout14/juzs.json",
+      "bg_arabic": "assets/bg/page-bg-arabic-14.svg",
+      "bg_translation": "assets/bg/page-bg-translation-14.svg",
+      "bg_arch_arabic": "assets/bg/page-bg-arabic-14.svg",
+      "bg_arch_translation": "assets/bg/page-bg-translation-14.svg",
+      "bg_std_arabic": "assets/bg/page-bg-standard-14-ar.svg",
+      "bg_std_translation": "assets/bg/page-bg-standard-14-sub.svg",
+      "info": "data/layout14/info.json",
+      "bg_start_arabic": "assets/bg/page-bg-surah-start-14-ar.svg",
+      "bg_start_translation": "assets/bg/page-bg-surah-start-14-sub.svg"
+    }
+  ]
+}

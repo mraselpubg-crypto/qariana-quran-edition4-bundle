@@ -1,0 +1,2 @@
+{"name":"Quran Reader","short_name":"Quran","start_url":"./index.html","display":"standalone","background_color":"#e6f5ee","theme_color":"#0f5c47",
+ "icons":[{"src":"assets/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]}

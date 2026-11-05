@@ -1,0 +1,5 @@
+{
+  "_note": "Edit freely. In production these come from a server-signed token (see docs/ARCHITECTURE.md), never only from the client.",
+  "free": { "modes": ["off", "translation"], "tajweed": false, "offline": false, "packs": ["script", "bn-wbw", "bn-translation"] },
+  "paid": { "modes": ["off", "translation", "translit"], "tajweed": true, "offline": true, "packs": ["*"] }
+}

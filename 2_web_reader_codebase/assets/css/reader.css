@@ -1,0 +1,544 @@
+/**
+ * ক্বারীয়ানা কুরআন - স্বতন্ত্র ওয়েব রিডার সিএসএস
+ * অ্যান্ড্রয়েড অ্যাপের হুবহু কালার প্যালেট, ফন্ট ও কম্পোনেন্ট
+ */
+
+@font-face {
+    font-family: 'Kalpurush';
+    src: url('../fonts/kalpurush.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Kalpurush';
+    src: url('../fonts/Kalpurush-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'QarianaArabic';
+    src: url('../fonts/qariana_secret_font.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'HindSiliguri';
+    src: url('../fonts/HindSiliguri-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'HindSiliguri';
+    src: url('../fonts/HindSiliguri-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --bg-page: #FFFFFF;
+    --bg-surface: #F8FAFC;
+    --bg-bar: #FFFFFF;
+    --text-primary: #0F172A;
+    --text-secondary: #64748B;
+    --border-color: #E2E8F0;
+    --primary-brand: #0F6B56;
+    --primary-light: #E6F4EA;
+    --gold-accent: #D4AF37;
+    --gold-light: #FEF3C7;
+    --top-bar-h: 54px;
+    --bottom-bar-h: 62px;
+}
+
+/* ৬টি প্রিমিয়াম থিম কনফিগারেশন */
+[data-theme="light"] {
+    --bg-page: #FFFFFF;
+    --bg-surface: #F8FAFC;
+    --bg-bar: #FFFFFF;
+    --text-primary: #0A0E16;
+    --text-secondary: #475569;
+    --border-color: #E2E8F0;
+    --primary-brand: #0F6B56;
+    --primary-light: #E6F4EA;
+    --gold-accent: #D4AF37;
+}
+
+[data-theme="sepia"] {
+    --bg-page: #F4ECD8;
+    --bg-surface: #EFE3C9;
+    --bg-bar: #EFE3C9;
+    --text-primary: #2D1A0E;
+    --text-secondary: #78350F;
+    --border-color: #D8C7A5;
+    --primary-brand: #8B5A2B;
+    --primary-light: #E5D5B8;
+    --gold-accent: #B45309;
+}
+
+[data-theme="cream"] {
+    --bg-page: #FFFDF5;
+    --bg-surface: #FAF5E4;
+    --bg-bar: #FAF5E4;
+    --text-primary: #0F172A;
+    --text-secondary: #57534E;
+    --border-color: #E5DFD4;
+    --primary-brand: #064E3B;
+    --primary-light: #E6F4EA;
+    --gold-accent: #D4AF37;
+}
+
+[data-theme="emerald"] {
+    --bg-page: #04241C;
+    --bg-surface: #06382C;
+    --bg-bar: #06382C;
+    --text-primary: #F1F5F9;
+    --text-secondary: #94A3B8;
+    --border-color: #0B4A3A;
+    --primary-brand: #10B981;
+    --primary-light: #064E3B;
+    --gold-accent: #F59E0B;
+}
+
+[data-theme="dark"] {
+    --bg-page: #0B131E;
+    --bg-surface: #121C2A;
+    --bg-bar: #121C2A;
+    --text-primary: #F8FAFC;
+    --text-secondary: #94A3B8;
+    --border-color: #1E293B;
+    --primary-brand: #10B981;
+    --primary-light: #162E25;
+    --gold-accent: #F59E0B;
+}
+
+[data-theme="midnight"] {
+    --bg-page: #090D24;
+    --bg-surface: #10173B;
+    --bg-bar: #10173B;
+    --text-primary: #F1F5F9;
+    --text-secondary: #94A3B8;
+    --border-color: #1B2559;
+    --primary-brand: #38BDF8;
+    --primary-light: #0D2847;
+    --gold-accent: #FBBF24;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: #0B131E;
+    color: var(--text-primary);
+    font-family: 'HindSiliguri', sans-serif;
+    user-select: none;
+    -webkit-user-select: none;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.num-bn {
+    font-family: 'Kalpurush', sans-serif !important;
+}
+
+.font-arabic {
+    font-family: 'QarianaArabic', serif !important;
+    direction: rtl;
+}
+
+/* ইন-অ্যাপ এমবেড মোড (অ্যান্ড্রয়েড ওয়েবভিউয়ের জন্য ১০০% ফ্রেমলেস ও ন্যাটিভ) */
+body.embed-mode {
+    background-color: var(--bg-page);
+    height: 100vh;
+    width: 100vw;
+}
+
+body.embed-mode #appFrame {
+    max-width: 100vw !important;
+    height: 100vh !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+body.embed-mode .top-bar,
+body.embed-mode .bottom-bar {
+    display: none !important;
+}
+
+body.embed-mode .reader-viewport {
+    height: 100vh !important;
+}
+
+@media (min-width: 768px) {
+    #appFrame {
+        height: 96vh;
+        border-radius: 24px;
+        border: 2px solid var(--border-color);
+    }
+}
+
+/* ১. স্লিম ইমার্সিভ টপ বার */
+.top-bar {
+    height: var(--top-bar-h);
+    background-color: var(--bg-bar);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    z-index: 40;
+    transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.top-bar.immersive-hidden {
+    transform: translateY(-100%);
+}
+
+.top-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 600;
+    transition: background 0.15s;
+}
+
+.top-btn:active {
+    background-color: var(--border-color);
+}
+
+.icon-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.icon-btn:hover {
+    background-color: rgba(125,125,125,0.1);
+}
+
+.page-badge {
+    background-color: var(--primary-light);
+    color: var(--primary-brand);
+    border: 1px solid var(--primary-brand);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 13.5px;
+    font-weight: bold;
+}
+
+/* ২. মূল রিডার ভিউপোর্ট */
+.reader-viewport {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-page);
+}
+
+/* ক্যানভাস কনটেইনার */
+#canvasContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: none;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--bg-page);
+}
+
+#mushafCanvas {
+    max-width: 100%;
+    max-height: 100%;
+    display: none;
+    background-color: #FFFFFF;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    border-radius: 4px;
+    transition: filter 0.2s ease;
+}
+
+/* ডিজিটাল স্ক্রল ভিউ */
+#digitalScrollView {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 16px 14px 80px 14px;
+    display: none;
+}
+
+.ayah-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+
+.ayah-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 12px;
+    color: var(--primary-brand);
+    font-weight: bold;
+}
+
+.ayah-arabic {
+    font-size: 24px;
+    line-height: 44px;
+    text-align: right;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    padding: 4px 0;
+}
+
+.ayah-translit {
+    font-size: 13px;
+    color: var(--primary-brand);
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.ayah-meaning {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 22px;
+}
+
+/* ৩. বটম কন্ট্রোল বার */
+.bottom-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--bg-bar);
+    border-top: 1px solid var(--border-color);
+    padding: 8px 14px 10px 14px;
+    z-index: 40;
+    transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.bottom-bar.immersive-hidden {
+    transform: translateY(100%);
+}
+
+.scrubber-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.page-slider {
+    flex: 1;
+    -webkit-appearance: none;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--border-color);
+    outline: none;
+}
+
+.page-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--primary-brand);
+    cursor: pointer;
+}
+
+.nav-buttons-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-pill-btn {
+    background-color: var(--primary-brand);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: opacity 0.15s;
+}
+
+.nav-pill-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.nav-center-pill {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12.5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* ৪. সিকিউরিটি ওয়াটারমার্ক */
+.drm-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-30deg);
+    font-size: 18px;
+    color: rgba(125, 125, 125, 0.08);
+    pointer-events: none;
+    white-space: nowrap;
+    font-weight: bold;
+    z-index: 10;
+    font-family: 'Kalpurush', sans-serif;
+}
+
+/* ৫. বটম শিট মডাল */
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(2px);
+    z-index: 100;
+    display: none;
+    align-items: flex-end;
+}
+
+.modal-sheet {
+    background-color: var(--bg-bar);
+    width: 100%;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    padding: 18px 16px 24px 16px;
+    max-height: 80vh;
+    overflow-y: auto;
+    animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+.sheet-handle {
+    width: 40px;
+    height: 4px;
+    background-color: var(--border-color);
+    border-radius: 2px;
+    margin: 0 auto 14px auto;
+}
+
+.sheet-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* থিম গ্রিড */
+.theme-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.theme-chip {
+    padding: 10px 8px;
+    border-radius: 12px;
+    border: 2px solid var(--border-color);
+    cursor: pointer;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    transition: transform 0.15s, border-color 0.15s;
+}
+
+.theme-chip.active {
+    border-color: var(--primary-brand);
+    box-shadow: 0 0 0 2px var(--primary-brand);
+}
+
+/* সাবস্ক্রিপশন কার্ড */
+.sub-package-card {
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border-color);
+    border-radius: 14px;
+    padding: 12px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sub-package-card.popular {
+    border-color: var(--gold-accent);
+    background: var(--gold-light);
+}
+
+/* লোডার শিমার */
+.loader-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border-color);
+    border-top: 3px solid var(--primary-brand);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    z-index: 20;
+    display: none;
+}
+
+@keyframes spin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
