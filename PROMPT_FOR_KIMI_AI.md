@@ -12,47 +12,38 @@ You are tasked with providing the complete UI overhaul, multi-edition synchroniz
 
 ---
 
-## 1. Real-World Issues to Fix (Directly from User's Device Screenshot)
+## 1. Real-World Issues to Fix (Directly from User's Device Screenshots)
 
-Please review the user's active mobile screen (`QuranOverviewScreen.kt`):
+Please inspect the two screenshots in `4_screenshots_reference/`:
 
-### Issue A: Top Bar Badge Clipping & Clutter
-- Currently, the yellow badge in the top bar truncates to **`নতুন সংস্ক`** because of insufficient flex space and fixed width.
-- The top bar has: `[← Back]`, Title `ক্বারীয়ানা অর্থ-কুরআন`, Yellow Badge, `[Info (i)]`, `[Download ↓]`, `[Search 🔍]`.
-- **Requirement**:
-  - Make the Top Bar cleanly responsive with zero text truncation.
-  - Separate actions clearly into distinct icon buttons with adequate touch targets (48dp).
-  - Use a sleek, non-clipping Edition Pill Badge (e.g. `[📖 নতুন সংস্করণ]` with auto-shrink font or icon-first badge) that never clips on any device screen width.
+### 📸 Screenshot 1: Overview Screen (`user_device_screen_overview.jpg`)
+1. **Top Bar Badge Clipping**: The yellow badge currently truncates to `নতুন সংস্ক` on mobile. Make the Top Bar cleanly responsive with zero clipping across all screen sizes.
+2. **Centerpiece Edition Selector**: Currently only shows 3 editions (`জনপ্রিয়`, `নতুন`, `ডিজিটাল`). Add the 4th Edition: **`হাফেজী সংস্করণ` (১৫ ও ১৪ লাইন ভেক্টর)** and update the subtitle dynamically to `ক্বারীয়ানা পাবলিকেশন্স • ৪টি পূর্ণাঙ্গ সংস্করণ`.
+3. **Surah & Para Sync**: When the user taps `সূরাসমূহ (১১৪)` or `পারাসমূহ (৩০)`, it must open the exact starting page for the currently active edition (610-page, 654-page, or 963-page layout).
+4. **Membership Card Polish**: Elevate `ক্বারীয়ানা মেম্বারশিপ প্যাকেজসমূহ` (`বেসিক` | `স্ট্যান্ডার্ড` | `ভিআইপি`) with pristine Material 3 responsive styling and Kalpurush Bengali numbers (`০-৯`).
 
-### Issue B: Centerpiece Edition Selector Missing 4th Edition
-- The centerpiece card currently shows only 3 buttons:
-  `[জনপ্রিয় সংস্করণ]` | `[নতুন সংস্করণ]` | `[ডিজিটাল সংস্করণ]`.
-- Subtitle states: `ক্বারীয়ানা পাবলিকেশন্স • ৩টি পূর্ণাঙ্গ সংস্করণ`.
-- **Requirement**:
-  - Add **Edition 4: `হাফেজী সংস্করণ` (১৫ ও ১৪ লাইন ভেক্টর)** as a 4th tab.
-  - Update subtitle dynamically to: `ক্বারীয়ানা পাবলিকেশন্স • ৪টি পূর্ণাঙ্গ সংস্করণ`.
-  - Tapping `হাফেজী সংস্করণ` updates the 3D book spread preview and switches the active edition.
+---
 
-### Issue C: Canonical Index Sync (`সূরাসমূহ ১১৪` and `পারাসমূহ ৩০`)
-- Under the top bar, there are 3 tabs: `ওভারভিউ` | `সূরাসমূহ (১১৪)` | `পারাসমূহ (৩০)`.
-- **Requirement**:
-  - The Surah and Para lists must be **100% synchronized** with whichever edition is currently selected.
-  - When the user taps a Surah or Para, the reader must open at the **exact starting page** for that specific edition:
-    - **610-page editions** (Edition 2 & Edition 4 15-line): Juz 30 opens at **Page 582**.
-    - **654-page edition** (Edition 4 14-line): Juz 30 opens at **Page 621**.
-    - **963-page edition** (Edition 1): Juz 30 opens at **Page 910**.
-  - When switching editions from `সংস্করণ বিবরণ` (Edition Detail Screen), the current reading location (Surah & Ayah) must seamlessly map to the new edition's page.
-
-### Issue D: Membership Card UI & Responsive Polish
-- The bottom card `ক্বারীয়ানা মেম্বারশিপ প্যাকেজসমূহ` (`বেসিক` | `স্ট্যান্ডার্ড` | `ভিআইপি`):
-  - Ensure pristine Material 3 card styling, golden/emerald gradients, consistent typography using `Kalpurush` for all Bengali numerals (`০-৯`), and smooth package selection without layout shifts.
+### 📸 Screenshot 2: Reader Settings & Theme Sheet (`user_device_screen_settings.jpg`)
+1. **Cramped & Awkward Edition Selector under `পড়ার ভিউ মোড:`**:
+   - Currently, 4 large buttons (`জনপ্রিয় সংস্করণ`, `নতুন সংস্করণ`, `ডিজিটাল সংস্করণ`, `হাফেজী সংস্করণ`) are squashed side-by-side in a single row.
+   - Text is forced into awkward 2-line wraps and boxes are narrow and uneven.
+   - **Requirement**: Replace this with an elegant **2x2 Grid** or sleek **Material 3 Segmented Filter Chips** with subtle icons, clean typography, and balanced touch targets so text never wraps unnaturally.
+2. **Missing Dynamic Controls for Hafezi Edition**:
+   - When **`হাফেজী সংস্করণ`** is active (or selected in this sheet), the sheet MUST dynamically reveal:
+     - **লাইন বিন্যাস (Line Layout)**: Two clean pill buttons: `[ ১৫ লাইন (৬১০ পৃষ্ঠা) ]` | `[ ১৪ লাইন (৬৫৪ পৃষ্ঠা) ]`.
+     - **পাঠের ধরন (Reading Mode)**: Three pill buttons: `[ শুধু আরবি ]` | `[ আরবি + বাংলা (শব্দার্থ) ]` | `[ আরবি + উচ্চারণ ]`.
+     - **রঙিন তাজবীদ (Color Tajweed)**: A dedicated toggle switch with descriptive subtitle (`তাজবীদের নিয়ম অনুযায়ী রঙিন হরফ প্রদর্শন`).
+3. **Pristine Typography & Themes**:
+   - All Bengali numerals (`১০০%`, `১২৫%`, `১৫ লাইন`, `৬১০ পৃষ্ঠা`) must strictly use `Kalpurush` font.
+   - Retain the 6 theme presets (`ডার্ক`, `লাইট`, `সেপিয়া`, `এমেরাল্ড`, `মিডনাইট`, `ক্রিম`) and custom color pickers.
 
 ---
 
 ## 2. Core Architectural Paradigm: The Unified Multi-Edition Web Canvas
 
 ### Visual Separation of Concerns (Image 1 vs Image 2 Target):
-- Inside the Android Reader, the WebView acts strictly as a **headless/dumb vector page canvas** (`#mushaf-viewport`).
+- Inside the Android Reader, the WebView acts strictly as a **headless vector page canvas** (`#mushaf-viewport`).
 - **ZERO web controls** (no top navbar, no bottom pagination, no web dropdowns inside the WebView).
 - **All Controls are 100% Native Jetpack Compose**:
   - `ReaderTopBar`: Home, Edition Badge, Surah/Para Selector, Bookmark, Audio Recitation, Settings.
@@ -76,16 +67,17 @@ Please review the user's active mobile screen (`QuranOverviewScreen.kt`):
 
 ## 4. What You Must Provide (Complete, Tested Code Diffs)
 
-Please output complete, production-grade code for:
-1. **`QuranOverviewScreen.kt`**:
-   - Fixed TopBar with non-clipping edition pill badge and cleanly spaced icons.
-   - 4-Edition Selector Tab Row (`জনপ্রিয়`, `নতুন`, `ডিজিটাল`, `হাফেজী`).
-   - Synchronized Surah (`সূরাসমূহ ১১৪`) & Para (`পারাসমূহ ৩০`) tabs.
-   - Polished `ক্বারীয়ানা মেম্বারশিপ প্যাকেজসমূহ` card.
-2. **`SurahParaIndexMapper.kt`**:
+Please output complete, production-grade Kotlin and Web/JS code diffs for:
+1. **`SettingsSheet.kt`**:
+   - Elegant 2x2 grid / segmented chip selector for the 4 editions.
+   - Dynamic Hafezi section: 15/14 line toggle, 3 reading modes, and color tajweed switch.
+2. **`QuranOverviewScreen.kt`**:
+   - Non-clipping responsive TopBar.
+   - 4-Edition Selector in the centerpiece hero card.
+   - Synchronized Surah & Para list index.
+   - Polished Membership card.
+3. **`SurahParaIndexMapper.kt`**:
    - Canonical mapper linking all 114 Surahs and 30 Paras across 610, 654, and 963-page editions.
-3. **`ReaderScreen.kt` & `SettingsSheet.kt`**:
-   - Single-row responsive Top Bar, settled-page paywall swipe fix, and dynamic settings (15/14-line and mode toggles).
-4. **`MushafWebView.kt` & `mushaf_frame.html`**:
-   - Headless frame-only vector canvas exposing `window.QuranPageRenderer.renderPage(payload)` and sending `@JavascriptInterface` callbacks.
+4. **`ReaderScreen.kt` & `MushafWebView.kt`**:
+   - Single-row responsive Top Bar, settled-page paywall swipe fix, and bidirectional JavaScript bridge communicating with `#mushaf-viewport`.
 ```
