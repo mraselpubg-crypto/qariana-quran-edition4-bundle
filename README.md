@@ -10,6 +10,7 @@ This repository contains the **complete buildable Android project**, the **compl
 
 ## 📌 Quick Access Links for AI Reviewers (Claude 3.7 / External AI)
 
+- 🌟 **[PROMPT_FOR_KIMI_AI.md](./PROMPT_FOR_KIMI_AI.md)**: **Master Prompt for Kimi AI / Advanced Models** (with Real Screenshot & UI Overhaul Specs)
 - 🤖 **[PROMPT_FOR_CLAUDE_AI.md](./PROMPT_FOR_CLAUDE_AI.md)**: **The Primary Master Prompt** to feed into Claude AI.
 - 📐 **[PROJECT_ARCHITECTURE_AND_ROADMAP.md](./PROJECT_ARCHITECTURE_AND_ROADMAP.md)**: Exhaustive architectural roadmap, database schema, and bridge design.
 - 📱 **[Android Full Project Source](./3_android_app_source/)**: Complete, buildable Android Studio Gradle project (`app/`, `build.gradle.kts`, `settings.gradle.kts`, `gradlew`).
