@@ -91,13 +91,15 @@ fun MembershipPackagesScreen(
     var silverSelectPopular by remember { mutableStateOf(true) } // জনপ্রিয় সংস্করণ (৳৫০০)
     var silverSelectModern by remember { mutableStateOf(false) }  // আধুনিক মুসহাফ সংস্করণ (+৳৫০০)
     var silverSelectVerses by remember { mutableStateOf(false) }  // আয়াত ও শব্দার্থ সংস্করণ (+৳৫০০)
+    var silverSelectHafezi by remember { mutableStateOf(false) }  // হাফেজী ১৫/১৪ লাইন সংস্করণ (+৳৫০০)
 
     // সিলভার প্যাকেজের ডায়নামিক লাইভ প্রাইস ক্যালকুলেশন
     val silverPrice by remember {
         derivedStateOf {
             val count = (if (silverSelectPopular) 1 else 0) +
                     (if (silverSelectModern) 1 else 0) +
-                    (if (silverSelectVerses) 1 else 0)
+                    (if (silverSelectVerses) 1 else 0) +
+                    (if (silverSelectHafezi) 1 else 0)
             maxOf(1, count) * 500
         }
     }
@@ -357,8 +359,21 @@ fun MembershipPackagesScreen(
                                         checked = silverSelectVerses,
                                         onCheckedChange = {
                                             silverSelectVerses = it
-                                            if (!silverSelectPopular && !silverSelectModern && !silverSelectVerses) {
+                                            if (!silverSelectPopular && !silverSelectModern && !silverSelectVerses && !silverSelectHafezi) {
                                                 silverSelectVerses = true
+                                            }
+                                        },
+                                        isDark = isDark,
+                                        fonts = fonts
+                                    )
+                                    EditionCheckboxItem(
+                                        title = if (isEnglish) "Hafezi 15/14-Line Vector (+৳500)" else "হাফেজী ১৫ ও ১৪ লাইন ভেক্টর সংস্করণ (+৳৫০০)",
+                                        subtitle = if (isEnglish) "Traditional Madrasa layout with 15/14 lines & Tajweed" else "মাদরাসা স্ট্যান্ডার্ড ১৫ ও ১৪ লাইনের পিওর ভেক্টর ফ্রেম ও তাজবীদ",
+                                        checked = silverSelectHafezi,
+                                        onCheckedChange = {
+                                            silverSelectHafezi = it
+                                            if (!silverSelectPopular && !silverSelectModern && !silverSelectVerses && !silverSelectHafezi) {
+                                                silverSelectHafezi = true
                                             }
                                         },
                                         isDark = isDark,
@@ -419,7 +434,7 @@ fun MembershipPackagesScreen(
                                     text = if (isEnglish)
                                         "All-in-one package: All 3 Quran editions unlocked forever on 1 personal device, fully ad-free."
                                     else
-                                        "সর্বাধিক জনপ্রিয় অল-ইন-ওয়ান প্যাকেজ — সকল ৩টি সংস্করণ (জনপ্রিয়, আধুনিক ও আয়াত) + ১ ডিভাইসে আজীবন লাইসেন্স + বিজ্ঞাপনমুক্ত।",
+                                        "সর্বাধিক জনপ্রিয় অল-ইন-ওয়ান প্যাকেজ — সকল ৪টি সংস্করণ (জনপ্রিয়, আধুনিক, আয়াত ও হাফেজী) + ১ ডিভাইসে আজীবন লাইসেন্স + বিজ্ঞাপনমুক্ত।",
                                     fontFamily = fonts.kalpurush,
                                     fontSize = 12.5.sp,
                                     lineHeight = 17.5.sp,

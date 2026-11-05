@@ -85,6 +85,15 @@ android {
     }
 
     // .aab-এ ভাষা/ডেনসিটি স্প্লিট চালু (Play Store সাইজ অপ্টিমাইজেশন)
+    applicationVariants.all {
+        outputs.all {
+            val outputImpl = this as? com.android.build.gradle.internal.api.BaseVariantOutputImpl
+            if (outputImpl != null) {
+                outputImpl.outputFileName = "qariana_quran_v${versionName}.apk"
+            }
+        }
+    }
+
     bundle {
         language { enableSplit = false }
     }
